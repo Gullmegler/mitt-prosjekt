@@ -4,7 +4,7 @@ const Navbar = () => {
   return (
     <nav className="bg-orange-500 p-4 flex justify-between items-center text-white sticky top-0 z-50 shadow-md">
       <div className="flex items-center space-x-2">
-        <img src="/logo.png" alt="Logo" className="h-8 w-8" />
+        <img src="/logo.png" alt="Logo" className="h-8 w-8 md:h-16 md:w-16" />
       </div>
       <div className="space-x-4 text-sm">
         <a href="#benefits" className="hover:underline">Benefits</a>
