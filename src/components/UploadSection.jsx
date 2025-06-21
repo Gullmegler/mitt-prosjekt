@@ -1,78 +1,94 @@
 import React, { useState } from "react";
 
-const UploadSection = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
+const Card = ({ children }) => (
+  <div className="rounded-xl border bg-white p-4 shadow">{children}</div>
+);
+
+const CardContent = ({ children }) => (
+  <div className="mt-2 text-sm text-gray-600">{children}</div>
+);
+
+const Button = ({ children, ...props }) => (
+  <button
+    className="mt-4 rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+    {...props}
+  >
+    {children}
+  </button>
+);
+
+export default function UploadSection() {
+  const [file, setFile] = useState(null);
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
-    setPreviewUrl(URL.createObjectURL(file));
-    setResult(null);
-  };
-
   const handleUpload = async () => {
-    if (!selectedFile) return;
+    if (!file) return;
     setLoading(true);
-
     const formData = new FormData();
-    formData.append("image", selectedFile);
+    formData.append("image", file);
 
     try {
-      const response = await fetch("https://detect.roboflow.com/airemovalsdetector/detect-count-and-visualize", {
+      const res = await fetch("/api/analyze", {
         method: "POST",
-        headers: {
-          Authorization: "Bearer rf_nqzS3THsPZUWoY9eLq0McupeZJ33",
-        },
         body: formData,
       });
-
-      const data = await response.json();
+      const data = await res.json();
       setResult(data);
-    } catch (error) {
-      console.error("Feil under opplasting:", error);
+    } catch (err) {
+      console.error("Error uploading file", err);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
-    <div className="p-4 max-w-xl mx-auto">
-      <div className="bg-white shadow-md rounded-xl p-6 space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800">Last opp bilde eller video</h2>
+    <section className="px-4 py-12 md:px-8">
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Last opp bilde eller video
+        </h2>
+        <p className="mt-4 text-lg text-gray-600">
+          Vi analyserer innholdet og viser resultatene i rutene under.
+        </p>
+      </div>
 
+      <div className="mt-8 flex flex-col items-center gap-4">
         <input
           type="file"
           accept="image/*,video/*"
-          onChange={handleFileChange}
-          className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded-md file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+          onChange={(e) => setFile(e.target.files[0])}
+          className="w-full max-w-xs border p-2"
         />
-
-        {previewUrl && (
-          <img src={previewUrl} alt="Preview" className="rounded-lg w-full max-h-64 object-contain" />
-        )}
-
-        <button
-          onClick={handleUpload}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition disabled:opacity-50"
-          disabled={loading}
-        >
-          {loading ? "Laster opp..." : "Analyser bilde"}
-        </button>
-
-        {result && (
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold mb-2">Resultat:</h3>
-            <pre className="bg-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
-              {JSON.stringify(result, null, 2)}
-            </pre>
-          </div>
-        )}
+        <Button onClick={handleUpload} disabled={loading}>
+          {loading ? "Laster opp..." : "Analyser"}
+        </Button>
       </div>
-    </div>
-  );
-};
 
-export default UploadSection;
+      {result && (
+        <div className="mt-12 grid gap-4 md:grid-cols-3">
+          <Card>
+            <h3 className="text-lg font-semibold">Prediksjoner</h3>
+            <CardContent>
+              <pre className="whitespace-pre-wrap text-sm">{JSON.stringify(result.predictions, null, 2)}</pre>
+            </CardContent>
+          </Card>
+          <Card>
+            <h3 className="text-lg font-semibold">Antall objekter</h3>
+            <CardContent>{result.count_objects}</CardContent>
+          </Card>
+          <Card>
+            <h3 className="text-lg font-semibold">Bilde med bokser</h3>
+            <CardContent>
+              {result.output_image ? (
+                <img src={result.output_image} alt="Analysert" className="rounded" />
+              ) : (
+                "Ingen bilde tilgjengelig"
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      )}
+    </section>
+  );
+}
