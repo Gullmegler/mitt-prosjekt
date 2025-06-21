@@ -1,88 +1,103 @@
 import React, { useState } from "react";
 
-const UploadSection = () => {
+export default function UploadSection() {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [result, setResult] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [predictions, setPredictions] = useState([]);
+  const [labelList, setLabelList] = useState([]);
+  const [outputImage, setOutputImage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setResult(null);
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+    setPredictions([]);
+    setLabelList([]);
+    setOutputImage(null);
   };
 
   const handleUpload = async () => {
     if (!selectedFile) return;
+    setLoading(true);
 
-    setIsLoading(true);
-    const formData = new FormData();
-    formData.append("image", selectedFile);
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const base64Data = reader.result.split(",")[1];
 
-    try {
-      const response = await fetch("https://detect.roboflow.com/airemovalsdetector/detect", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer rf_nqzS3THsPZUWoY9eLq0McupeZJ33",
-        },
-        body: formData,
-      });
+      try {
+        const response = await fetch("https://detect.roboflow.com/airemovalsdetector/detect-count-and-visualize", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer rf_nqzS3THsPZUWoY9eLq0McupeZJ33",
+          },
+          body: JSON.stringify({
+            inputs: [
+              {
+                type: selectedFile.type.startsWith("video/") ? "InferenceVideo" : "InferenceImage",
+                name: "image",
+                data: base64Data,
+              },
+            ],
+          }),
+        });
 
-      const data = await response.json();
-      setResult(data);
-    } catch (error) {
-      console.error("Upload error:", error);
-    } finally {
-      setIsLoading(false);
-    }
+        const result = await response.json();
+        setPredictions(result.predictions || []);
+        setOutputImage(result.output_image || null);
+        setLabelList((result.predictions || []).map((p) => p.class));
+      } catch (error) {
+        console.error("Error analyzing file:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    reader.readAsDataURL(selectedFile);
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
-      <div className="mb-6">
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          className="block w-full text-sm text-gray-500
-                     file:mr-4 file:py-2 file:px-4
-                     file:rounded-md file:border-0
-                     file:text-sm file:font-semibold
-                     file:bg-blue-50 file:text-blue-700
-                     hover:file:bg-blue-100"
-        />
-      </div>
-
+    <div className="py-12 px-4 text-center bg-white">
+      <h2 className="text-2xl font-bold mb-4">Upload an Image or Video</h2>
+      <input
+        type="file"
+        accept="image/*,video/*"
+        onChange={handleFileChange}
+        className="mb-4"
+      />
+      <br />
       <button
         onClick={handleUpload}
-        disabled={!selectedFile || isLoading}
-        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded disabled:opacity-50"
+        disabled={!selectedFile || loading}
+        className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
       >
-        {isLoading ? "Laster opp..." : "Analyser bilde"}
+        {loading ? "Analyzing..." : "Analyze File"}
       </button>
 
-      {result && (
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="p-4 border rounded shadow">
-            <h3 className="font-semibold mb-2">Prediksjoner</h3>
-            <pre className="text-sm overflow-x-auto">{JSON.stringify(result.predictions, null, 2)}</pre>
-          </div>
-          <div className="p-4 border rounded shadow">
-            <h3 className="font-semibold mb-2">Antall objekter</h3>
-            <p>{result.predictions?.length ?? 0}</p>
-          </div>
-          <div className="p-4 border rounded shadow">
-            <h3 className="font-semibold mb-2">Bilde</h3>
-            {selectedFile && (
-              <img
-                src={URL.createObjectURL(selectedFile)}
-                alt="Uploaded preview"
-                className="w-full h-auto rounded"
-              />
-            )}
-          </div>
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="border p-4 rounded shadow">
+          <h3 className="font-semibold mb-2">Prediction Count</h3>
+          <p>{predictions.length}</p>
         </div>
-      )}
+        <div className="border p-4 rounded shadow">
+          <h3 className="font-semibold mb-2">Detected Labels</h3>
+          <ul className="text-sm">
+            {labelList.map((label, index) => (
+              <li key={index}>{label}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="border p-4 rounded shadow">
+          <h3 className="font-semibold mb-2">Preview</h3>
+          {outputImage ? (
+            <img
+              src={`data:image/jpeg;base64,${outputImage}`}
+              alt="Analyzed Output"
+              className="mx-auto max-w-full"
+            />
+          ) : (
+            <p>No preview available.</p>
+          )}
+        </div>
+      </div>
     </div>
   );
-};
-
-export default UploadSection;
+}
