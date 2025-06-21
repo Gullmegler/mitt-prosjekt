@@ -13,8 +13,8 @@ function App() {
     <div className="font-sans">
       <Navbar />
       <Hero />
-      <UploadSection />
       <Benefits />
+      <UploadSection />
       <Prices />
       <CallToAction />
       <FAQSection />
