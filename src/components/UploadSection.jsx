@@ -1,210 +1,78 @@
 import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import jsPDF from "jspdf";
 
-export default function UploadSection() {
-  const [fromAddress, setFromAddress] = useState("");
-  const [toAddress, setToAddress] = useState("");
-  const [distance, setDistance] = useState(null);
-  const [duration, setDuration] = useState(null);
+const UploadSection = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [aiData, setAiData] = useState(null);
 
-  const handleDistanceCalculation = async () => {
-    const apiKey = "AIzaSyCkl0wNrmaEdlGLB6Rdxv6KhE2P5LGFRg8";
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${encodeURIComponent(
-      fromAddress
-    )}&destinations=${encodeURIComponent(toAddress)}&key=${apiKey}`;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      if (data.rows[0].elements[0].status === "OK") {
-        setDistance(data.rows[0].elements[0].distance.text);
-        setDuration(data.rows[0].elements[0].duration.text);
-      } else {
-        alert("Distance calculation failed.");
-      }
-    } catch (error) {
-      console.error("Error fetching distance:", error);
-    }
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
+    setResult(null);
   };
 
-  const handleUpload = async (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
+  const handleUpload = async () => {
+    if (!selectedFile) return;
     setLoading(true);
+
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("image", selectedFile);
 
     try {
-      const response = await fetch(
-        "https://infer.roboflow.com/removal-vision-model/2?api_key=rf_nqzS3THsPZUWoY9eLq0McupeZJ33",
-        {
-          method: "POST",
-          body: formData
-        }
-      );
-
-      const result = await response.json();
-      const detected = result.predictions.map((p) => p.class);
-
-      const summary = {
-        volume: "~700 ft³",
-        truckSize: "22 ft",
-        staff: 3
-      };
-
-      const supplies = {
-        smallBoxes: 25,
-        largeBoxes: 18,
-        wardrobeBoxes: 6,
-        blankets: 12,
-        bubbleWrap: 4
-      };
-
-      const rooms = {
-        detected: detected.slice(0, 10) // mock grouping
-      };
-
-      setAiData({ summary, supplies, rooms });
-    } catch (err) {
-      console.error("Upload error:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDownload = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(16);
-    doc.text("AI Survey Report", 20, 20);
-    doc.setFontSize(12);
-
-    if (aiData) {
-      doc.text("\nObjects Detected:", 20, 30);
-      let y = 38;
-      doc.text(`- ${aiData.rooms.detected.join(", ")}`, 30, y);
-      y += 8;
-
-      doc.text("\nSupply Estimate:", 20, y);
-      y += 8;
-      Object.entries(aiData.supplies).forEach(([key, value]) => {
-        doc.text(`- ${key.replace(/([A-Z])/g, " $1")}: ${value}`, 30, y);
-        y += 8;
+      const response = await fetch("https://detect.roboflow.com/airemovalsdetector/detect-count-and-visualize", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer rf_nqzS3THsPZUWoY9eLq0McupeZJ33",
+        },
+        body: formData,
       });
 
-      doc.text("\nSummary:", 20, y);
-      y += 8;
-      doc.text(`- Volume: ${aiData.summary.volume}`, 30, y);
-      y += 8;
-      doc.text(`- Truck Size: ${aiData.summary.truckSize}`, 30, y);
-      y += 8;
-      doc.text(`- Staff Needed: ${aiData.summary.staff}`, 30, y);
-      y += 8;
+      const data = await response.json();
+      setResult(data);
+    } catch (error) {
+      console.error("Feil under opplasting:", error);
     }
 
-    doc.text(`- Distance: ${distance || "Not calculated"}`, 30, y);
-    y += 8;
-    doc.text(`- Estimated Time: ${duration || "Not calculated"}`, 30, y);
-
-    doc.save("ai-survey-report.pdf");
+    setLoading(false);
   };
 
   return (
-    <section className="py-12 px-4 md:px-8 bg-gray-50">
-      <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-4">AI Analysis</h2>
-        <p className="text-gray-600 mb-6">
-          Upload a video, image or PDF. Our AI detects furniture, appliances and estimates supplies automatically.
-        </p>
+    <div className="p-4 max-w-xl mx-auto">
+      <div className="bg-white shadow-md rounded-xl p-6 space-y-4">
+        <h2 className="text-2xl font-semibold text-gray-800">Last opp bilde eller video</h2>
 
         <input
           type="file"
           accept="image/*,video/*"
-          onChange={handleUpload}
-          className="mb-4 block mx-auto"
+          onChange={handleFileChange}
+          className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded-md file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
         />
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-          <Button disabled className="w-full sm:w-auto" variant="outline">
-            Add to CRM (coming)
-          </Button>
-          <Button className="w-full sm:w-auto" variant="secondary" onClick={handleDownload}>
-            Download Report
-          </Button>
-        </div>
+        {previewUrl && (
+          <img src={previewUrl} alt="Preview" className="rounded-lg w-full max-h-64 object-contain" />
+        )}
 
-        <div className="mb-8 grid md:grid-cols-2 gap-4 text-left">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">From Address</label>
-            <input
-              type="text"
-              className="mt-1 w-full p-2 border border-gray-300 rounded-md"
-              value={fromAddress}
-              onChange={(e) => setFromAddress(e.target.value)}
-              placeholder="e.g. 123 Baker Street, London"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">To Address</label>
-            <input
-              type="text"
-              className="mt-1 w-full p-2 border border-gray-300 rounded-md"
-              value={toAddress}
-              onChange={(e) => setToAddress(e.target.value)}
-              placeholder="e.g. 456 Oxford Road, Manchester"
-            />
-          </div>
-        </div>
-        <Button onClick={handleDistanceCalculation} className="mb-6">Calculate Distance</Button>
+        <button
+          onClick={handleUpload}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition disabled:opacity-50"
+          disabled={loading}
+        >
+          {loading ? "Laster opp..." : "Analyser bilde"}
+        </button>
 
-        {aiData && (
-          <div className="grid gap-6 md:grid-cols-3">
-            <Card className="bg-white shadow-md rounded-2xl p-4">
-              <CardContent>
-                <h3 className="text-xl font-semibold mb-2">Supply Estimate</h3>
-                <ul className="text-left text-sm text-gray-700 list-disc list-inside">
-                  <li>{aiData.supplies.smallBoxes}x Small Boxes</li>
-                  <li>{aiData.supplies.largeBoxes}x Large Boxes</li>
-                  <li>{aiData.supplies.wardrobeBoxes}x Wardrobe Boxes</li>
-                  <li>{aiData.supplies.blankets}x Moving Blankets</li>
-                  <li>{aiData.supplies.bubbleWrap}x Bubble Wrap Rolls</li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white shadow-md rounded-2xl p-4">
-              <CardContent>
-                <h3 className="text-xl font-semibold mb-2">Objects Detected</h3>
-                <ul className="text-left text-sm text-gray-700 list-disc list-inside">
-                  {aiData.rooms.detected.slice(0, 5).map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul>
-                {aiData.rooms.detected.length > 5 && (
-                  <a href="#" className="text-blue-600 text-sm mt-2 inline-block">See more</a>
-                )}
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white shadow-md rounded-2xl p-4">
-              <CardContent>
-                <h3 className="text-xl font-semibold mb-2">Summary</h3>
-                <ul className="text-left text-sm text-gray-700 list-disc list-inside">
-                  <li>Volume: {aiData.summary.volume}</li>
-                  <li>Truck Size: {aiData.summary.truckSize}</li>
-                  <li>Staff Needed: {aiData.summary.staff}</li>
-                  <li>Distance: {distance || "Not calculated"}</li>
-                  <li>Estimated Time: {duration || "Not calculated"}</li>
-                </ul>
-              </CardContent>
-            </Card>
+        {result && (
+          <div className="mt-4">
+            <h3 className="text-lg font-semibold mb-2">Resultat:</h3>
+            <pre className="bg-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
+              {JSON.stringify(result, null, 2)}
+            </pre>
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
-}
+};
+
+export default UploadSection;
