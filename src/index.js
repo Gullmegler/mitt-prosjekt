@@ -5,7 +5,7 @@ import FormData from "form-data";
 
 const app = express();
 app.use(cors());
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "20mb" }));
 
 app.post("/api/analyze", async (req, res) => {
   try {
@@ -18,8 +18,17 @@ app.post("/api/analyze", async (req, res) => {
 
     const mimeType = matches[1];
     const base64Data = matches[2];
-    const extension = mimeType.split("/")[1];
     const buffer = Buffer.from(base64Data, "base64");
+    const extension = mimeType.split("/")[1];
+
+    const supportedMimeTypes = [
+      "image/jpeg", "image/png", "image/webp",
+      "video/mp4", "video/webm", "video/quicktime"
+    ];
+
+    if (!supportedMimeTypes.includes(mimeType)) {
+      return res.status(415).json({ error: `Unsupported file type: ${mimeType}` });
+    }
 
     const formData = new FormData();
     formData.append("image", buffer, {
@@ -43,4 +52,5 @@ app.post("/api/analyze", async (req, res) => {
   }
 });
 
-app.listen(4000, () => console.log("✅ Express server running on http://localhost:4000"));
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`✅ Express server running on http://localhost:${PORT}`));
