@@ -9,13 +9,22 @@ app.use(express.json({ limit: "10mb" }));
 
 app.post("/api/analyze", async (req, res) => {
   try {
-    const { imageBase64 } = req.body;
+    const { imageBase64, filename = "upload" } = req.body;
 
-    const buffer = Buffer.from(imageBase64.split(",")[1], "base64");
+    const matches = imageBase64.match(/^data:(.+);base64,(.+)$/);
+    if (!matches) {
+      return res.status(400).json({ error: "Invalid base64 format." });
+    }
+
+    const mimeType = matches[1];
+    const base64Data = matches[2];
+    const extension = mimeType.split("/")[1];
+    const buffer = Buffer.from(base64Data, "base64");
+
     const formData = new FormData();
     formData.append("image", buffer, {
-      filename: "upload.jpg",
-      contentType: "image/jpeg",
+      filename: `${filename}.${extension}`,
+      contentType: mimeType,
     });
 
     const response = await fetch("https://detect.roboflow.com/airemovalsdetector/2", {
@@ -30,7 +39,7 @@ app.post("/api/analyze", async (req, res) => {
     res.json(result);
   } catch (err) {
     console.error("Analysis error:", err);
-    res.status(500).json({ error: "Failed to analyze image." });
+    res.status(500).json({ error: "Failed to analyze media." });
   }
 });
 
