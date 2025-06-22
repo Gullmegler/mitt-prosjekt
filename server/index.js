@@ -1,58 +1,58 @@
-const express = require("express");
-const cors = require("cors");
-const fetch = require("node-fetch");
-const FormData = require("form-data");
+const express = require('express');
+const cors = require('cors');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+const FormData = require('form-data');
+const fetch = require('node-fetch');
 
 const app = express();
-app.use(cors());
-app.use(express.json({ limit: "20mb" }));
+const port = 4000;
 
-app.post("/api/analyze", async (req, res) => {
+app.use(cors());
+app.use(express.json({ limit: '50mb' }));
+
+app.post('/api/analyze', async (req, res) => {
   try {
-    const { imageBase64, filename = "upload" } = req.body;
+    const { imageBase64 } = req.body;
+
+    if (!imageBase64) {
+      return res.status(400).json({ error: 'No image data provided' });
+    }
 
     const matches = imageBase64.match(/^data:(.+);base64,(.+)$/);
-    if (!matches) {
-      return res.status(400).json({ error: "Invalid base64 format." });
+    if (!matches || matches.length !== 3) {
+      return res.status(400).json({ error: 'Invalid base64 string' });
     }
 
     const mimeType = matches[1];
     const base64Data = matches[2];
-    const buffer = Buffer.from(base64Data, "base64");
-    const extension = mimeType.split("/")[1];
+    const buffer = Buffer.from(base64Data, 'base64');
+    const tempFilePath = path.join(__dirname, 'temp_upload');
+    const filename = `upload_${Date.now()}.${mimeType.split('/')[1]}`;
+    const filepath = path.join(tempFilePath, filename);
 
-    const supportedMimeTypes = [
-      "image/jpeg", "image/png", "image/webp",
-      "video/mp4", "video/webm", "video/quicktime"
-    ];
+    fs.mkdirSync(tempFilePath, { recursive: true });
+    fs.writeFileSync(filepath, buffer);
 
-    if (!supportedMimeTypes.includes(mimeType)) {
-      return res.status(415).json({ error: `Unsupported file type: ${mimeType}` });
-    }
+    const form = new FormData();
+    form.append('file', fs.createReadStream(filepath));
 
-    const formData = new FormData();
-    formData.append("image", buffer, {
-      filename: `${filename}.${extension}`,
-      contentType: mimeType,
+    const response = await fetch('https://detect.roboflow.com/removals-new/4?api_key=YOUR_API_KEY', {
+      method: 'POST',
+      body: form,
     });
 
-    const response = await fetch("https://detect.roboflow.com/airemovalsdetector/2", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer rf_nqzS3THsPZUWoY9eLq0McupeZJ33",
-      },
-      body: formData,
-    });
+    const data = await response.json();
+    fs.unlinkSync(filepath); // rydder opp midlertidig fil
 
-    const result = await response.json();
-    res.json(result);
-  } catch (err) {
-    console.error("Analysis error:", err);
-    res.status(500).json({ error: "Failed to analyze media." });
+    res.json(data);
+  } catch (error) {
+    console.error('Error in /api/analyze:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
