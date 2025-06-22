@@ -1,7 +1,7 @@
-import express from "express";
-import cors from "cors";
-import fetch from "node-fetch";
-import FormData from "form-data";
+const express = require("express");
+const cors = require("cors");
+const fetch = require("node-fetch");
+const FormData = require("form-data");
 
 const app = express();
 app.use(cors());
@@ -47,12 +47,12 @@ app.post("/api/analyze", async (req, res) => {
     const result = await response.json();
     res.json(result);
   } catch (err) {
-    console.error("Analysis error:", err);
+    console.error("Error analyzing media:", err);
     res.status(500).json({ error: "Failed to analyze media." });
   }
 });
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`✅ Server running at http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
