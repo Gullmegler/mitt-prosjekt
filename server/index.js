@@ -10,13 +10,11 @@ app.use(cors());
 app.use(express.json({ limit: "20mb" }));
 
 // Helse-sjekk
- fa37c815 (Fiks og rydd før push)
 app.get("/", (req, res) => {
   res.send("Server is running.");
 });
 
 // Endepunkt for analyse
- fa37c815 (Fiks og rydd før push)
 app.post("/api/analyze", upload.none(), (req, res) => {
   const { imageBase64 } = req.body;
 
@@ -27,7 +25,6 @@ app.post("/api/analyze", upload.none(), (req, res) => {
   console.log("✅ Image received for analysis");
 
   // Dummy respons
- fa37c815 (Fiks og rydd før push)
   const dummyResult = ["Sofa", "Chair", "Lamp"];
   res.status(200).json({
     message: "Image processed",
@@ -39,5 +36,3 @@ app.post("/api/analyze", upload.none(), (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
-
- fa37c815 (Fiks og rydd før push)
