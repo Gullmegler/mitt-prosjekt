@@ -3,56 +3,45 @@ const cors = require('cors');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-const FormData = require('form-data');
-const fetch = require('node-fetch');
 
 const app = express();
 const port = 4000;
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true }));
 
-app.post('/api/analyze', async (req, res) => {
-  try {
-    const { imageBase64 } = req.body;
+// Konfigurer multer for filopplasting
+const upload = multer({ dest: 'uploads/' });
 
-    if (!imageBase64) {
-      return res.status(400).json({ error: 'No image data provided' });
-    }
-
-    const matches = imageBase64.match(/^data:(.+);base64,(.+)$/);
-    if (!matches || matches.length !== 3) {
-      return res.status(400).json({ error: 'Invalid base64 string' });
-    }
-
-    const mimeType = matches[1];
-    const base64Data = matches[2];
-    const buffer = Buffer.from(base64Data, 'base64');
-    const tempFilePath = path.join(__dirname, 'temp_upload');
-    const filename = `upload_${Date.now()}.${mimeType.split('/')[1]}`;
-    const filepath = path.join(tempFilePath, filename);
-
-    fs.mkdirSync(tempFilePath, { recursive: true });
-    fs.writeFileSync(filepath, buffer);
-
-    const form = new FormData();
-    form.append('file', fs.createReadStream(filepath));
-
-    const response = await fetch('https://detect.roboflow.com/removals-new/4?api_key=YOUR_API_KEY', {
-      method: 'POST',
-      body: form,
-    });
-
-    const data = await response.json();
-    fs.unlinkSync(filepath); // rydder opp midlertidig fil
-
-    res.json(data);
-  } catch (error) {
-    console.error('Error in /api/analyze:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
+// Enkelt test-endepunkt
+app.get('/', (req, res) => {
+  res.send('Serveren kjører!');
 });
 
+// Endepunkt for å ta imot bilde eller video og returnere dummy analyse
+app.post('/api/analyze', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'Ingen fil lastet opp' });
+  }
+
+  // Eksempel på dummy data som sendes tilbake
+  const result = {
+    message: 'Fil mottatt',
+    filename: req.file.originalname,
+    mimetype: req.file.mimetype,
+    sizeKB: Math.round(req.file.size / 1024),
+    analysis: {
+      objectsDetected: 3,
+      labels: ['sofa', 'table', 'plant'],
+      confidence: [0.92, 0.88, 0.79],
+    }
+  };
+
+  res.json(result);
+});
+
+// Start serveren
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`✅ Serveren kjører på http://localhost:${port}`);
 });
