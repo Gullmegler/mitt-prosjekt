@@ -7,10 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "20mb" }));
 
-app.get("/", (req, res) => {
-  res.send("Express server is working");
-});
-
 app.post("/api/analyze", async (req, res) => {
   try {
     const { imageBase64, filename = "upload" } = req.body;
@@ -58,5 +54,5 @@ app.post("/api/analyze", async (req, res) => {
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`✅ Server running at http://localhost:${PORT}`);
 });
