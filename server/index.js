@@ -47,12 +47,12 @@ app.post("/api/analyze", async (req, res) => {
     const result = await response.json();
     res.json(result);
   } catch (err) {
-    console.error("Error analyzing media:", err);
-    res.status(500).json({ error: "Failed to analyze media." });
+    console.error("Error analyzing file:", err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server listening on http://localhost:${PORT}`);
 });
