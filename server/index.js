@@ -37,4 +37,3 @@ app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
 
- 7a273417 (Fjern git-annotasjon og fiks syntaksfeil)
