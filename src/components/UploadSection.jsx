@@ -2,53 +2,24 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 function UploadSection() {
-  const [image, setImage] = useState(null);
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImage(reader.result);
-      setResult(null); // reset result
-      setError("");
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleSubmit = async () => {
-    if (!image) return;
-    setLoading(true);
-    setError("");
-    try {
-      const response = await fetch("https://mitt-prosjekt-production.up.railway.app/api/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageBase64: image }),
-      });
-      const data = await response.json();
-      setResult(data.result); // forventet format: { objects: [], text: [], logos: [] }
-    } catch (err) {
-      setError("Noe gikk galt under analysen.");
-    } finally {
-      setLoading(false);
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (event) => {
     const uploadedFile = event.target.files[0];
     setFile(uploadedFile);
     setPreviewUrl(URL.createObjectURL(uploadedFile));
+    setResult(null);
+    setError(null);
   };
 
   const handleSubmit = async () => {
     if (!file) return;
+    setLoading(true);
+    setError(null);
 
     const formData = new FormData();
     formData.append('image', file);
@@ -60,11 +31,11 @@ function UploadSection() {
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );
       setResult(response.data);
-      setError(null);
     } catch (err) {
       console.error(err);
       setError('Noe gikk galt under analysen.');
- fa44ce46 (Oppdater med Railway backend-URL)
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -76,10 +47,10 @@ function UploadSection() {
         onChange={handleFileChange}
         className="block mb-4"
       />
-      {image && (
+      {previewUrl && (
         <div className="mb-4">
           <img
-            src={image}
+            src={previewUrl}
             alt="Preview"
             className="w-full max-h-64 object-contain border rounded"
           />
@@ -121,20 +92,6 @@ function UploadSection() {
               ))}
             </ul>
           </div>
-    <div style={{ textAlign: 'center' }}>
-      <input type="file" onChange={handleFileChange} />
-      {previewUrl && (
-        <div>
-          <img src={previewUrl} alt="Preview" style={{ width: '300px', margin: '20px auto' }} />
-        </div>
-      )}
-      <button onClick={handleSubmit}>Analyze</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {result && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Analyse-resultat:</h3>
-          <pre>{JSON.stringify(result, null, 2)}</pre>
- fa44ce46 (Oppdater med Railway backend-URL)
         </div>
       )}
     </div>
@@ -142,4 +99,3 @@ function UploadSection() {
 }
 
 export default UploadSection;
-
