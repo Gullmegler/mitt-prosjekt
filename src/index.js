@@ -9,5 +9,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
- 456ff042 (Legg til src/index.js for React)
