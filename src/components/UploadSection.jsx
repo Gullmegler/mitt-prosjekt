@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
 
 function UploadSection() {
   const [image, setImage] = useState(null);
@@ -35,6 +36,35 @@ function UploadSection() {
       setError("Noe gikk galt under analysen.");
     } finally {
       setLoading(false);
+  const [file, setFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleFileChange = (event) => {
+    const uploadedFile = event.target.files[0];
+    setFile(uploadedFile);
+    setPreviewUrl(URL.createObjectURL(uploadedFile));
+  };
+
+  const handleSubmit = async () => {
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await axios.post(
+        'https://mitt-prosjekt-production.up.railway.app/api/analyze',
+        formData,
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      );
+      setResult(response.data);
+      setError(null);
+    } catch (err) {
+      console.error(err);
+      setError('Noe gikk galt under analysen.');
+ fa44ce46 (Oppdater med Railway backend-URL)
     }
   };
 
@@ -91,6 +121,20 @@ function UploadSection() {
               ))}
             </ul>
           </div>
+    <div style={{ textAlign: 'center' }}>
+      <input type="file" onChange={handleFileChange} />
+      {previewUrl && (
+        <div>
+          <img src={previewUrl} alt="Preview" style={{ width: '300px', margin: '20px auto' }} />
+        </div>
+      )}
+      <button onClick={handleSubmit}>Analyze</button>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {result && (
+        <div style={{ marginTop: '20px' }}>
+          <h3>Analyse-resultat:</h3>
+          <pre>{JSON.stringify(result, null, 2)}</pre>
+ fa44ce46 (Oppdater med Railway backend-URL)
         </div>
       )}
     </div>
@@ -98,3 +142,4 @@ function UploadSection() {
 }
 
 export default UploadSection;
+
