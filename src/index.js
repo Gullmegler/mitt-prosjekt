@@ -10,4 +10,3 @@ root.render(
   </React.StrictMode>
 );
 
- fca6079c (Fjern utilsiktet git hash fra index.js)
