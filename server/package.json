@@ -2,6 +2,7 @@
   "name": "mitt-prosjekt",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start-server": "node index.js"
   },
@@ -11,4 +12,3 @@
     "multer": "^1.4.5-lts.1"
   }
 }
-
