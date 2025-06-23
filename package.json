@@ -2,10 +2,8 @@
   "name": "mitt-prosjekt",
   "version": "1.0.0",
   "description": "AI Removals backend og frontend",
-  "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
-    "start-server": "node server/index.js",
     "start-client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
