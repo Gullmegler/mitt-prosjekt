@@ -7,19 +7,22 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Sørg for at uploads-mappen finnes
 const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir);
 }
 
+// Konfigurer multer for filopplasting
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadsDir),
   filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
 });
 const upload = multer({ storage });
 
+// Tillat frontend-domener
 app.use(cors({
-  origin: ["http://localhost:3000", "https://airemovals.co.uk"]
+  origin: ["http://localhost:3000", "https://airemovals.co.uk", "https://www.airemovals.co.uk"]
 }));
 app.use(express.json());
 
