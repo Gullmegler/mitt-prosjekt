@@ -1,58 +1,62 @@
-const express = require("express");
-const cors = require("cors");
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+import express from "express";
+import cors from "cors";
+import multer from "multer";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Setup __dirname since we are using ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3001;
 
-// CORS config: tillat React-nettstedet i prod og localhost i dev
-const allowedOrigins = [
-  "https://airemovals.co.uk",
-  "http://localhost:3000"
-];
+// Lag "uploads"-mappe hvis den ikke finnes
+const uploadsDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Ikke tillatt av CORS"));
-    }
-  }
-}));
-
+// Konfigurer Multer for filopplasting
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadDir = "uploads";
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir);
-    }
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    const timestamp = Date.now();
-    const ext = path.extname(file.originalname);
-    cb(null, `${file.fieldname}-${timestamp}${ext}`);
-  }
+  destination: (req, file, cb) => cb(null, uploadsDir),
+  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
 });
-
 const upload = multer({ storage });
 
-app.post("/api/analyze", upload.single("image"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: "Ingen fil ble lastet opp" });
-  }
+// CORS-konfigurasjon
+app.use(cors({
+  origin: ["http://localhost:3000", "https://airemovals.co.uk"]
+}));
+app.use(express.json());
 
-  // Her ville du normalt kalt på ML-modell eller ekstern analyse
-  res.json({
-    message: "Analyse mottatt",
-    file: req.file.filename,
-    size: req.file.size
-  });
+// GET / route for helsesjekk
+app.get("/", (req, res) => {
+  res.send("Backend API kjører");
 });
 
-app.listen(port, () => {
-  console.log(`Server kjører på port ${port}`);
+// POST /api/analyze – Simulert analyse
+app.post("/api/analyze", upload.single("file"), (req, res) => {
+  try {
+    const file = req.file;
+    if (!file) {
+      return res.status(400).json({ error: "Ingen fil mottatt" });
+    }
+
+    // Her kan du koble til faktisk analyse senere
+    res.json({
+      message: "Analyse fullført",
+      filename: file.originalname,
+      path: file.path
+    });
+  } catch (error) {
+    console.error("Feil under analyse:", error);
+    res.status(500).json({ error: "Analysefeil" });
+  }
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server kjører på http://localhost:${PORT}`);
 });
