@@ -2,48 +2,52 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const dotenv = require('dotenv');
+const path = require('path');
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8080;
 
-// CORS for å tillate frontend-domenet
-app.use(cors({ origin: '*' }));
-app.use(express.json());
+// Konfigurer CORS for å tillate frontend
+const corsOptions = {
+  origin: 'https://airemovals.co.uk',
+  methods: ['GET', 'POST'],
+  credentials: true
+};
+app.use(cors(corsOptions));
 
-// Multer-oppsett for filopplasting
+// For parsing multipart/form-data
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
-// Helse-sjekk
 app.get('/', (req, res) => {
-  res.send('Server kjører OK');
+  res.send('Serveren kjører 🚀');
 });
 
-// Analyse-endepunkt
+// API-endepunkt for bildeanalyse
 app.post('/api/analyze', upload.single('image'), async (req, res) => {
   try {
     if (!req.file) {
-      return res.status(400).json({ error: 'Ingen bilde mottatt' });
+      return res.status(400).json({ message: 'Ingen fil ble lastet opp.' });
     }
 
-    // Dummy respons – erstatt senere med faktisk AI-analyse
-    const result = {
-      objects: ['sofa', 'bord', 'plante'],
-      text: ['Velkommen hjem'],
-      logos: ['IKEA']
+    // Dummy analyse – dette kan erstattes med AI-modell
+    const fakeAnalysis = {
+      item: 'Piano',
+      estimatedWeightKg: 200,
+      volumeM3: 1.5,
+      confidence: 0.92
     };
 
-    console.log('Analyse fullført:', result);
-    res.json(result);
-  } catch (error) {
-    console.error('Feil under analyse:', error);
-    res.status(500).json({ error: 'Serverfeil under analyse' });
+    res.json({ success: true, result: fakeAnalysis });
+  } catch (err) {
+    console.error('Analysefeil:', err);
+    res.status(500).json({ message: 'Noe gikk galt under analysen.' });
   }
 });
 
-// Start server
+// Start serveren
 app.listen(PORT, () => {
   console.log(`🚀 Server kjører på port ${PORT}`);
 });
