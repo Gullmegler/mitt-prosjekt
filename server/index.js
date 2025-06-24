@@ -8,13 +8,12 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8080;
 
-// CORS-konfigurasjon for å tillate frontend-domene
+// CORS-konfigurasjon for å tillate frontend-domenet
 const corsOptions = {
   origin: 'https://airemovals.co.uk',
   methods: ['GET', 'POST'],
   credentials: true,
 };
-
 app.use(cors(corsOptions));
 
 // Konfigurer multer for å håndtere filopplastinger
@@ -29,27 +28,19 @@ app.get('/', (req, res) => {
 // AI-analyse-endepunkt
 app.post('/api/analyze', upload.single('image'), async (req, res) => {
   try {
-    const imageBuffer = req.file?.buffer;
+    const imageBuffer = req.file.buffer;
 
-    if (!imageBuffer) {
-      return res.status(400).json({ error: 'Ingen bildefil lastet opp' });
-    }
-
-    // Her kunne AI-bildeanalyse blitt gjort
-    // Dummy respons for nå
-    const dummyResult = {
-      success: true,
-      message: 'Analyse fullført',
-      data: {
-        estimatedWeightKg: 42,
-        category: 'Furniture',
-      },
+    // Dummyrespons – her kan du koble til f.eks. AI-tjeneste
+    const result = {
+      message: 'Bilde mottatt og analysert!',
+      size: imageBuffer.length,
+      timestamp: new Date(),
     };
 
-    res.json(dummyResult);
-  } catch (err) {
-    console.error('Feil under analyse:', err);
-    res.status(500).json({ error: 'Noe gikk galt under analysen' });
+    res.json(result);
+  } catch (error) {
+    console.error('Feil under bildeanalyse:', error);
+    res.status(500).json({ error: 'Analyse mislyktes.' });
   }
 });
 
