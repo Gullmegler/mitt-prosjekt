@@ -1,53 +1,32 @@
-const express = require("express");
-const cors = require("cors");
-const multer = require("multer");
-const fs = require("fs");
-const path = require("path");
+import express from 'express';
+import cors from 'cors';
+import multer from 'multer';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const port = process.env.PORT || 4000;
 
-// Sørg for at uploads-mappen finnes
-const uploadsDir = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir);
-}
-
-// Konfigurer multer for filopplasting
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadsDir),
-  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
-});
-const upload = multer({ storage });
-
-// Tillat frontend-domener
+// Viktig: angi nøyaktig frontend-opprinnelse
 app.use(cors({
-  origin: ["http://localhost:3000", "https://airemovals.co.uk", "https://www.airemovals.co.uk"]
+  origin: 'https://airemovals.co.uk'
 }));
-app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Backend API kjører");
-});
+// Body-parser / multer etc.
+const upload = multer({ storage: multer.memoryStorage() });
 
-app.post("/api/analyze", upload.single("file"), (req, res) => {
+app.post('/api/analyze', upload.single('image'), async (req, res) => {
   try {
-    const file = req.file;
-    if (!file) {
-      return res.status(400).json({ error: "Ingen fil mottatt" });
-    }
-
+    // Her kan du simulere et svar for testing:
     res.json({
-      message: "Analyse fullført",
-      filename: file.originalname,
-      path: file.path
+      objects: ['sofa', 'table'],
+      text: ['Hello'],
+      logos: ['IKEA']
     });
   } catch (error) {
-    console.error("Feil under analyse:", error);
-    res.status(500).json({ error: "Analysefeil" });
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server kjører på http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Server kjører på port ${port}`);
 });
