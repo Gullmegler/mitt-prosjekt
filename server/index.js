@@ -1,25 +1,58 @@
-const express = require('express');
-const path = require('path');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 
-app.use(cors());
-app.use(express.json());
+// CORS config: tillat React-nettstedet i prod og localhost i dev
+const allowedOrigins = [
+  "https://airemovals.co.uk",
+  "http://localhost:3000"
+];
 
-// Serve static React files
-app.use(express.static(path.join(__dirname, '../build')));
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Ikke tillatt av CORS"));
+    }
+  }
+}));
 
-app.get('/api/ping', (req, res) => {
-  res.json({ message: 'Backend is live' });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadDir = "uploads";
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir);
+    }
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const timestamp = Date.now();
+    const ext = path.extname(file.originalname);
+    cb(null, `${file.fieldname}-${timestamp}${ext}`);
+  }
 });
 
-// Fallback til index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build/index.html'));
+const upload = multer({ storage });
+
+app.post("/api/analyze", upload.single("image"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "Ingen fil ble lastet opp" });
+  }
+
+  // Her ville du normalt kalt på ML-modell eller ekstern analyse
+  res.json({
+    message: "Analyse mottatt",
+    file: req.file.filename,
+    size: req.file.size
+  });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Server kjører på port ${port}`);
 });
