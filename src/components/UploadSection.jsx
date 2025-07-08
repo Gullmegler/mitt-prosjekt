@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
-function UploadSection() {
+export default function AIMovingEstimator() {
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const [supplies, setSupplies] = useState([]);
+  const [summary, setSummary] = useState({ cubicFeet: 0, weight: 0, truckSize: '' });
 
   const handleFileChange = (event) => {
     const uploadedFile = event.target.files[0];
@@ -31,6 +36,7 @@ function UploadSection() {
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );
       setResult(response.data);
+      calculateSuppliesAndSummary(response.data.objects || []);
     } catch (err) {
       console.error(err);
       setError('Noe gikk galt under analysen.');
@@ -39,63 +45,108 @@ function UploadSection() {
     }
   };
 
+  const calculateSuppliesAndSummary = (items) => {
+    let volume = 0;
+    let weight = 0;
+    let supplyList = [];
+
+    items.forEach((item) => {
+      switch (item.toLowerCase()) {
+        case 'grand-piano':
+          volume += 90;
+          weight += 500;
+          supplyList.push('2 flyttetepper', '1 stroppesett');
+          break;
+        case 'piano-chair':
+          volume += 15;
+          weight += 40;
+          supplyList.push('1 mellomstor eske');
+          break;
+        case 'ceiling-lamp':
+          volume += 5;
+          weight += 10;
+          supplyList.push('boblekonvolutt', 'skuminnlegg');
+          break;
+        default:
+          break;
+      }
+    });
+
+    const truckSize = volume > 100 ? '16 ft truck' : '12 ft van';
+    setSupplies(supplyList);
+    setSummary({ cubicFeet: volume, weight, truckSize });
+  };
+
+  const downloadPDF = () => {
+    alert('PDF-generering med AI Removals branding kommer her.');
+  };
+
+  const addToCRM = () => {
+    fetch('https://crm.airemovals.co.uk/api/add-job', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: result?.objects, summary }),
+    })
+      .then((res) => res.json())
+      .then(() => alert('Lagret i CRM!'))
+      .catch(() => alert('Feil ved CRM-integrasjon'));
+  };
+
   return (
-    <div className="p-4 max-w-xl mx-auto">
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="block mb-4"
-      />
+    <div className="p-6 space-y-4">
+      <div className="flex justify-between items-center">
+        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <div className="space-x-2">
+          <Button onClick={handleSubmit} disabled={loading}>
+            {loading ? 'Analyserer...' : 'Analyze'}
+          </Button>
+          <Button onClick={downloadPDF}>Download PDF</Button>
+          <Button onClick={addToCRM}>Add to CRM</Button>
+        </div>
+      </div>
+
       {previewUrl && (
-        <div className="mb-4">
-          <img
-            src={previewUrl}
-            alt="Preview"
-            className="w-full max-h-64 object-contain border rounded"
-          />
+        <div className="border rounded overflow-hidden max-w-md">
+          <img src={previewUrl} alt="Preview" className="w-full object-contain" />
         </div>
       )}
-      <button
-        onClick={handleSubmit}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        disabled={loading}
-      >
-        {loading ? "Analyserer..." : "Analyze"}
-      </button>
-
-      {error && <p className="text-red-500 mt-4">{error}</p>}
 
       {result && (
-        <div className="mt-6 space-y-4">
-          <div>
-            <h3 className="font-semibold text-lg">Detected Objects</h3>
-            <ul className="list-disc ml-5">
-              {result.objects?.map((item, i) => (
-                <li key={`obj-${i}`}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold text-lg">Detected Text</h3>
-            <ul className="list-disc ml-5">
-              {result.text?.map((item, i) => (
-                <li key={`text-${i}`}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold text-lg">Detected Logos</h3>
-            <ul className="list-disc ml-5">
-              {result.logos?.map((item, i) => (
-                <li key={`logo-${i}`}>{item}</li>
-              ))}
-            </ul>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card>
+            <CardContent>
+              <h2 className="text-lg font-bold mb-2">Detected Items</h2>
+              <ul className="list-disc list-inside">
+                {result.objects?.map((item, idx) => (
+                  <li key={idx}>{item}</li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent>
+              <h2 className="text-lg font-bold mb-2">Supply Items</h2>
+              <ul className="list-disc list-inside">
+                {supplies.map((s, idx) => (
+                  <li key={idx}>{s}</li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent>
+              <h2 className="text-lg font-bold mb-2">Summary</h2>
+              <p><strong>Cubic Feet:</strong> {summary.cubicFeet}</p>
+              <p><strong>Weight (lb):</strong> {summary.weight}</p>
+              <p><strong>Truck Size:</strong> {summary.truckSize}</p>
+            </CardContent>
+          </Card>
         </div>
       )}
+
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
 }
-
-export default UploadSection;
