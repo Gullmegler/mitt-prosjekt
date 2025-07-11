@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom"; // Hvis du bruker React Router
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
@@ -30,7 +29,7 @@ export default function Navbar() {
       } else if (type === "aisurvey") {
         response = await axios.post("/api/auth/aisurvey-login", { email, password });
       }
-
+      
       const { token, user } = response.data;
       localStorage.setItem("token", token);
       localStorage.setItem("userEmail", user.email);
@@ -52,8 +51,8 @@ export default function Navbar() {
 
   return (
     <nav className="bg-orange-600 text-white p-4 flex justify-between items-center">
-      <div className="flex items-center">
-        <img src="/logo.png" alt="Logo" className="h-10 mr-4" />
+      <div className="text-xl font-bold flex items-center">
+        <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
       </div>
 
       {!user ? (
@@ -79,7 +78,7 @@ export default function Navbar() {
             />
             <button
               type="submit"
-              className="bg-black px-4 py-1 rounded hover:bg-gray-700 disabled:opacity-50"
+              className="bg-black px-4 py-1 rounded hover:bg-gray-800 disabled:opacity-50"
               disabled={loading}
             >
               {loading ? "Logging in..." : "CRM Login"}
@@ -107,7 +106,7 @@ export default function Navbar() {
             />
             <button
               type="submit"
-              className="bg-black px-4 py-1 rounded hover:bg-gray-700 disabled:opacity-50"
+              className="bg-black px-4 py-1 rounded hover:bg-gray-800 disabled:opacity-50"
               disabled={loading}
             >
               {loading ? "Logging in..." : "AI Survey Login"}
@@ -117,12 +116,12 @@ export default function Navbar() {
         </div>
       ) : (
         <div className="flex items-center space-x-6">
-          <Link to="/crm" className="hover:text-gray-400">
-            CRM
-          </Link>
-          <Link to="/survey" className="hover:text-gray-400">
+          <a href="/crm" className="hover:text-gray-400">
+            CRM Dashboard
+          </a>
+          <a href="/ai-survey" className="hover:text-gray-400">
             AI Survey
-          </Link>
+          </a>
           <button
             onClick={handleLogout}
             className="bg-red-600 px-3 py-1 rounded hover:bg-red-700"
