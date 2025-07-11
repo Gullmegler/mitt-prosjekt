@@ -12,18 +12,24 @@ export default function Navbar() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      // Her kan du evt. validere token eller hente brukerinfo
+      // Hvis token finnes, sett bruker
       setUser({ email: localStorage.getItem("userEmail") || "LoggedInUser" });
     }
   }, []);
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e, type) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
     try {
-      const response = await axios.post("/api/auth/login", { email, password });
+      let response;
+      if (type === "crm") {
+        response = await axios.post("/api/auth/crm-login", { email, password });
+      } else if (type === "aisurvey") {
+        response = await axios.post("/api/auth/aisurvey-login", { email, password });
+      }
+      
       const { token, user } = response.data;
       localStorage.setItem("token", token);
       localStorage.setItem("userEmail", user.email);
@@ -48,34 +54,64 @@ export default function Navbar() {
       <div className="text-xl font-bold">AI Removals</div>
 
       {!user ? (
-        <form onSubmit={handleLogin} className="flex items-center space-x-3">
-          <input
-            type="email"
-            placeholder="Email"
-            className="px-2 py-1 rounded text-black"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            disabled={loading}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="px-2 py-1 rounded text-black"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            disabled={loading}
-          />
-          <button
-            type="submit"
-            className="bg-blue-600 px-4 py-1 rounded hover:bg-blue-700 disabled:opacity-50"
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
+        <div className="flex items-center space-x-6">
+          <form onSubmit={(e) => handleLogin(e, "crm")} className="flex items-center space-x-3">
+            <input
+              type="email"
+              placeholder="Email"
+              className="px-2 py-1 rounded text-black"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={loading}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="px-2 py-1 rounded text-black"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              disabled={loading}
+            />
+            <button
+              type="submit"
+              className="bg-blue-600 px-4 py-1 rounded hover:bg-blue-700 disabled:opacity-50"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "CRM Login"}
+            </button>
+          </form>
+
+          <form onSubmit={(e) => handleLogin(e, "aisurvey")} className="flex items-center space-x-3">
+            <input
+              type="email"
+              placeholder="Email"
+              className="px-2 py-1 rounded text-black"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={loading}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="px-2 py-1 rounded text-black"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              disabled={loading}
+            />
+            <button
+              type="submit"
+              className="bg-blue-600 px-4 py-1 rounded hover:bg-blue-700 disabled:opacity-50"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "AI Survey Login"}
+            </button>
+          </form>
           {error && <div className="text-red-500 ml-4">{error}</div>}
-        </form>
+        </div>
       ) : (
         <div className="flex items-center space-x-6">
           <a href="/crm" className="hover:text-gray-400">
