@@ -7,6 +7,8 @@ export default function Navbar() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isCrmLogin, setIsCrmLogin] = useState(false); // For å vise feltene når knappene trykkes
+  const [isSurveyLogin, setIsSurveyLogin] = useState(false); // For å vise feltene for AI Survey login
 
   // Sjekk om bruker er logget inn ved oppstart
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function Navbar() {
       } else if (type === "aisurvey") {
         response = await axios.post("/api/auth/aisurvey-login", { email, password });
       }
-      
+
       const { token, user } = response.data;
       localStorage.setItem("token", token);
       localStorage.setItem("userEmail", user.email);
@@ -50,68 +52,60 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-orange-600 text-white p-4 flex justify-between items-center">
-      <div className="text-xl font-bold flex items-center">
-        <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
+    <nav className="bg-orange-500 text-white p-4 flex justify-between items-center">
+      <div className="text-xl font-bold">
+        <img src="/logo.png" alt="AI Removals Logo" className="h-10" />
       </div>
 
       {!user ? (
         <div className="flex items-center space-x-6">
-          <form onSubmit={(e) => handleLogin(e, "crm")} className="flex items-center space-x-3">
-            <input
-              type="email"
-              placeholder="Email"
-              className="px-2 py-1 rounded text-black"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={loading}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="px-2 py-1 rounded text-black"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={loading}
-            />
-            <button
-              type="submit"
-              className="bg-black px-4 py-1 rounded hover:bg-gray-800 disabled:opacity-50"
-              disabled={loading}
+          <button
+            onClick={() => { setIsCrmLogin(true); setIsSurveyLogin(false); }}
+            className="bg-black text-white px-4 py-2 rounded hover:bg-gray-700"
+          >
+            CRM
+          </button>
+          <button
+            onClick={() => { setIsSurveyLogin(true); setIsCrmLogin(false); }}
+            className="bg-black text-white px-4 py-2 rounded hover:bg-gray-700"
+          >
+            SURVEY
+          </button>
+          
+          {/* Vis kun feltene når knappen trykkes */}
+          {(isCrmLogin || isSurveyLogin) && (
+            <form
+              onSubmit={(e) => handleLogin(e, isCrmLogin ? "crm" : "aisurvey")}
+              className="flex items-center space-x-3 mt-4"
             >
-              {loading ? "Logging in..." : "CRM Login"}
-            </button>
-          </form>
+              <input
+                type="email"
+                placeholder="Email"
+                className="px-2 py-1 rounded text-black"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={loading}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                className="px-2 py-1 rounded text-black"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={loading}
+              />
+              <button
+                type="submit"
+                className="bg-blue-600 px-4 py-1 rounded hover:bg-blue-700 disabled:opacity-50"
+                disabled={loading}
+              >
+                {loading ? "Logging in..." : isCrmLogin ? "CRM Login" : "AI Survey Login"}
+              </button>
+            </form>
+          )}
 
-          <form onSubmit={(e) => handleLogin(e, "aisurvey")} className="flex items-center space-x-3">
-            <input
-              type="email"
-              placeholder="Email"
-              className="px-2 py-1 rounded text-black"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={loading}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="px-2 py-1 rounded text-black"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={loading}
-            />
-            <button
-              type="submit"
-              className="bg-black px-4 py-1 rounded hover:bg-gray-800 disabled:opacity-50"
-              disabled={loading}
-            >
-              {loading ? "Logging in..." : "AI Survey Login"}
-            </button>
-          </form>
           {error && <div className="text-red-500 ml-4">{error}</div>}
         </div>
       ) : (
