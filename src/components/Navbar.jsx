@@ -1,38 +1,15 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar.jsx";
-import Hero from "./components/Hero.jsx";
-import Benefits from "./components/Benefits.jsx";
-import Prices from "./components/Prices.jsx";
-import FAQSection from "./components/FAQSection.jsx";
-import SignUp from "./components/SignUp.jsx";
-import Footer from "./components/Footer.jsx";
+import { Link } from "react-router-dom";
 
-export default function App() {
+export default function Navbar() {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Hero />
-              <section id="benefits">
-                <Benefits />
-              </section>
-              <section id="prices">
-                <Prices />
-              </section>
-              <section id="faq">
-                <FAQSection />
-              </section>
-              <Footer />
-            </>
-          }
-        />
-        <Route path="/signup" element={<SignUp />} />
-      </Routes>
-    </Router>
+    <nav>
+      <ul>
+        <li><a href="#benefits">Benefits</a></li>
+        <li><a href="#prices">Prices</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><Link to="/signup">Sign Up</Link></li>
+      </ul>
+    </nav>
   );
 }
