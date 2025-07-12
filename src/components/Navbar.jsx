@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Benefits from "./components/Benefits";
-import Prices from "./components/Prices";
-import FAQSection from "./components/FAQSection";
-import SignUp from "./components/SignUp";
-import Footer from "./components/Footer";
+import Navbar from "./components/Navbar.jsx";
+import Hero from "./components/Hero.jsx";
+import Benefits from "./components/Benefits.jsx";
+import Prices from "./components/Prices.jsx";
+import FAQSection from "./components/FAQSection.jsx";
+import SignUp from "./components/SignUp.jsx";
+import Footer from "./components/Footer.jsx";
 
 export default function App() {
   return (
