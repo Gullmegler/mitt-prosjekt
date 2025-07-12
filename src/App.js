@@ -1,12 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar.jsx";
-import Hero from "./components/Hero.jsx";
-import Benefits from "./components/Benefits.jsx";
-import Prices from "./components/Prices.jsx";
-import FAQSection from "./components/FAQSection.jsx";
-import SignUp from "./components/SignUp.jsx";
-import Footer from "./components/Footer.jsx";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Benefits from "./components/Benefits";
+import Prices from "./components/Prices";
+import FAQSection from "./components/FAQSection";
+import Footer from "./components/Footer";
+import SignUp from "./components/SignUp";
+import CallToAction from "./components/CallToAction";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
               <section id="prices">
                 <Prices />
               </section>
+              <CallToAction /> {/* Legges her, før FAQ */}
               <section id="faq">
                 <FAQSection />
               </section>
