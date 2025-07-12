@@ -1,43 +1,37 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 w-full bg-white shadow-md flex items-center justify-between px-6 py-4 z-50">
-      {/* Logo */}
-      <a href="/">
-        <img src="/logo.png" alt="Logo" className="h-12" />
-      </a>
-
-      {/* Links */}
-      <ul className="flex space-x-6 text-gray-800 font-medium">
-        <li>
-          <a href="#benefits" className="hover:text-orange-500 transition">Benefits</a>
-        </li>
-        <li>
-          <a href="#prices" className="hover:text-orange-500 transition">Prices</a>
-        </li>
-        <li>
-          <a href="#contact" className="hover:text-orange-500 transition">Contact</a>
-        </li>
-        <li>
-          <a href="#faq" className="hover:text-orange-500 transition">FAQ</a>
-        </li>
-      </ul>
-
-      {/* Buttons */}
+    <nav className="bg-[#0d1117] px-6 py-4 flex items-center justify-between">
+      <div className="flex items-center space-x-4">
+        <Link to="/">
+          <img
+            src="/logo.png"
+            alt="Logo"
+            className="h-12" // større logo som ønsket
+          />
+        </Link>
+        <div className="hidden md:flex space-x-6 text-white font-medium">
+          <a href="#benefits" className="hover:text-gray-400">Benefits</a>
+          <a href="#prices" className="hover:text-gray-400">Prices</a>
+          <a href="#contact" className="hover:text-gray-400">Contact</a>
+          <a href="#faq" className="hover:text-gray-400">FAQ</a>
+        </div>
+      </div>
       <div className="flex space-x-3">
-        <a
-          href="/signup"
-          className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition"
+        <Link
+          to="/signup"
+          className="bg-white text-black px-4 py-2 rounded-md font-semibold hover:bg-gray-200 transition"
         >
           Sign Up
-        </a>
-        <a
-          href="/login"
-          className="border border-orange-500 text-orange-500 px-4 py-2 rounded hover:bg-orange-500 hover:text-white transition"
+        </Link>
+        <Link
+          to="/login"
+          className="border border-white text-white px-4 py-2 rounded-md font-semibold hover:bg-white hover:text-black transition"
         >
           Log In
-        </a>
+        </Link>
       </div>
     </nav>
   );
