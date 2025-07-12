@@ -2,118 +2,95 @@ import React from "react";
 
 export default function SignUp() {
   return (
-    <div className="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900">
+    <div className="flex items-center justify-center min-h-screen bg-gray-900 px-4">
+      <div className="bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-8 text-gray-100">
+        <h2 className="text-center text-2xl font-extrabold mb-6">
           Create your account
         </h2>
 
-        {/* Plan selection */}
-        <div>
-          <label htmlFor="plan" className="block text-sm font-medium text-gray-700">
-            Select your plan
-          </label>
-          <select
-            id="plan"
-            name="plan"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500"
-          >
-            <option value="crm">AI Survey + Full CRM (£149 / month)</option>
-            <option value="survey">AI Survey Access Only (£49 / month)</option>
-          </select>
-        </div>
-
-        <form className="mt-6 space-y-4">
-          <input
-            type="text"
-            name="firstName"
-            placeholder="First name"
-            required
-            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-          />
-          <input
-            type="text"
-            name="lastName"
-            placeholder="Last name"
-            required
-            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-          />
-          <input
-            type="text"
-            name="address"
-            placeholder="Address"
-            required
-            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-          />
-          <input
-            type="text"
-            name="zip"
-            placeholder="Zip code"
-            required
-            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-          />
-          <div className="flex">
-            <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-              +44
-            </span>
-            <input
-              type="text"
-              name="phone"
-              placeholder="Phone number"
-              required
-              className="appearance-none rounded-r relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-            />
+        <form className="space-y-4">
+          <div>
+            <label htmlFor="countryCode" className="block text-sm font-medium mb-1">
+              Country code
+            </label>
+            <select
+              id="countryCode"
+              name="countryCode"
+              className="w-full rounded-md border-gray-600 bg-gray-700 text-gray-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              <option value="+44">+44 (UK)</option>
+              <option value="+47">+47 (NO)</option>
+              <option value="+1">+1 (US)</option>
+              <option value="+33">+33 (FR)</option>
+              <option value="+49">+49 (DE)</option>
+            </select>
           </div>
+
           <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-          />
-          <input
-            type="email"
-            name="confirmEmail"
-            placeholder="Confirm email"
-            required
-            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-          />
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm password"
-            required
-            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+            type="text"
+            placeholder="First name"
+            className="w-full rounded-md bg-gray-700 border border-gray-600 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
           />
           <input
             type="text"
-            name="company"
+            placeholder="Last name"
+            className="w-full rounded-md bg-gray-700 border border-gray-600 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <input
+            type="text"
+            placeholder="Address"
+            className="w-full rounded-md bg-gray-700 border border-gray-600 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <input
+            type="text"
+            placeholder="Zip code"
+            className="w-full rounded-md bg-gray-700 border border-gray-600 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <input
+            type="text"
+            placeholder="Phone number"
+            className="w-full rounded-md bg-gray-700 border border-gray-600 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full rounded-md bg-gray-700 border border-gray-600 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <input
+            type="email"
+            placeholder="Confirm email"
+            className="w-full rounded-md bg-gray-700 border border-gray-600 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full rounded-md bg-gray-700 border border-gray-600 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <input
+            type="password"
+            placeholder="Confirm password"
+            className="w-full rounded-md bg-gray-700 border border-gray-600 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <input
+            type="text"
             placeholder="Company name"
-            required
-            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+            className="w-full rounded-md bg-gray-700 border border-gray-600 px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
           />
 
           <button
             type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 rounded-md transition"
           >
             Sign Up
           </button>
         </form>
 
-        <div className="text-sm text-center">
+        <p className="mt-6 text-center text-sm text-gray-400">
           Already have an account?{" "}
-          <a href="/login" className="font-medium text-orange-600 hover:text-orange-500">
+          <a href="/login" className="text-green-400 hover:text-green-300">
             Log in
           </a>
-        </div>
+        </p>
       </div>
     </div>
   );
