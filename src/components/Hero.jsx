@@ -1,5 +1,5 @@
 import React from "react";
-import { Sofa, Chair, Table } from "./icons"; // Husk: legg til egne ikoner eller import fra lucide-react
+import { Sofa, Chair, Table } from "./icons";
 
 export default function Hero() {
   return (
@@ -10,7 +10,7 @@ export default function Hero() {
         and seamless CRM automation.
       </p>
       <button
-        className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300"
+        className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-lg transition"
       >
         Get Started
       </button>
