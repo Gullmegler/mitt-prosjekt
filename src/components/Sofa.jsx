@@ -1,9 +1,16 @@
-// Sofa.jsx
-export default function Sofa(props) {
+export default function SofaIcon(props) {
   return (
-    <svg {...props} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-      <path d="M3 10v6h18v-6a3 3 0 00-3-3H6a3 3 0 00-3 3z" />
-      <path d="M3 16v2h18v-2" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      className="w-12 h-12"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <rect x="2" y="10" width="20" height="8" rx="2" strokeWidth="2"></rect>
+      <path d="M4 18v2" strokeWidth="2"></path>
+      <path d="M20 18v2" strokeWidth="2"></path>
     </svg>
   );
 }
