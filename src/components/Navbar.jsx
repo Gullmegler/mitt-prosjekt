@@ -1,128 +1,48 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import { Link } from 'react-scroll';  // Importer react-scroll for smooth scrolling
 
 export default function Navbar() {
-  const [user, setUser] = useState(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [isCrmLogin, setIsCrmLogin] = useState(false); // For å vise feltene når knappene trykkes
-  const [isSurveyLogin, setIsSurveyLogin] = useState(false); // For å vise feltene for AI Survey login
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
-  // Sjekk om bruker er logget inn ved oppstart
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      // Hvis token finnes, sett bruker
-      setUser({ email: localStorage.getItem("userEmail") || "LoggedInUser" });
-    }
-  }, []);
-
-  const handleLogin = async (e, type) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
-      let response;
-      if (type === "crm") {
-        response = await axios.post("/api/auth/crm-login", { email, password });
-      } else if (type === "aisurvey") {
-        response = await axios.post("/api/auth/aisurvey-login", { email, password });
-      }
-
-      const { token, user } = response.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("userEmail", user.email);
-      setUser(user);
-      setEmail("");
-      setPassword("");
-    } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
-    setUser(null);
-  };
+  const toggleLoginPopup = () => setIsLoginOpen(!isLoginOpen);
 
   return (
-    <nav className="bg-orange-500 text-white p-4 flex justify-between items-center">
-      <div className="text-xl font-bold">
-        <img src="/logo.png" alt="AI Removals Logo" className="h-10" />
+    <nav className="bg-orange-500 text-white p-4 fixed top-0 left-0 w-full z-50">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-4">
+          <img src="/logo.png" alt="Logo" className="w-32 h-auto" />
+        </div>
+
+        <div className="space-x-4">
+          <Link to="benefits" smooth={true} duration={500} className="hover:bg-black px-4 py-2 rounded">
+            Benefits
+          </Link>
+          <Link to="prices" smooth={true} duration={500} className="hover:bg-black px-4 py-2 rounded">
+            Prices
+          </Link>
+          <Link to="faq" smooth={true} duration={500} className="hover:bg-black px-4 py-2 rounded">
+            FAQ
+          </Link>
+          <Link to="contact" smooth={true} duration={500} className="hover:bg-black px-4 py-2 rounded">
+            Contact
+          </Link>
+          <button onClick={toggleLoginPopup} className="bg-black px-4 py-2 rounded">
+            Log In
+          </button>
+        </div>
       </div>
 
-      {!user ? (
-        <div className="flex items-center space-x-6">
-          <button
-            onClick={() => { setIsCrmLogin(true); setIsSurveyLogin(false); }}
-            className="bg-black text-white px-4 py-2 rounded hover:bg-gray-700"
-          >
-            Sign In (CRM)
-          </button>
-          <button
-            onClick={() => { setIsSurveyLogin(true); setIsCrmLogin(false); }}
-            className="bg-black text-white px-4 py-2 rounded hover:bg-gray-700"
-          >
-            Sign In (Survey)
-          </button>
-
-          {/* Vis kun feltene når knappen trykkes */}
-          {(isCrmLogin || isSurveyLogin) && (
-            <form
-              onSubmit={(e) => handleLogin(e, isCrmLogin ? "crm" : "aisurvey")}
-              className="flex items-center space-x-3 mt-4"
-            >
-              <input
-                type="email"
-                placeholder="Email"
-                className="px-2 py-1 rounded text-black"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={loading}
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                className="px-2 py-1 rounded text-black"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                disabled={loading}
-              />
-              <button
-                type="submit"
-                className="bg-blue-600 px-4 py-1 rounded hover:bg-blue-700 disabled:opacity-50"
-                disabled={loading}
-              >
-                {loading ? "Logging in..." : isCrmLogin ? "CRM Login" : "AI Survey Login"}
-              </button>
+      {isLoginOpen && (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-8 rounded-lg w-96">
+            <h2 className="text-2xl mb-4">Log In</h2>
+            <form>
+              <input type="email" placeholder="Email" className="w-full mb-4 p-2 border rounded" />
+              <input type="password" placeholder="Password" className="w-full mb-4 p-2 border rounded" />
+              <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">Log In</button>
             </form>
-          )}
-
-          {error && <div className="text-red-500 ml-4">{error}</div>}
-        </div>
-      ) : (
-        <div className="flex items-center space-x-6">
-          <a href="/crm" className="hover:text-gray-400">
-            CRM Dashboard
-          </a>
-          <a href="/ai-survey" className="hover:text-gray-400">
-            AI Survey
-          </a>
-          <button
-            onClick={handleLogout}
-            className="bg-red-600 px-3 py-1 rounded hover:bg-red-700"
-          >
-            Logout
-          </button>
-          <span className="text-gray-300">Hello, {user.email}</span>
+            <button className="mt-4 text-blue-500" onClick={toggleLoginPopup}>Close</button>
+          </div>
         </div>
       )}
     </nav>
