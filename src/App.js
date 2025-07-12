@@ -17,7 +17,7 @@ function App() {
       <AiSurvey />
       <Prices />
       <CallToAction />
-      <FAQSection /> {/* ✅ Nå rett før Footer */}
+      <FAQSection />
       <Footer />
     </>
   );
