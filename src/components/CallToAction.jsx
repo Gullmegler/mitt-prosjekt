@@ -1,40 +1,22 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Benefits from "./components/Benefits";
-import Prices from "./components/Prices";
-import FAQSection from "./components/FAQSection";
-import Footer from "./components/Footer";
-import SignUp from "./components/SignUp";
-import CallToAction from "./components/CallToAction";
 
-export default function App() {
+const CallToAction = () => {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Hero />
-              <section id="benefits">
-                <Benefits />
-              </section>
-              <section id="prices">
-                <Prices />
-              </section>
-              <CallToAction /> {/* Legges her, før FAQ */}
-              <section id="faq">
-                <FAQSection />
-              </section>
-              <Footer />
-            </>
-          }
-        />
-        <Route path="/signup" element={<SignUp />} />
-      </Routes>
-    </Router>
+    <section id="contact" className="bg-orange-500 text-white py-20 px-4">
+      <div className="max-w-3xl mx-auto text-center">
+        <h2 className="text-4xl font-bold mb-4">Ready to Simplify Your Removals Business?</h2>
+        <p className="text-lg mb-8">
+          Automated CRM. Intelligent Surveys. Instant Results. Book a free demo and see it in action today.
+        </p>
+        <a
+          href="/demo"
+          className="inline-block bg-black text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-gray-800 transition"
+        >
+          Book a Demo
+        </a>
+      </div>
+    </section>
   );
-}
+};
+
+export default CallToAction;
