@@ -63,15 +63,15 @@ export default function Navbar() {
             onClick={() => { setIsCrmLogin(true); setIsSurveyLogin(false); }}
             className="bg-black text-white px-4 py-2 rounded hover:bg-gray-700"
           >
-            CRM
+            Sign In (CRM)
           </button>
           <button
             onClick={() => { setIsSurveyLogin(true); setIsCrmLogin(false); }}
             className="bg-black text-white px-4 py-2 rounded hover:bg-gray-700"
           >
-            SURVEY
+            Sign In (Survey)
           </button>
-          
+
           {/* Vis kun feltene når knappen trykkes */}
           {(isCrmLogin || isSurveyLogin) && (
             <form
