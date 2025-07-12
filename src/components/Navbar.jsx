@@ -5,7 +5,7 @@ export default function Navbar() {
     <nav className="fixed top-0 w-full bg-white shadow-md flex items-center justify-between px-6 py-4 z-50">
       {/* Logo */}
       <a href="/">
-        <img src="/logo.png" alt="Logo" className="h-10" />
+        <img src="/logo.png" alt="Logo" className="h-12" />
       </a>
 
       {/* Links */}
