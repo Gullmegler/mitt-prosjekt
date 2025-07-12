@@ -1,27 +1,7 @@
-import React from "react";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Benefits from "./components/Benefits";
-import Prices from "./components/Prices";
-import CallToAction from "./components/CallToAction";
-import FAQSection from "./components/FAQSection";
-import Footer from "./components/Footer";
-
-function App() {
-  return (
-    <div className="font-sans">
-      <Navbar />
-      <Hero />
-      <Benefits />
-      <Prices />
-      <CallToAction />
-      <FAQSection />
-      <Footer />
-    </div>
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import LogIn from './components/LogIn';  // Endre fra SignIn til LogIn
+import LogIn from './components/LogIn';
 import SignUp from './components/SignUp';
 import Hero from './components/Hero';
 import Benefits from './components/Benefits';
@@ -35,7 +15,7 @@ function App() {
       <div className="font-sans">
         <Navbar />
         <Switch>
-          <Route path="/login" component={LogIn} /> {/* Endre ruten til /login */}
+          <Route path="/login" component={LogIn} />
           <Route path="/signup" component={SignUp} />
         </Switch>
         <Hero />
@@ -51,7 +31,6 @@ function App() {
         <Footer />
       </div>
     </Router>
- e8abf7b4801434a1bc200d41c77ee87f1b6e3443
   );
 }
 
