@@ -1,60 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Prices = () => {
+export default function Prices() {
+  const [selected, setSelected] = useState("monthly");
+
   return (
-    <section id="prices" className="bg-gray-50 py-20 px-4 text-gray-800">
-      <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-4">Pricing</h2>
-        <p className="text-gray-600 mb-12">Choose the plan that fits your removals business</p>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col justify-between border border-gray-200 hover:shadow-xl transition">
-            <div>
-              <h3 className="text-xl font-semibold mb-2 text-orange-600">AI Survey + Full CRM</h3>
-              <p className="text-2xl font-bold mb-4">£149 / month</p>
-              <ul className="text-left text-sm space-y-2 text-gray-700 mb-6">
-                <li>Full CRM Access</li>
-                <li>Leads Management & Job Tracking</li>
-                <li>Sales Pipeline Tracking</li>
-                <li>Dashboard with statistics</li>
-                <li>Calendar for scheduling</li>
-                <li>Vehicle and crew management</li>
-                <li>Employee and customer tracking</li>
-                <li>Invoicing system</li>
-                <li>Customer reviews</li>
-                <li>AI Advice & smart reminders</li>
-                <li>Includes all AI Survey features</li>
-              </ul>
-            </div>
-            <a
-              href="/test-access"
-              className="mt-auto inline-block w-full text-center bg-orange-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-orange-600 transition"
+    <section className="bg-[#0d1117] text-white py-20 px-4 flex justify-center">
+      <div className="bg-[#161b22] border border-gray-700 rounded-xl w-full max-w-xl p-8">
+        <h2 className="text-2xl md:text-3xl font-extrabold mb-6 text-center">Try AI Removals CRM for Free</h2>
+
+        <div className="border-t border-gray-700 pt-6">
+          <p className="mb-4 font-semibold text-gray-300">Everything included:</p>
+          <ul className="list-none space-y-2 text-gray-400 text-sm">
+            <li>✔️ Full CRM access with automation & AI surveys</li>
+            <li>✔️ Calendar, job tracking & invoicing system</li>
+            <li>✔️ Vehicle and crew management</li>
+            <li>✔️ Dashboard with smart reminders</li>
+            <li>✔️ Photo & video survey uploads</li>
+          </ul>
+        </div>
+
+        <div className="border-t border-gray-700 pt-6 mt-6">
+          <p className="mb-4 font-semibold text-gray-300">Billing frequency after free trial</p>
+
+          <div className="flex flex-col md:flex-row gap-4">
+            <button
+              onClick={() => setSelected("monthly")}
+              className={`flex-1 border rounded p-4 ${
+                selected === "monthly" ? "border-blue-500 bg-[#21262d]" : "border-gray-700 bg-transparent"
+              }`}
             >
-              Start Free Test
-            </a>
-          </div>
-          <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col justify-between border border-gray-200 hover:shadow-xl transition">
-            <div>
-              <h3 className="text-xl font-semibold mb-2 text-orange-600">AI Survey Access Only</h3>
-              <p className="text-2xl font-bold mb-4">£49 / month</p>
-              <ul className="text-left text-sm space-y-2 text-gray-700 mb-6">
-                <li>Video and image upload</li>
-                <li>Reduced CRM access</li>
-                <li>Dashboard with key statistics</li>
-                <li>Customer Views</li>
-                <li>Download AI Survey Reports</li>
-              </ul>
-            </div>
-            <a
-              href="/test-access"
-              className="mt-auto inline-block w-full text-center bg-orange-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-orange-600 transition"
+              <p className="font-medium text-white">Pay monthly</p>
+              <p className="text-lg font-extrabold mt-2">£149 <span className="font-normal text-sm">/ month</span></p>
+            </button>
+            <button
+              onClick={() => setSelected("yearly")}
+              className={`flex-1 border rounded p-4 ${
+                selected === "yearly" ? "border-blue-500 bg-[#21262d]" : "border-gray-700 bg-transparent"
+              }`}
             >
-              Start Free Test
-            </a>
+              <p className="font-medium text-white">Pay yearly <span className="text-green-500">Save £300</span></p>
+              <p className="text-lg font-extrabold mt-2">£1,488 <span className="font-normal text-sm">/ year</span></p>
+            </button>
           </div>
         </div>
+
+        <button
+          className="mt-8 w-full bg-green-500 hover:bg-green-600 text-black font-bold py-3 rounded transition-all"
+        >
+          Try now
+        </button>
       </div>
     </section>
   );
-};
-
-export default Prices;
+}
