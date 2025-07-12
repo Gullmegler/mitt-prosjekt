@@ -16,8 +16,6 @@ function App() {
         <Navbar />
 
         <Routes>
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/signup" element={<SignUp />} />
           <Route
             path="/"
             element={
@@ -32,12 +30,13 @@ function App() {
                 <section id="faq">
                   <FAQSection />
                 </section>
+                <Footer />
               </>
             }
           />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
-
-        <Footer />
       </div>
     </Router>
   );
