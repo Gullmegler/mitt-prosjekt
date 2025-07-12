@@ -1,53 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 
 const faqs = [
   {
-    q: "What is AI Removals CRM?",
-    a: "AI Removals CRM is a comprehensive platform designed to streamline the moving process for relocation companies.",
+    question: "What is included in the AI Survey?",
+    answer: "Our AI survey includes video and photo walkthroughs, object detection, and instant report generation that integrates directly into the CRM."
   },
   {
-    q: "Can I manage my move online?",
-    a: "Absolutely. You get a personal dashboard to track tasks, upload documents, and contact your move coordinator.",
+    question: "Can I switch plans later?",
+    answer: "Yes! You can easily upgrade or downgrade between AI Survey Only and Full CRM plans anytime."
   },
   {
-    q: "Is this suitable for small, medium or large companies?",
-    a: "AI Removals CRM is built to scale with your business—whether you're a solo operator, a broker, or managing a large removals team. It adapts to any company size or structure.",
+    question: "Is there a free trial?",
+    answer: "Yes, you can try the full CRM for free and explore all features before committing."
   },
   {
-    q: "Is the CRM affordable?",
-    a: "Yes. Our pricing is transparent and tailored to suit different business needs and sizes."
+    question: "How does AI improve my removals business?",
+    answer: "AI boosts efficiency, increases surveys completed, reduces errors, and helps impress customers with instant insights."
   }
 ];
 
-const FAQSection = () => {
-  const [openIndex, setOpenIndex] = useState(null);
-
-  const toggleFAQ = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
+export default function FAQSection() {
   return (
-    <section id="faq" className="py-12 px-4 bg-white text-gray-800">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
-        <div className="space-y-4">
+    <section className="bg-neutral-950 text-white py-16 px-6">
+      <div className="max-w-4xl mx-auto text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-8">Frequently Asked Questions</h2>
+        <div className="space-y-6 text-left">
           {faqs.map((faq, index) => (
-            <div key={index} className="border-b pb-4">
-              <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full text-left text-lg font-medium text-gray-900"
-              >
-                {faq.q}
-              </button>
-              {openIndex === index && (
-                <p className="mt-2 text-gray-700">{faq.a}</p>
-              )}
+            <div key={index} className="bg-neutral-900 p-6 rounded-xl border border-neutral-800">
+              <h3 className="text-lg font-semibold">{faq.question}</h3>
+              <p className="mt-2 text-neutral-300">{faq.answer}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
   );
-};
-
-export default FAQSection;
+}
