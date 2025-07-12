@@ -1,149 +1,120 @@
-import React, { useState } from 'react';
+import React from "react";
 
-const SignUp = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [address, setAddress] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const [phoneCountryCode, setPhoneCountryCode] = useState('+44');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [confirmEmail, setConfirmEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [error, setError] = useState('');
-
-  const handleSignUp = (e) => {
-    e.preventDefault();
-
-    if (email !== confirmEmail) {
-      setError('E-postadressene samsvarer ikke');
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setError('Passordene samsvarer ikke');
-      return;
-    }
-
-    try {
-      // Her kan du legge inn API-kall for registrering
-      console.log('User signed up:', {
-        firstName, lastName, address, zipCode, phone: `${phoneCountryCode}${phone}`, email, companyName
-      });
-      alert('Registrering fullført!');
-    } catch (err) {
-      setError('Feil under registrering');
-    }
-  };
-
+export default function SignUp() {
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-3xl mb-4">Sign Up</h2>
-      {error && <div className="text-red-500 mb-2">{error}</div>}
-      <form onSubmit={handleSignUp}>
-        <input
-          type="text"
-          placeholder="Fornavn"
-          className="w-full mb-4 p-2 border rounded"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Etternavn"
-          className="w-full mb-4 p-2 border rounded"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Adresse"
-          className="w-full mb-4 p-2 border rounded"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Postnummer"
-          className="w-full mb-4 p-2 border rounded"
-          value={zipCode}
-          onChange={(e) => setZipCode(e.target.value)}
-          required
-        />
-        <div className="flex mb-4">
-          <input
-            type="text"
-            placeholder="+44"
-            className="w-20 p-2 border rounded mr-2"
-            value={phoneCountryCode}
-            onChange={(e) => setPhoneCountryCode(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Telefonnummer"
-            className="flex-1 p-2 border rounded"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-          />
+    <div className="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-lg">
+        <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900">
+          Create your account
+        </h2>
+
+        {/* Plan selection */}
+        <div>
+          <label htmlFor="plan" className="block text-sm font-medium text-gray-700">
+            Select your plan
+          </label>
+          <select
+            id="plan"
+            name="plan"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500"
+          >
+            <option value="crm">AI Survey + Full CRM (£149 / month)</option>
+            <option value="survey">AI Survey Access Only (£49 / month)</option>
+          </select>
         </div>
-        <input
-          type="email"
-          placeholder="E-post"
-          className="w-full mb-4 p-2 border rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Bekreft E-post"
-          className="w-full mb-4 p-2 border rounded"
-          value={confirmEmail}
-          onChange={(e) => setConfirmEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Passord"
-          className="w-full mb-4 p-2 border rounded"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Bekreft Passord"
-          className="w-full mb-4 p-2 border rounded"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Firmanavn"
-          className="w-full mb-4 p-2 border rounded"
-          value={companyName}
-          onChange={(e) => setCompanyName(e.target.value)}
-          required
-        />
-        <button type="submit" className="w-full bg-black text-white p-2 rounded hover:bg-gray-800">
-          Sign Up
-        </button>
-      </form>
-      <div className="mt-4">
-        <p>
-          Allerede registrert? <a href="/login" className="text-blue-500">Log In</a>
-        </p>
+
+        <form className="mt-6 space-y-4">
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First name"
+            required
+            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+          />
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last name"
+            required
+            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+          />
+          <input
+            type="text"
+            name="address"
+            placeholder="Address"
+            required
+            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+          />
+          <input
+            type="text"
+            name="zip"
+            placeholder="Zip code"
+            required
+            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+          />
+          <div className="flex">
+            <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+              +44
+            </span>
+            <input
+              type="text"
+              name="phone"
+              placeholder="Phone number"
+              required
+              className="appearance-none rounded-r relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+            />
+          </div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+          />
+          <input
+            type="email"
+            name="confirmEmail"
+            placeholder="Confirm email"
+            required
+            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+          />
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm password"
+            required
+            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+          />
+          <input
+            type="text"
+            name="company"
+            placeholder="Company name"
+            required
+            className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+          />
+
+          <button
+            type="submit"
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+          >
+            Sign Up
+          </button>
+        </form>
+
+        <div className="text-sm text-center">
+          Already have an account?{" "}
+          <a href="/login" className="font-medium text-orange-600 hover:text-orange-500">
+            Log in
+          </a>
+        </div>
       </div>
     </div>
   );
-};
-
-export default SignUp;
+}
