@@ -32,11 +32,12 @@ function App() {
                 <section id="faq">
                   <FAQSection />
                 </section>
-                <Footer />
               </>
             }
           />
         </Routes>
+
+        <Footer />
       </div>
     </Router>
   );
