@@ -5,7 +5,9 @@ import Hero from "./components/Hero";
 import Benefits from "./components/Benefits";
 import Prices from "./components/Prices";
 import FAQSection from "./components/FAQSection";
+import CallToAction from "./components/CallToAction";
 import Footer from "./components/Footer";
+import AiSurvey from "./components/AiSurvey";
 import Login from "./components/LogIn";
 import SignUp from "./components/SignUp";
 
@@ -20,8 +22,10 @@ export default function App() {
             <>
               <Hero />
               <Benefits />
+              <AiSurvey />
               <Prices />
               <FAQSection />
+              <CallToAction />
               <Footer />
             </>
           }
