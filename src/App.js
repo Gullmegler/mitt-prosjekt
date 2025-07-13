@@ -1,22 +1,31 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Benefits from "./components/Benefits";
-import AiSurvey from "./components/AiSurvey";
 import Prices from "./components/Prices";
 import FAQSection from "./components/FAQSection";
 import Footer from "./components/Footer";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 
 function App() {
   return (
-    <>
+    <Router>
       <Navbar />
-      <Hero />
-      <Benefits />
-      <AiSurvey />
-      <Prices />
-      <FAQSection />
-      <Footer />
-    </>
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Hero />
+            <Benefits />
+            <Prices />
+            <FAQSection />
+            <Footer />
+          </>
+        } />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </Router>
   );
 }
 
