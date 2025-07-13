@@ -13,15 +13,18 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={
-          <>
-            <Hero />
-            <Benefits />
-            <Prices />
-            <FAQSection />
-            <Footer />
-          </>
-        } />
+        <Route
+          path="/"
+          element={
+            <>
+              <Hero />
+              <Benefits />
+              <Prices />
+              <FAQSection />
+              <Footer />
+            </>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
