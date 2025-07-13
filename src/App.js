@@ -6,7 +6,7 @@ import Benefits from "./components/Benefits";
 import Prices from "./components/Prices";
 import FAQSection from "./components/FAQSection";
 import Footer from "./components/Footer";
-import Login from "./components/LogIn";
+import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 
 export default function App() {
@@ -26,7 +26,7 @@ export default function App() {
             </>
           }
         />
-        <Route path="/login" element={<LogIn />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Router>
