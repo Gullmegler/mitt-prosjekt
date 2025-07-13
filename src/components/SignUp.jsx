@@ -28,6 +28,9 @@ export default function SignUp() {
         >
           Sign Up
         </button>
+        <p className="mt-4 text-center">
+          Already have an account? <a href="/login" className="text-blue-500">Log In</a>
+        </p>
       </form>
     </div>
   );
