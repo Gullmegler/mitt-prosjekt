@@ -10,9 +10,10 @@ export default function Navbar() {
       </div>
       <div className="space-x-4">
         <a href="#benefits" className="hover:text-pink-500">Benefits</a>
+        <a href="#aisurvey" className="hover:text-pink-500">AI Survey</a>
         <a href="#prices" className="hover:text-pink-500">Prices</a>
         <a href="#faq" className="hover:text-pink-500">FAQ</a>
-        <a href="#contact" className="hover:text-pink-500">Contact</a>
+        <a href="#calltoaction" className="hover:text-pink-500">Contact</a>
         <Link to="/signup" className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded">Sign Up</Link>
         <Link to="/login" className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">Log In</Link>
       </div>
