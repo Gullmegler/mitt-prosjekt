@@ -6,7 +6,7 @@ import Benefits from "./components/Benefits";
 import Prices from "./components/Prices";
 import FAQSection from "./components/FAQSection";
 import Footer from "./components/Footer";
-import Login from "./components/Login";
+import Login from "./components/LogIn";
 import SignUp from "./components/SignUp";
 
 export default function App() {
