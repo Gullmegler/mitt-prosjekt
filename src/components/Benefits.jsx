@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Benefits() {
   return (
-    <section className="bg-github text-white flex flex-col md:flex-row items-center px-6 py-16">
+    <section id="benefits" className="bg-github text-white py-20 px-6 flex flex-col md:flex-row items-center">
       <div className="flex-1">
         <h2 className="text-3xl font-bold mb-6">Why Use AI Removals CRM</h2>
         <ul className="space-y-4">
