@@ -13,19 +13,42 @@ export default function SignUp() {
     }
   }, [location.search]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Her kan du sende data til backend, eller håndtere innsending
+    console.log("Submitted email:", email);
+  };
+
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
-      <form>
+    <div className="bg-[#0d1117] text-white min-h-screen flex flex-col justify-center items-center px-4">
+      <h1 className="text-3xl md:text-4xl font-bold mb-6">Sign Up</h1>
+      <form onSubmit={handleSubmit} className="bg-[#161b22] p-6 rounded w-full max-w-md shadow">
         <input
           type="email"
           value={email}
           placeholder="Your email"
           onChange={(e) => setEmail(e.target.value)}
-          className="border rounded px-3 py-2 w-full"
+          className="border border-gray-700 rounded px-4 py-3 w-full mb-4 text-black"
+          required
         />
-        {/* legg til resten av feltene */}
-        <button type="submit" className="bg-pink-500 text-white px-4 py-2 rounded mt-4">Submit</button>
+        <input
+          type="text"
+          placeholder="Full name"
+          className="border border-gray-700 rounded px-4 py-3 w-full mb-4 text-black"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="border border-gray-700 rounded px-4 py-3 w-full mb-4 text-black"
+          required
+        />
+        <button
+          type="submit"
+          className="bg-green-600 text-white px-6 py-3 rounded w-full font-semibold hover:bg-green-700 transition"
+        >
+          Create Account
+        </button>
       </form>
     </div>
   );
