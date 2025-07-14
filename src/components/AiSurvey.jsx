@@ -1,49 +1,31 @@
 import React from "react";
 
 export default function AiSurvey() {
+  const steps = [
+    {
+      title: "Step 1: Capture",
+      description: "Customers take photos or videos of their rooms and items."
+    },
+    {
+      title: "Step 2: AI Analyze",
+      description: "Our AI detects objects and generates an instant inventory."
+    },
+    {
+      title: "Step 3: Quote",
+      description: "You receive a ready-made summary to prepare a fast, accurate quote."
+    }
+  ];
+
   return (
-    <section
-      id="aisurvey"
-      className="py-20 flex justify-center px-4"
-      style={{
-        background: "linear-gradient(180deg, #E2D5FF 0%, #6A58D3 50%, #1D1B4F 100%)",
-      }}
-    >
-      <div className="bg-white/10 backdrop-blur-lg p-8 rounded-xl max-w-lg w-full text-white shadow-2xl text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-6">
-          How Our AI Survey Works
-        </h2>
-        <p className="text-gray-300 mb-8">
-          Our AI-driven survey helps your customers quickly and easily document their items before the move.
-        </p>
-
-        <div className="space-y-6 text-left">
-          <div className="bg-white/10 rounded-xl p-4">
-            <h3 className="font-semibold text-white mb-1">Step 1: Capture</h3>
-            <p className="text-gray-300">
-              Customers take photos or videos of their rooms and items.
-            </p>
+    <section id="survey" className="bg-gradient-to-b from-purple-700 to-purple-900 text-white py-20">
+      <h2 className="text-3xl font-bold text-center mb-10">How Our AI Survey Works</h2>
+      <div className="flex flex-col md:flex-row justify-center gap-6 max-w-5xl mx-auto">
+        {steps.map((step, index) => (
+          <div key={index} className="bg-purple-600 rounded-lg p-6 flex-1 shadow-lg">
+            <h3 className="font-bold mb-2">{step.title}</h3>
+            <p>{step.description}</p>
           </div>
-          <div className="bg-white/10 rounded-xl p-4">
-            <h3 className="font-semibold text-white mb-1">Step 2: AI Analyze</h3>
-            <p className="text-gray-300">
-              Our AI detects objects and generates an instant inventory.
-            </p>
-          </div>
-          <div className="bg-white/10 rounded-xl p-4">
-            <h3 className="font-semibold text-white mb-1">Step 3: Quote</h3>
-            <p className="text-gray-300">
-              You receive a ready-made summary to prepare a fast, accurate quote.
-            </p>
-          </div>
-        </div>
-
-        <a
-          href="https://aisurvey.airemovals.co.uk"
-          className="mt-8 inline-block bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded transition"
-        >
-          Try AI Survey
-        </a>
+        ))}
       </div>
     </section>
   );
