@@ -2,36 +2,31 @@ import React from "react";
 
 export default function Hero() {
   return (
-    <section
-      className="w-full py-20 flex flex-col items-center text-center"
-      style={{
-        background: "radial-gradient(circle at top center, #0d1117 0%, #0d1117 30%, #161b22 100%)",
-      }}
-    >
-      <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
+    <section className="flex flex-col items-center justify-center text-center py-20">
+      <h1 className="text-4xl md:text-5xl font-bold text-white">
         Sign Up for AI Removals CRM
       </h1>
-      <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl">
+      <p className="mt-4 text-lg text-white max-w-2xl">
         Join the most advanced AI-powered CRM for removals. Streamline your surveys and boost efficiency.
       </p>
-
-      <form className="flex flex-col md:flex-row items-center w-full max-w-md gap-3">
+      
+      <div className="flex flex-col md:flex-row gap-4 mt-8 w-full max-w-2xl">
         <input
           type="email"
           placeholder="Enter your email"
-          className="flex-1 px-4 py-3 rounded-md bg-gray-800 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-600"
+          className="px-4 py-2 bg-white text-black rounded-md flex-1 focus:outline-none"
         />
         <a
           href="/signup"
-          className="w-full md:w-auto px-6 py-3 rounded-md text-center font-semibold text-white bg-green-600 hover:bg-green-700 transition"
+          className="px-6 py-2 rounded-md bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold hover:opacity-90 transition whitespace-nowrap"
         >
           Sign up for AI Removals CRM
         </a>
-      </form>
+      </div>
 
       <a
         href="https://aisurvey.airemovals.co.uk"
-        className="mt-4 px-6 py-3 border border-white text-white rounded-md hover:bg-white hover:text-black transition"
+        className="mt-4 px-6 py-2 rounded-md border border-white text-white font-semibold hover:bg-white hover:text-black transition"
       >
         Try AI Survey
       </a>
