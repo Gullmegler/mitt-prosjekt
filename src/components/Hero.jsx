@@ -1,50 +1,41 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import removalsImage from "/public/removals-company.png";
 
 export default function Hero() {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
-  const handleSignupRedirect = () => {
-    if (email) {
-      window.location.href = `/signup?email=${encodeURIComponent(email)}`;
-    } else {
-      window.location.href = "/signup";
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/signup?email=${encodeURIComponent(email)}`);
   };
 
   return (
-    <section className="bg-[#0d1117] text-white text-center px-4 py-20">
-      <h1 className="text-4xl md:text-6xl font-bold mb-4">
+    <section className="bg-gradient-to-b from-[#0d1117] to-[#161b22] text-white text-center py-20 px-4">
+      <h1 className="text-4xl md:text-5xl font-bold mb-4">
         Best AI-powered CRM for Removal Company 2025
       </h1>
-      <p className="text-lg md:text-xl mb-8">
+      <p className="text-lg mb-6">
         Optimize your workflows, automate surveys, and grow your removal company with our specialized CRM solution.
       </p>
-      <div className="flex flex-col md:flex-row justify-center gap-4 mb-8">
+      <form onSubmit={handleSubmit} className="flex flex-col md:flex-row justify-center gap-4 mb-6">
         <input
           type="email"
-          placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="px-4 py-3 rounded w-full md:w-80 text-black"
+          placeholder="Enter your email"
+          className="px-4 py-2 rounded w-full md:w-72 text-black"
+          required
         />
-        <button
-          onClick={handleSignupRedirect}
-          className="bg-green-600 px-6 py-3 rounded text-white font-semibold"
-        >
+        <button type="submit" className="bg-green-600 px-4 py-2 rounded text-white">
           Sign Up
         </button>
-        <a
-          href="#aisurvey"
-          className="border border-white px-6 py-3 rounded text-white font-semibold text-center"
-        >
+        <a href="#survey" className="border border-white px-4 py-2 rounded text-white">
           Try AI Survey
         </a>
-      </div>
-      <img
-        src="/survey-agent.png"
-        alt="Survey agent"
-        className="mx-auto mt-10 w-full max-w-md"
-      />
+      </form>
+      <img src={removalsImage} alt="Removals Company" className="mx-auto mt-8 max-h-96 object-contain" />
     </section>
   );
 }
