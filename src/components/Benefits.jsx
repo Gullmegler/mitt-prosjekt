@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import surveyAgent from "../assets/surveyAgent.png";
 
 export default function Benefits() {
   return (
@@ -15,7 +14,12 @@ export default function Benefits() {
           <li>Boost number of surveys by 60%</li>
         </ul>
         <div className="mt-8 flex justify-center">
-          <Image src={surveyAgent} alt="Survey Agent" className="rounded-lg shadow-lg w-1/2 object-contain" priority />
+          <Image
+            src="/surveyAgent.png"
+            alt="Survey Agent"
+            className="rounded-lg shadow-lg w-1/2 object-contain"
+            priority
+          />
         </div>
       </div>
     </section>
