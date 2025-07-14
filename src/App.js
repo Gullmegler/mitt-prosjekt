@@ -10,7 +10,7 @@ import Footer from "./components/Footer";
 
 export default function App() {
   return (
-    <div className="bg-github text-white">
+    <>
       <Navbar />
       <Hero />
       <Benefits />
@@ -19,6 +19,6 @@ export default function App() {
       <FAQ />
       <CallToAction />
       <Footer />
-    </div>
+    </>
   );
 }
