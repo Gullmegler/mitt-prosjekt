@@ -1,6 +1,3 @@
-import React from "react";
-import surveyAgent from "/public/survey-agent.png";
-
 export default function Benefits() {
   return (
     <section className="bg-github text-white px-4 py-20 flex flex-col md:flex-row items-center justify-between">
@@ -21,7 +18,7 @@ export default function Benefits() {
           </li>
         ))}
       </ul>
-      <img src={surveyAgent} alt="Survey Agent" className="md:w-1/2 max-w-xs" />
+      <img src="/survey-agent.png" alt="Survey Agent" className="md:w-1/2 max-w-xs" />
     </section>
   );
 }
