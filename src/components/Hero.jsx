@@ -2,27 +2,45 @@ import React from "react";
 
 export default function Hero() {
   return (
-    <div className="flex flex-col items-center justify-center text-center py-32">
-      <h1 className="text-4xl md:text-6xl font-bold mb-4">Sign Up for CRM</h1>
-      <p className="text-lg md:text-xl mb-8">
+    <section
+      className="text-center py-20 px-4"
+      style={{
+        background: "radial-gradient(circle at bottom center, #E2D5FF 0%, #6A58D3 40%, #1D1B4F 100%)",
+        color: "white",
+      }}
+    >
+      <h1 className="text-4xl md:text-5xl font-bold mb-4">
+        Sign Up for CRM
+      </h1>
+      <p className="text-lg md:text-xl mb-6">
         Join the most advanced AI-powered CRM for removals. Streamline your surveys and boost efficiency.
       </p>
-      <div className="flex flex-col md:flex-row items-center gap-4 w-full max-w-md">
+      <div className="flex flex-col md:flex-row justify-center gap-2 mb-8">
         <input
           type="email"
           placeholder="Enter your email"
-          className="w-full px-4 py-2 rounded-md bg-white text-black focus:outline-none"
+          className="px-4 py-2 rounded-md text-black w-full md:w-64"
         />
-        <button className="bg-gradient-to-r from-pink-500 to-purple-500 px-6 py-2 rounded-md font-semibold text-white">
-          Sign up for AI Removals CRM
-        </button>
+        <a
+          href="/signup"
+          className="px-6 py-2 rounded-md bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold hover:opacity-90 text-center"
+        >
+          Sign Up for CRM
+        </a>
       </div>
-      <button
-        className="mt-4 border border-white px-6 py-2 rounded-md font-medium hover:bg-white hover:text-black transition"
-        onClick={() => window.location.href = "https://aisurvey.airemovals.co.uk"}
+      <a
+        href="https://aisurvey.airemovals.co.uk"
+        className="px-6 py-2 rounded-md border border-white text-white hover:bg-white hover:text-black transition"
       >
         Try AI Survey
-      </button>
-    </div>
+      </a>
+      <div className="mt-10 flex justify-center">
+        <img
+          src="/removals-company.png"
+          alt="CRM illustration"
+          className="w-full max-w-3xl"
+        />
+      </div>
+    </section>
   );
 }
