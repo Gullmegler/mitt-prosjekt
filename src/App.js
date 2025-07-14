@@ -8,7 +8,7 @@ import FAQSection from "./components/FAQSection";
 import CallToAction from "./components/CallToAction";
 import Footer from "./components/Footer";
 import AiSurvey from "./components/AiSurvey";
-import Login from "./components/LogIn";
+import LogIn from "./components/LogIn";
 import SignUp from "./components/SignUp";
 
 export default function App() {
