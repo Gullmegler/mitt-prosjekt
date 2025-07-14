@@ -30,9 +30,12 @@ export default function Prices() {
           </div>
         </div>
 
-        <button className="mt-8 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded transition">
+        <a
+          href="/signup"
+          className="mt-8 inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded transition"
+        >
           Try now
-        </button>
+        </a>
       </div>
     </section>
   );
