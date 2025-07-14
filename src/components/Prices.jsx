@@ -1,52 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function Prices() {
-  const [selected, setSelected] = useState("monthly");
-
   return (
-    <section className="bg-[#0d1117] text-white py-20 px-4 flex justify-center">
-      <div className="bg-[#161b22] border border-gray-700 rounded-xl w-full max-w-xl p-8">
-        <h2 className="text-2xl md:text-3xl font-extrabold mb-6 text-center">Try AI Removals CRM for Free</h2>
+    <section className="bg-github text-white py-16 px-4 flex justify-center">
+      <div className="bg-gradient-to-b from-[#1f2937]/60 to-[#1f2937]/30 backdrop-blur-sm border border-gray-600 rounded-2xl shadow-xl max-w-lg w-full p-8 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">
+          Try AI Removals CRM for Free
+        </h2>
+        <p className="text-gray-300 mb-8">Everything included:</p>
 
-        <div className="border-t border-gray-700 pt-6">
-          <p className="mb-4 font-semibold text-gray-300">Everything included:</p>
-          <ul className="list-none space-y-2 text-gray-400 text-sm">
-            <li>✔️ Full CRM access with automation & AI surveys</li>
-            <li>✔️ Calendar, job tracking & invoicing system</li>
-            <li>✔️ Vehicle and crew management</li>
-            <li>✔️ Dashboard with smart reminders</li>
-            <li>✔️ Photo & video survey uploads</li>
-          </ul>
-        </div>
+        <ul className="text-gray-400 text-left space-y-2">
+          <li>✓ Full CRM access with automation & AI surveys</li>
+          <li>✓ Calendar, job tracking & invoicing system</li>
+          <li>✓ Vehicle and crew management</li>
+          <li>✓ Dashboard with smart reminders</li>
+          <li>✓ Photo & video survey uploads</li>
+        </ul>
 
-        <div className="border-t border-gray-700 pt-6 mt-6">
-          <p className="mb-4 font-semibold text-gray-300">Billing frequency after free trial</p>
-
-          <div className="flex flex-col md:flex-row gap-4">
-            <button
-              onClick={() => setSelected("monthly")}
-              className={`flex-1 border rounded p-4 ${
-                selected === "monthly" ? "border-blue-500 bg-[#21262d]" : "border-gray-700 bg-transparent"
-              }`}
-            >
-              <p className="font-medium text-white">Pay monthly</p>
-              <p className="text-lg font-extrabold mt-2">£149 <span className="font-normal text-sm">/ month</span></p>
-            </button>
-            <button
-              onClick={() => setSelected("yearly")}
-              className={`flex-1 border rounded p-4 ${
-                selected === "yearly" ? "border-blue-500 bg-[#21262d]" : "border-gray-700 bg-transparent"
-              }`}
-            >
-              <p className="font-medium text-white">Pay yearly <span className="text-green-500">Save £300</span></p>
-              <p className="text-lg font-extrabold mt-2">£1,488 <span className="font-normal text-sm">/ year</span></p>
-            </button>
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-[#ffffff0a] rounded-xl p-4 shadow-inner">
+            <h3 className="font-semibold text-white mb-2">Pay monthly</h3>
+            <p className="text-lg font-bold">£149 / month</p>
+          </div>
+          <div className="bg-[#ffffff0a] rounded-xl p-4 shadow-inner">
+            <h3 className="font-semibold text-white mb-2">
+              Pay yearly <span className="text-green-400">Save £300</span>
+            </h3>
+            <p className="text-lg font-bold">£1,488 / year</p>
           </div>
         </div>
 
-        <button
-          className="mt-8 w-full bg-green-500 hover:bg-green-600 text-black font-bold py-3 rounded transition-all"
-        >
+        <button className="mt-8 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded transition">
           Try now
         </button>
       </div>
