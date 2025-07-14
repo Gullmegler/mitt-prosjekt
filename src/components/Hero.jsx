@@ -3,24 +3,21 @@ import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
-    <section className="relative text-white text-center py-24 px-4 overflow-hidden">
-      {/* Bakgrunnsbilde */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <img
-          src="/removals-company.png"
-          alt="Removal Company"
-          className="object-cover w-full h-full opacity-80"
-        />
-      </div>
+    <section
+      className="relative text-white text-center py-24 px-4 bg-cover bg-center"
+      style={{ backgroundImage: "url('/removals-company.png')" }}
+    >
+      {/* Overlegg */}
+      <div className="absolute inset-0 bg-black bg-opacity-50 -z-10"></div>
 
       {/* SEO-vennlig H1 */}
       <h1 className="text-4xl md:text-5xl font-bold mb-4">
-        Best AI-powered CRM for Removal Companies 2025
+        Best AI-powered CRM for Removal Company 2025
       </h1>
 
       {/* Undertekst */}
       <p className="max-w-2xl mx-auto text-lg md:text-xl mb-8">
-        Streamline operations, automate surveys, and elevate your moving business with a purpose-built CRM solution.
+        Streamline your operations, automate surveys, and boost efficiency with our CRM solution for removal companies.
       </p>
 
       {/* Input og knapper */}
