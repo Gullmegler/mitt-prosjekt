@@ -1,40 +1,27 @@
 import React from "react";
+import surveyAgent from "/public/survey-agent.png";
 
 export default function Benefits() {
   return (
-    <section id="benefits" className="bg-github text-white py-20 px-6 flex flex-col md:flex-row items-center">
-      <div className="flex-1">
-        <h2 className="text-3xl font-bold mb-6">Why Use AI Removals CRM</h2>
-        <ul className="space-y-4">
-          <li className="flex items-start">
-            <span className="bg-green-600 text-white rounded-full p-1 mr-3 mt-1">✔</span>
-            Dashboard with full control and real-time overview
+    <section className="bg-github text-white px-4 py-20 flex flex-col md:flex-row items-center justify-between">
+      <ul className="mb-8 md:mb-0 md:w-1/2">
+        <h2 className="text-2xl font-bold mb-4">Why Use AI Removals CRM</h2>
+        {[
+          "Dashboard with full control and real-time overview",
+          "CRM calendar with all job details — no extra clicks",
+          "AI advice with smart task reminders",
+          "AI-integrated video & photo surveys that impress customers",
+          "Boost number of surveys by 60%",
+        ].map((text, index) => (
+          <li key={index} className="flex items-center mb-2">
+            <span className="inline-flex justify-center items-center w-6 h-6 rounded-full bg-primary text-white mr-2">
+              ✓
+            </span>
+            {text}
           </li>
-          <li className="flex items-start">
-            <span className="bg-green-600 text-white rounded-full p-1 mr-3 mt-1">✔</span>
-            CRM calendar with all job details — no extra clicks
-          </li>
-          <li className="flex items-start">
-            <span className="bg-green-600 text-white rounded-full p-1 mr-3 mt-1">✔</span>
-            AI advice with smart task reminders
-          </li>
-          <li className="flex items-start">
-            <span className="bg-green-600 text-white rounded-full p-1 mr-3 mt-1">✔</span>
-            AI-integrated video & photo surveys that impress customers
-          </li>
-          <li className="flex items-start">
-            <span className="bg-green-600 text-white rounded-full p-1 mr-3 mt-1">✔</span>
-            Boost number of surveys by 60%
-          </li>
-        </ul>
-      </div>
-      <div className="flex-1 mt-10 md:mt-0 md:ml-10">
-        <img
-          src="/survey-agent.png"
-          alt="Survey agent"
-          className="w-full max-w-md mx-auto"
-        />
-      </div>
+        ))}
+      </ul>
+      <img src={surveyAgent} alt="Survey Agent" className="md:w-1/2 max-w-xs" />
     </section>
   );
 }
