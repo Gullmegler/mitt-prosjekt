@@ -32,9 +32,12 @@ export default function AiSurvey() {
           </div>
         </div>
 
-        <button className="mt-8 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded transition">
+        <a
+          href="https://aisurvey.airemovals.co.uk"
+          className="mt-8 inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded transition"
+        >
           Try AI Survey
-        </button>
+        </a>
       </div>
     </section>
   );
