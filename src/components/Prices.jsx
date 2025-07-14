@@ -2,40 +2,27 @@ import React from "react";
 
 export default function Prices() {
   return (
-    <section className="bg-github text-white py-16 px-4 flex justify-center">
-      <div className="bg-gradient-to-b from-[#1f2937]/60 to-[#1f2937]/30 backdrop-blur-sm border border-gray-600 rounded-2xl shadow-xl max-w-lg w-full p-8 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-6">
-          Try AI Removals CRM for Free
-        </h2>
-        <p className="text-gray-300 mb-8">Everything included:</p>
-
-        <ul className="text-gray-400 text-left space-y-2">
-          <li>✓ Full CRM access with automation & AI surveys</li>
-          <li>✓ Calendar, job tracking & invoicing system</li>
-          <li>✓ Vehicle and crew management</li>
-          <li>✓ Dashboard with smart reminders</li>
-          <li>✓ Photo & video survey uploads</li>
+    <section id="prices" className="py-20 flex justify-center items-center">
+      <div className="bg-white/10 backdrop-blur-lg p-8 rounded-xl shadow-2xl max-w-md w-full text-white">
+        <h2 className="text-2xl font-bold mb-4 text-center">Try AI Removals CRM for Free</h2>
+        <ul className="text-left mb-6 space-y-2">
+          <li>Full CRM access with automation & AI surveys</li>
+          <li>Calendar, job tracking & invoicing system</li>
+          <li>Vehicle and crew management</li>
+          <li>Dashboard with smart reminders</li>
+          <li>Photo & video survey uploads</li>
         </ul>
-
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-[#ffffff0a] rounded-xl p-4 shadow-inner">
-            <h3 className="font-semibold text-white mb-2">Pay monthly</h3>
-            <p className="text-lg font-bold">£149 / month</p>
-          </div>
-          <div className="bg-[#ffffff0a] rounded-xl p-4 shadow-inner">
-            <h3 className="font-semibold text-white mb-2">
-              Pay yearly <span className="text-green-400">Save £300</span>
-            </h3>
-            <p className="text-lg font-bold">£1,488 / year</p>
-          </div>
+        <div className="flex justify-center gap-4 mb-4">
+          <button className="px-4 py-2 border border-white rounded-md hover:bg-white hover:text-black transition">
+            Pay monthly £149
+          </button>
+          <button className="px-4 py-2 border border-white rounded-md hover:bg-white hover:text-black transition">
+            Pay yearly £1488
+          </button>
         </div>
-
-        <a
-          href="/signup"
-          className="mt-8 inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded transition"
-        >
+        <button className="w-full px-4 py-2 rounded-md bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold hover:opacity-90 transition">
           Try now
-        </a>
+        </button>
       </div>
     </section>
   );
