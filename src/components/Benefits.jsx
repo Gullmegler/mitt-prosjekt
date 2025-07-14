@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 export default function Benefits() {
   return (
@@ -14,11 +13,10 @@ export default function Benefits() {
           <li>Boost number of surveys by 60%</li>
         </ul>
         <div className="mt-8 flex justify-center">
-          <Image
-            src="/surveyAgent.png"
-            alt="Survey Agent"
+          <img
+            src="/removals-company.png"
+            alt="Removals Company"
             className="rounded-lg shadow-lg w-1/2 object-contain"
-            priority
           />
         </div>
       </div>
