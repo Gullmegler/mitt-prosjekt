@@ -1,27 +1,50 @@
-import React from "react";
+import { useState } from "react";
 
 export default function Hero() {
+  const [email, setEmail] = useState("");
+
+  const handleSignupRedirect = () => {
+    if (email) {
+      window.location.href = `/signup?email=${encodeURIComponent(email)}`;
+    } else {
+      window.location.href = "/signup";
+    }
+  };
+
   return (
-    <section className="bg-gradient-to-b from-purple-700 to-purple-900 text-white py-24 text-center">
-      <h1 className="text-4xl md:text-5xl font-bold mb-4">
-        Best AI-powered CRM for Removal Companies 2025
+    <section className="bg-[#0d1117] text-white text-center px-4 py-20">
+      <h1 className="text-4xl md:text-6xl font-bold mb-4">
+        Best AI-powered CRM for Removal Company 2025
       </h1>
-      <p className="text-lg md:text-xl mb-6 max-w-3xl mx-auto">
-        Grow your removal company with our tailored AI CRM — streamline tasks, automate surveys, and boost efficiency.
+      <p className="text-lg md:text-xl mb-8">
+        Optimize your workflows, automate surveys, and grow your removal company with our specialized CRM solution.
       </p>
-      <div className="flex justify-center gap-2">
+      <div className="flex flex-col md:flex-row justify-center gap-4 mb-8">
         <input
           type="email"
           placeholder="Enter your email"
-          className="px-4 py-2 rounded text-black"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="px-4 py-3 rounded w-full md:w-80 text-black"
         />
         <button
-          onClick={() => window.location.href = "/signup"}
-          className="bg-pink-500 hover:bg-pink-600 text-white px-5 py-2 rounded"
+          onClick={handleSignupRedirect}
+          className="bg-green-600 px-6 py-3 rounded text-white font-semibold"
         >
-          Sign Up CRM
+          Sign Up
         </button>
+        <a
+          href="#aisurvey"
+          className="border border-white px-6 py-3 rounded text-white font-semibold text-center"
+        >
+          Try AI Survey
+        </a>
       </div>
+      <img
+        src="/survey-agent.png"
+        alt="Survey agent"
+        className="mx-auto mt-10 w-full max-w-md"
+      />
     </section>
   );
 }
