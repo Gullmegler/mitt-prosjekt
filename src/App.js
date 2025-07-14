@@ -4,7 +4,7 @@ import Hero from "./components/Hero";
 import Benefits from "./components/Benefits";
 import AiSurvey from "./components/AiSurvey";
 import Prices from "./components/Prices";
-import FAQ from "./components/FAQ";
+import FAQ from "./components/FAQSection";
 import CallToAction from "./components/CallToAction";
 import Footer from "./components/Footer";
 
