@@ -1,7 +1,8 @@
 import React from "react";
+import surveyImage from "/public/survey-agent.png";
 
 export default function Benefits() {
-  const points = [
+  const benefits = [
     "Dashboard with full control and real-time overview",
     "CRM calendar with all job details — no extra clicks",
     "AI advice with smart task reminders",
@@ -10,29 +11,25 @@ export default function Benefits() {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-[#0d1117] to-[#161b22] text-white py-20">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
-        <div className="md:w-1/2">
-          <h2 className="text-3xl font-bold mb-6">Why Use AI Removals CRM</h2>
-          <ul className="space-y-4">
-            {points.map((point, index) => (
-              <li key={index} className="flex items-start">
-                <span className="bg-green-600 rounded-full text-white w-6 h-6 flex items-center justify-center mr-3">
-                  ✓
-                </span>
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="md:w-1/2 mt-10 md:mt-0 flex justify-center">
-          <img
-            src="/survey-agent.png"
-            alt="Survey Agent"
-            className="w-full max-w-sm"
-          />
-        </div>
+    <section className="flex flex-col md:flex-row items-center justify-between gap-10 p-10 bg-background">
+      <div className="flex-1">
+        <h2 className="text-3xl font-bold mb-4">Why Use AI Removals CRM</h2>
+        <ul className="space-y-3">
+          {benefits.map((item, idx) => (
+            <li key={idx} className="flex items-center">
+              <span className="bg-primary rounded-full w-6 h-6 flex items-center justify-center text-white mr-3">
+                ✓
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
+      <img
+        src={surveyImage}
+        alt="Survey Agent"
+        className="flex-1 max-w-md rounded shadow"
+      />
     </section>
   );
 }
