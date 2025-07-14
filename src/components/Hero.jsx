@@ -1,24 +1,24 @@
 import React from "react";
-import { Sofa, Chair, Table } from "./icons";
 
 export default function Hero() {
   return (
-    <section className="bg-gradient-to-r from-indigo-900 via-purple-900 to-black text-white py-32 px-6 text-center">
-      <h1 className="text-5xl font-extrabold mb-6">AI-Powered CRM for Removals</h1>
-      <p className="max-w-2xl mx-auto mb-8 text-gray-300">
-        Streamline your removals business with advanced AI surveys, instant object detection,
-        and seamless CRM automation.
+    <section
+      className="w-full py-20 flex flex-col items-center text-center"
+      style={{
+        background: "radial-gradient(circle at top center, #0d1117 0%, #0d1117 30%, #161b22 100%)",
+      }}
+    >
+      <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+        AI-Powered CRM for Removals
+      </h1>
+      <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl">
+        Streamline your removals business with advanced AI surveys, instant object detection, and seamless CRM automation.
       </p>
       <button
-        className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-lg transition"
+        className="px-6 py-3 rounded-md font-semibold text-white bg-gradient-to-r from-pink-500 to-purple-600 hover:from-purple-600 hover:to-pink-500 transition"
       >
         Get Started
       </button>
-      <div className="flex justify-center gap-8 mt-12">
-        <Sofa className="w-16 h-16" />
-        <Chair className="w-16 h-16" />
-        <Table className="w-16 h-16" />
-      </div>
     </section>
   );
 }
