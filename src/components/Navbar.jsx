@@ -1,21 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Link as ScrollLink } from "react-scroll";
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-purple-800 to-purple-900 text-white fixed w-full z-50">
-      <div className="flex items-center">
-        <img src="/logo.png" alt="Logo" className="w-10 h-10 mr-2" />
-        <span className="text-lg font-bold">AI REMOVALS</span>
+    <nav
+      className="w-full flex items-center justify-between px-6 py-4"
+      style={{
+        background: "linear-gradient(90deg, #6e40c9 0%, #d14dea 100%)",
+      }}
+    >
+      <div className="flex items-center space-x-2">
+        <img src="/logo.png" alt="Logo" className="h-8" />
+        <span className="text-white font-bold">AI REMOVALS</span>
       </div>
-      <div className="flex space-x-6">
-        <ScrollLink to="benefits" smooth={true} offset={-70} className="cursor-pointer">Benefits</ScrollLink>
-        <ScrollLink to="prices" smooth={true} offset={-70} className="cursor-pointer">Prices</ScrollLink>
-        <ScrollLink to="faq" smooth={true} offset={-70} className="cursor-pointer">FAQ</ScrollLink>
-        <ScrollLink to="contact" smooth={true} offset={-70} className="cursor-pointer">Contact</ScrollLink>
-        <Link to="/signup" className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-1 px-4 rounded">Sign Up</Link>
-        <Link to="/login" className="border border-white text-white font-bold py-1 px-4 rounded">Log In</Link>
+      <div className="hidden md:flex space-x-6">
+        <a href="#benefits" className="text-white hover:underline">Benefits</a>
+        <a href="#prices" className="text-white hover:underline">Prices</a>
+        <a href="#faq" className="text-white hover:underline">FAQ</a>
+        <a href="#contact" className="text-white hover:underline">Contact</a>
+      </div>
+      <div className="flex space-x-2">
+        <button className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-md">Sign Up</button>
+        <button className="border border-white text-white px-4 py-2 rounded-md">Log In</button>
       </div>
     </nav>
   );
