@@ -2,23 +2,28 @@ import React from "react";
 
 export default function Hero() {
   return (
-    <section className="flex flex-col items-center justify-center text-center py-20">
-      <h1 className="text-4xl md:text-5xl font-bold text-white">
-        Sign Up for AI Removals CRM
+    <section
+      className="w-full pt-32 pb-20 flex flex-col items-center text-center"
+      style={{
+        background: "linear-gradient(180deg, #E2D5FF 0%, #6A58D3 50%, #1D1B4F 100%)",
+      }}
+    >
+      <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+        Sign Up for CRM
       </h1>
-      <p className="mt-4 text-lg text-white max-w-2xl">
+      <p className="text-white text-lg max-w-2xl mb-8">
         Join the most advanced AI-powered CRM for removals. Streamline your surveys and boost efficiency.
       </p>
-      
-      <div className="flex flex-col md:flex-row gap-4 mt-8 w-full max-w-2xl">
+
+      <div className="w-full max-w-2xl flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
         <input
           type="email"
           placeholder="Enter your email"
-          className="px-4 py-2 bg-white text-black rounded-md flex-1 focus:outline-none"
+          className="w-full md:flex-1 px-4 py-3 rounded-md border border-gray-300 focus:outline-none text-black bg-white"
         />
         <a
           href="/signup"
-          className="px-6 py-2 rounded-md bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold hover:opacity-90 transition whitespace-nowrap"
+          className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-md transition"
         >
           Sign up for AI Removals CRM
         </a>
@@ -26,7 +31,7 @@ export default function Hero() {
 
       <a
         href="https://aisurvey.airemovals.co.uk"
-        className="mt-4 px-6 py-2 rounded-md border border-white text-white font-semibold hover:bg-white hover:text-black transition"
+        className="mt-4 border border-white text-white px-6 py-3 rounded-md hover:bg-white hover:text-black transition"
       >
         Try AI Survey
       </a>
