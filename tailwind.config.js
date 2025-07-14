@@ -7,9 +7,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        githubBlue: "#101342",
-        lightHero: "#5648b1",
-        orange: "#f97316",
+        primary: "#101342", // Github-inspired dark blue
+        orange: "#f97316",  // Orange used for buttons and checkmarks
       },
     },
   },
