@@ -2,12 +2,12 @@
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html"
+    "./public/index.html",
   ],
   theme: {
     extend: {
       colors: {
-        githubbg: "#101342",
+        github: "#101342",
       },
     },
   },
