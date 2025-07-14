@@ -12,7 +12,6 @@ export default function App() {
   return (
     <div className="bg-background text-text">
       <Navbar />
-
       <main>
         <Hero />
         <section id="benefits" className="bg-background text-text">
@@ -31,7 +30,6 @@ export default function App() {
           <CallToAction />
         </section>
       </main>
-
       <Footer />
     </div>
   );
