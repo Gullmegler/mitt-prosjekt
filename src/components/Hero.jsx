@@ -3,40 +3,41 @@ import React from "react";
 export default function Hero() {
   return (
     <section
-      className="flex flex-col items-center justify-center text-center px-4 py-24"
+      className="text-center py-20 px-4"
       style={{
         background: "radial-gradient(circle at bottom center, #E2D5FF 0%, #6A58D3 40%, #1D1B4F 100%)",
       }}
     >
-      <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-        The Best AI-Powered CRM for Removals Companies in 2025
+      <h1 className="text-4xl md:text-6xl font-bold text-white">
+        AI-Powered CRM for Removals Companies 2025
       </h1>
-      <p className="text-lg md:text-xl text-white mb-8 max-w-2xl">
-        Automate surveys, manage bookings, and scale your removals business with our powerful AI CRM solution for 2025.
+      <p className="mt-4 text-lg md:text-xl text-white max-w-2xl mx-auto">
+        Grow your removals company with advanced AI surveys, instant object detection,
+        and seamless CRM automation — the smart way to manage moves.
       </p>
-      <div className="flex flex-col md:flex-row gap-4 w-full max-w-lg">
+      <form className="mt-8 flex flex-col md:flex-row justify-center gap-4">
         <input
           type="email"
           placeholder="Enter your email"
-          className="flex-1 px-4 py-3 rounded-md bg-white text-black placeholder-gray-600 focus:outline-none"
+          className="px-4 py-2 rounded-md text-black w-full md:w-auto"
         />
         <button
-          className="px-6 py-3 rounded-md font-medium bg-gradient-to-r from-pink-500 to-purple-500 text-white"
-          onClick={() => window.location.href = "/signup"}
+          type="submit"
+          className="px-6 py-2 rounded-md bg-gradient-to-r from-pink-500 to-purple-500 text-white font-medium"
         >
           Sign up for CRM
         </button>
-      </div>
-      <button
-        className="mt-4 px-6 py-3 rounded-md border border-white text-white hover:bg-white hover:text-black transition"
-        onClick={() => window.location.href = "https://aisurvey.airemovals.co.uk"}
-      >
-        Try AI Survey
-      </button>
+        <a
+          href="https://aisurvey.airemovals.co.uk"
+          className="px-6 py-2 rounded-md border border-white text-white font-medium hover:bg-white hover:text-black transition"
+        >
+          Try AI Survey
+        </a>
+      </form>
       <img
         src="/removals-company.png"
         alt="CRM illustration"
-        className="w-full max-w-3xl mt-12"
+        className="w-full max-w-3xl mx-auto mt-12"
       />
     </section>
   );
