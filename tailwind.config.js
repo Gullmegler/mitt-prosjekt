@@ -7,9 +7,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        github: "#191379", // Ny mørkeblå
-        primary: "#f97316", // Oransje for knapper og ikoner
-        dark: "#1f2937",
+        primary: "#f97316",
+        github: "#191379",
       },
     },
   },
