@@ -10,17 +10,17 @@ export default function Hero() {
       {/* Overlegg */}
       <div className="absolute inset-0 bg-black bg-opacity-50 -z-10"></div>
 
-      {/* SEO-vennlig H1 */}
+      {/* H1 */}
       <h1 className="text-4xl md:text-5xl font-bold mb-4">
         Best AI-powered CRM for Removal Company 2025
       </h1>
 
       {/* Undertekst */}
       <p className="max-w-2xl mx-auto text-lg md:text-xl mb-8">
-        Streamline your operations, automate surveys, and boost efficiency with our CRM solution for removal companies.
+        Optimize your workflows, automate surveys, and grow your removal company with our specialized CRM solution.
       </p>
 
-      {/* Input og knapper */}
+      {/* Input + knapper */}
       <div className="flex flex-col md:flex-row justify-center items-center gap-4">
         <input
           type="email"
