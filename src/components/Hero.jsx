@@ -2,29 +2,29 @@ import React from "react";
 
 export default function Hero() {
   return (
-    <section className="bg-github text-white px-4 py-20 text-center">
+    <section className="bg-gradient-to-b from-primaryDark to-primaryLight text-white flex flex-col items-center py-20 px-4 text-center">
       <h1 className="text-4xl md:text-5xl font-bold mb-4">
         Best AI-powered CRM for Removal Company 2025
       </h1>
-      <p className="text-lg mb-6">
+      <p className="text-lg mb-6 max-w-2xl">
         Optimize your workflows, automate surveys, and grow your removal company with our specialized CRM solution.
       </p>
-      <form className="flex flex-col sm:flex-row justify-center items-center gap-2 mb-8">
+      <div className="flex flex-col md:flex-row items-center gap-2 mb-10">
         <input
           type="email"
           placeholder="Enter your email"
-          className="px-4 py-2 rounded border w-64 text-black"
+          className="px-4 py-2 rounded w-64 text-black"
         />
-        <button type="submit" className="bg-primary text-white px-4 py-2 rounded">
-          Sign Up
-        </button>
-        <button type="button" className="border border-primary text-primary px-4 py-2 rounded">
+        <button className="bg-orange text-white px-4 py-2 rounded">Sign Up</button>
+        <button className="border border-orange text-orange px-4 py-2 rounded">
           Try AI Survey
         </button>
-      </form>
-      <div className="flex justify-center">
-        <img src="/removals-company.png" alt="Removals CRM" className="max-w-md w-full" />
       </div>
+      <img
+        src="/removals-company.png"
+        alt="CRM Illustration"
+        className="w-full max-w-md"
+      />
     </section>
   );
 }
