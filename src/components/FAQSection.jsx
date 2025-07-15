@@ -23,7 +23,7 @@ export default function FAQSection() {
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className="bg-[#1f2937] rounded-lg p-6 shadow hover:shadow-purple-600 transition-all"
+            className="bg-[#1f2937] rounded-lg p-6 shadow hover:shadow-purple-600 transition-all text-center"
           >
             <h3 className="text-lg font-semibold text-purple-400 mb-2">{faq.question}</h3>
             <p className="text-gray-300">{faq.answer}</p>
