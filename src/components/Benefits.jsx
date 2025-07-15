@@ -1,9 +1,8 @@
 import React from "react";
-import moverImage from "../assets/survey-agent.png"; // oppdater med riktig bilde
 
 const Benefits = () => {
   return (
-    <section id="benefits" className="flex flex-col md:flex-row items-center justify-center px-8 py-16 bg-[#111444]">
+    <section id="benefits" className="flex flex-col md:flex-row items-center justify-center gap-8">
       <div className="max-w-lg">
         <h2 className="text-3xl font-bold mb-6">Why Use AI Removals CRM</h2>
         <ul className="space-y-4">
@@ -15,7 +14,7 @@ const Benefits = () => {
         </ul>
       </div>
       <div className="mt-10 md:mt-0 md:ml-12">
-        <img src={moverImage} alt="Mover agent" className="w-full max-w-xs" />
+        <img src="/survey-agent.png" alt="Mover agent" className="w-full max-w-xs" />
       </div>
     </section>
   );
