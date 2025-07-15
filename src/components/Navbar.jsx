@@ -16,12 +16,12 @@ const Navbar = () => {
         </button>
       </div>
 
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center justify-center flex-1 lg:justify-start">
         <img src="/logo.png" alt="Logo" className="h-8" />
-        <span className="font-bold hidden lg:inline">AI Removals</span>
+        <span className="font-bold ml-2 hidden lg:inline">AI Removals</span>
       </div>
 
-      <div className="hidden lg:flex space-x-6">
+      <div className="hidden lg:flex space-x-6 ml-8">
         <a href="#benefits" className="hover:underline">Benefits</a>
         <a href="#prices" className="hover:underline">Pricing</a>
         <a href="#faq" className="hover:underline">FAQ</a>
@@ -38,6 +38,15 @@ const Navbar = () => {
         <Link
           to="/login"
           className="border border-white px-4 py-2 rounded hover:bg-purple-700 hover:text-white transition"
+        >
+          Log In
+        </Link>
+      </div>
+
+      <div className="flex items-center lg:hidden">
+        <Link
+          to="/login"
+          className="ml-2 bg-purple-600 px-3 py-1 rounded hover:bg-purple-700 transition text-sm"
         >
           Log In
         </Link>
