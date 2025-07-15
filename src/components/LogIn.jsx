@@ -1,48 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const LogIn = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
 
-  const handleLogIn = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    try {
-      console.log('User logged in with email:', email);
-      alert('Log in successful!');
-    } catch (err) {
-      setError('Error during log in');
+
+    // Eksempel: Kall til backend eller sjekk lokalt
+    // Her MÅ du bruke backend API som sjekker abonnementstype
+    // Dette er bare demo
+    if (email.includes("crm")) {
+      window.location.href = "https://crm.airemovals.co.uk";
+    } else if (email.includes("survey")) {
+      window.location.href = "https://aisurvey.airemovals.co.uk";
+    } else {
+      alert("Email not recognized. Please contact support.");
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen px-4" style={{
-      background: "radial-gradient(circle at bottom center, #E2D5FF 0%, #6A58D3 40%, #1D1B4F 100%)",
-    }}>
-      <form onSubmit={handleLogIn} className="bg-white/10 backdrop-blur-lg p-8 rounded-xl w-full max-w-md text-white shadow-2xl">
-        <h2 className="text-2xl font-bold mb-6 text-center">Log In</h2>
-        {error && <div className="text-red-500 mb-2">{error}</div>}
+    <section className="bg-[#5648b1] text-white py-20 px-6 min-h-screen text-center">
+      <h1 className="text-3xl font-bold mb-6">Log In</h1>
+      <form onSubmit={handleLogin} className="max-w-md mx-auto flex flex-col gap-4">
         <input
           type="email"
-          placeholder="Email"
-          className="w-full mb-4 p-2 rounded bg-white/20"
+          placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="px-4 py-3 rounded text-black focus:outline-none"
           required
         />
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full mb-6 p-2 rounded bg-white/20"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit" className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:opacity-90 text-white font-bold py-2 rounded transition">
+        <button
+          type="submit"
+          className="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 transition"
+        >
           Log In
         </button>
       </form>
-    </div>
+    </section>
   );
 };
 
