@@ -1,25 +1,40 @@
 import React from "react";
 
 export default function Prices() {
+  const plans = [
+    {
+      name: "Starter",
+      description: "Perfect for small teams starting out.",
+    },
+    {
+      name: "Professional",
+      description: "Best choice for growing removal companies.",
+    },
+    {
+      name: "Enterprise",
+      description: "Full control & advanced AI integrations.",
+    },
+  ];
+
   return (
-    <section id="pricing" className="py-20 bg-gradient-to-b from-purple-700 to-purple-900 text-white text-center px-6">
-      <h2 className="text-3xl md:text-4xl font-bold mb-12">Our Pricing Plans</h2>
-      <div className="flex flex-col md:flex-row justify-center gap-8 max-w-6xl mx-auto">
-        <div className="bg-purple-600 p-8 rounded-2xl shadow-xl flex-1 transition transform hover:-translate-y-2 hover:shadow-2xl">
-          <h3 className="text-2xl font-bold mb-4">Starter</h3>
-          <p className="mb-6">Perfect for small teams starting out.</p>
-          <button className="bg-pink-600 hover:bg-pink-700 px-8 py-3 rounded-full font-medium transition">Choose</button>
-        </div>
-        <div className="bg-purple-600 p-8 rounded-2xl shadow-xl flex-1 transition transform hover:-translate-y-2 hover:shadow-2xl">
-          <h3 className="text-2xl font-bold mb-4">Professional</h3>
-          <p className="mb-6">Best choice for growing removal companies.</p>
-          <button className="bg-pink-600 hover:bg-pink-700 px-8 py-3 rounded-full font-medium transition">Choose</button>
-        </div>
-        <div className="bg-purple-600 p-8 rounded-2xl shadow-xl flex-1 transition transform hover:-translate-y-2 hover:shadow-2xl">
-          <h3 className="text-2xl font-bold mb-4">Enterprise</h3>
-          <p className="mb-6">Full control & advanced AI integrations.</p>
-          <button className="bg-pink-600 hover:bg-pink-700 px-8 py-3 rounded-full font-medium transition">Choose</button>
-        </div>
+    <section
+      id="pricing"
+      className="bg-gradient-to-b from-[#0d0d1a] to-[#111144] text-white py-20"
+    >
+      <h2 className="text-3xl font-bold text-center mb-12">Our Pricing Plans</h2>
+      <div className="flex flex-col md:flex-row justify-center gap-6 max-w-6xl mx-auto px-4">
+        {plans.map((plan, index) => (
+          <div
+            key={index}
+            className="bg-[#1a1a2e] border border-purple-600 rounded-xl p-6 text-center shadow-lg hover:scale-105 transition-transform"
+          >
+            <h3 className="text-xl font-semibold mb-2">{plan.name}</h3>
+            <p className="mb-6 text-gray-300">{plan.description}</p>
+            <button className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-6 rounded-full transition">
+              Choose
+            </button>
+          </div>
+        ))}
       </div>
     </section>
   );
