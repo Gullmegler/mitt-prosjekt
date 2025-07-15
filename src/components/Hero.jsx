@@ -26,12 +26,10 @@ export default function Hero() {
         </button>
       </div>
       <img
-        src="/crm-illustration.png" // Pass på at filen ligger i public!
-        alt="CRM Illustration"
-        className="mx-auto"
+        src="/removals-company.png"
+        alt="Removals Company"
+        className="mx-auto mt-8 w-72 md:w-96"
       />
-
-      {/* Skille mellom seksjonene */}
       <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-b from-transparent to-[#292973]" />
     </section>
   );
