@@ -7,7 +7,6 @@ import Benefits from "./components/Benefits";
 import Prices from "./components/Prices";
 import FAQ from "./components/FAQSection";
 import CallToAction from "./components/CallToAction";
-import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Privacy from "./components/Privacy";
 import Terms from "./components/Terms";
@@ -29,7 +28,6 @@ function App() {
                 <Prices />
                 <FAQ />
                 <CallToAction />
-                <Contact />
               </>
             }
           />
