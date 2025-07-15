@@ -4,7 +4,7 @@ export default function Benefits() {
   return (
     <section
       id="benefits"
-      className="bg-[#292973] text-white py-20 px-4"
+      className="bg-[#292973] text-white py-20 px-4 relative"
     >
       <h2 className="text-3xl font-bold text-center mb-8">
         Why Use AI Removals CRM
@@ -15,6 +15,11 @@ export default function Benefits() {
         <p>💜 AI advice with smart task reminders</p>
         <p>💜 AI-integrated video & photo surveys that impress customers</p>
       </div>
+      <img
+        src="/survey-agent.png"
+        alt="Mover Agent"
+        className="mx-auto mt-12 w-64 md:w-80"
+      />
     </section>
   );
 }
