@@ -27,7 +27,7 @@ function App() {
                 <Hero />
                 <Benefits />
                 <Prices />
-                <FAQSection />
+                <FAQ />
                 <CallToAction />
                 <Contact />
               </>
