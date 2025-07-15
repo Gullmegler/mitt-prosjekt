@@ -1,23 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../../public/logo.png";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <nav className="bg-[#111444] text-white px-6 py-4 flex justify-between items-center">
-      <div className="flex items-center gap-2">
-        <img src="/logo.png" alt="Logo" className="h-8" />
-        <span className="font-bold text-lg">AI REMOVALS</span>
+    <nav className="bg-[#111144] text-white px-4 py-3 flex items-center justify-between">
+      <div className="md:hidden flex items-center">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="focus:outline-none"
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+            />
+          </svg>
+        </button>
       </div>
-      <div className="hidden md:flex gap-6">
-        <a href="#benefits" className="hover:text-purple-300 transition">Benefits</a>
-        <a href="#prices" className="hover:text-purple-300 transition">Prices</a>
-        <a href="#faq" className="hover:text-purple-300 transition">FAQ</a>
-        <a href="#contact" className="hover:text-purple-300 transition">Contact</a>
+
+      <div className="flex-1 flex justify-center">
+        <Link to="/">
+          <img src={logo} alt="Logo" className="h-8" />
+        </Link>
       </div>
-      <div className="flex gap-2">
-        <Link to="/login" className="border border-white px-4 py-2 rounded hover:bg-white hover:text-[#111444] transition">Log In</Link>
-        <Link to="/signup" className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">Sign Up</Link>
+
+      <div className="hidden md:flex">
+        <Link
+          to="/login"
+          className="border border-white px-4 py-1 rounded hover:bg-white hover:text-[#111144] transition"
+        >
+          Login
+        </Link>
       </div>
+
+      {isOpen && (
+        <div className="absolute top-14 left-0 w-full bg-[#111144] flex flex-col items-center md:hidden">
+          <Link to="/" className="py-2 hover:underline" onClick={() => setIsOpen(false)}>
+            Home
+          </Link>
+          <Link to="/signup" className="py-2 hover:underline" onClick={() => setIsOpen(false)}>
+            Sign Up
+          </Link>
+          <Link to="/login" className="py-2 hover:underline" onClick={() => setIsOpen(false)}>
+            Login
+          </Link>
+        </div>
+      )}
     </nav>
   );
 };
