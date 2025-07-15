@@ -1,22 +1,25 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const Navbar = () => {
   return (
-    <nav className="bg-[#111444] px-6 py-4 flex justify-between items-center">
+    <nav className="bg-[#111444] text-white px-6 py-4 flex justify-between items-center">
       <div className="flex items-center gap-2">
-        <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
-        <span className="font-bold text-white">AI Removals</span>
+        <img src="/logo.png" alt="Logo" className="h-8" />
+        <span className="font-bold text-lg">AI REMOVALS</span>
       </div>
-      <div className="flex gap-6 text-white">
-        <a href="#benefits" className="hover:underline">Benefits</a>
-        <a href="#prices" className="hover:underline">Prices</a>
-        <a href="#faq" className="hover:underline">FAQ</a>
-        <a href="#contact" className="hover:underline">Contact</a>
-        <button className="bg-orange-500 text-white px-4 py-1 rounded hover:bg-orange-600">Sign Up</button>
-        <button className="border border-white px-4 py-1 rounded hover:bg-white hover:text-black">Log In</button>
+      <div className="hidden md:flex gap-6">
+        <a href="#benefits" className="hover:text-purple-300 transition">Benefits</a>
+        <a href="#prices" className="hover:text-purple-300 transition">Prices</a>
+        <a href="#faq" className="hover:text-purple-300 transition">FAQ</a>
+        <a href="#contact" className="hover:text-purple-300 transition">Contact</a>
+      </div>
+      <div className="flex gap-2">
+        <Link to="/login" className="border border-white px-4 py-2 rounded hover:bg-white hover:text-[#111444] transition">Log In</Link>
+        <Link to="/signup" className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">Sign Up</Link>
       </div>
     </nav>
   );
 };
 
-export default NavBar;
+export default Navbar;
