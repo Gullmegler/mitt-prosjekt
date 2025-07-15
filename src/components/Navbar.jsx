@@ -1,23 +1,22 @@
 import React from "react";
-import logo from "../assets/logo.png";
 
-const Navbar = () => {
+const NavBar = () => {
   return (
-    <nav className="flex items-center justify-between px-6 py-4" style={{ backgroundColor: "#111444" }}>
-      <div className="flex items-center">
-        <img src={logo} alt="AI Removals Logo" className="h-8 mr-2" />
-        <span className="text-white font-semibold text-lg">AI REMOVALS</span>
+    <nav className="bg-[#111444] px-6 py-4 flex justify-between items-center">
+      <div className="flex items-center gap-2">
+        <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
+        <span className="font-bold text-white">AI Removals</span>
       </div>
-      <ul className="flex space-x-6 text-white">
-        <li><a href="#benefits" className="hover:underline">Benefits</a></li>
-        <li><a href="#prices" className="hover:underline">Prices</a></li>
-        <li><a href="#faq" className="hover:underline">FAQ</a></li>
-        <li><a href="#contact" className="hover:underline">Contact</a></li>
-        <li><a href="#signup" className="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded">Sign Up</a></li>
-        <li><a href="#login" className="border border-white px-3 py-1 rounded hover:bg-white hover:text-[#111444]">Log In</a></li>
-      </ul>
+      <div className="flex gap-6 text-white">
+        <a href="#benefits" className="hover:underline">Benefits</a>
+        <a href="#prices" className="hover:underline">Prices</a>
+        <a href="#faq" className="hover:underline">FAQ</a>
+        <a href="#contact" className="hover:underline">Contact</a>
+        <button className="bg-orange-500 text-white px-4 py-1 rounded hover:bg-orange-600">Sign Up</button>
+        <button className="border border-white px-4 py-1 rounded hover:bg-white hover:text-black">Log In</button>
+      </div>
     </nav>
   );
 };
 
-export default Navbar;
+export default NavBar;
