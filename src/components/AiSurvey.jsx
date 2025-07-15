@@ -17,12 +17,15 @@ export default function AiSurvey() {
   ];
 
   return (
-    <section id="survey" className="bg-gradient-to-b from-purple-700 to-purple-900 text-white py-20">
+    <section id="survey" className="bg-gradient-to-b from-[#0f172a] to-[#1f2667] text-white py-20">
       <h2 className="text-3xl font-bold text-center mb-10">How Our AI Survey Works</h2>
       <div className="flex flex-col md:flex-row justify-center gap-6 max-w-5xl mx-auto">
         {steps.map((step, index) => (
-          <div key={index} className="bg-purple-600 rounded-lg p-6 flex-1 shadow-lg">
-            <h3 className="font-bold mb-2">{step.title}</h3>
+          <div
+            key={index}
+            className="border-2 border-purple-600 rounded-lg p-6 flex-1 bg-[#1f2667] hover:border-purple-500 transition"
+          >
+            <h3 className="font-bold mb-2 text-purple-400">{step.title}</h3>
             <p>{step.description}</p>
           </div>
         ))}
