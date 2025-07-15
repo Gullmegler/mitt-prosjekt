@@ -6,7 +6,7 @@ import Prices from "./components/Prices";
 import FAQSection from "./components/FAQSection";
 import CallToAction from "./components/CallToAction";
 import Footer from "./components/Footer";
-import Login from "./components/Login";
+import Login from "./components/LogIn";
 import SignUp from "./components/SignUp";
 import Navbar from "./components/Navbar";
 
