@@ -19,7 +19,7 @@ const Navbar = () => {
       {/* Logo */}
       <div className="flex items-center">
         <img src={logo} alt="Logo" className="h-8 w-8" />
-        <span className="ml-2 font-bold hidden md:block">AI REMOVALS</span>
+        <span className="ml-2 font-bold hidden md:block">AI Removals</span>
       </div>
 
       {/* Mobile: Log In button */}
