@@ -36,7 +36,7 @@ const Navbar = () => {
       <div className="hidden md:flex items-center w-full">
         <div className="flex items-center flex-shrink-0 mr-8">
           <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
-          <span className="ml-2 font-bold">AI Removals</span>
+          <span className="ml-2 font-bold">AI REMOVALS</span>
         </div>
 
         <div className="flex justify-center flex-1 space-x-6">
