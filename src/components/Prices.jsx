@@ -1,31 +1,26 @@
 import React from "react";
 
-const Prices = () => {
+export default function Prices() {
   return (
-    <section id="prices" className="bg-[#5648b1] text-white py-20">
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        <h2 className="text-3xl font-bold mb-8">Simple Pricing</h2>
-        <p className="mb-8">Flexible plans to scale your removal business — no hidden fees.</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">Starter</h3>
-            <p>Perfect for small teams starting out.</p>
-            <button className="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">Choose</button>
-          </div>
-          <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">Professional</h3>
-            <p>Best choice for growing removal companies.</p>
-            <button className="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">Choose</button>
-          </div>
-          <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">Enterprise</h3>
-            <p>Full control & advanced AI integrations.</p>
-            <button className="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">Choose</button>
-          </div>
+    <section id="pricing" className="py-20 bg-purple-700 text-white text-center px-6">
+      <h2 className="text-3xl md:text-4xl font-bold mb-10">Our Pricing Plans</h2>
+      <div className="flex flex-col md:flex-row justify-center gap-6 max-w-5xl mx-auto">
+        <div className="bg-purple-600 p-6 rounded-lg shadow-lg flex-1">
+          <h3 className="text-xl font-bold mb-2">Starter</h3>
+          <p className="mb-4">Perfect for small teams starting out.</p>
+          <button className="bg-purple-500 hover:bg-purple-600 px-6 py-3 rounded transition">Choose</button>
+        </div>
+        <div className="bg-purple-600 p-6 rounded-lg shadow-lg flex-1">
+          <h3 className="text-xl font-bold mb-2">Professional</h3>
+          <p className="mb-4">Best choice for growing removal companies.</p>
+          <button className="bg-purple-500 hover:bg-purple-600 px-6 py-3 rounded transition">Choose</button>
+        </div>
+        <div className="bg-purple-600 p-6 rounded-lg shadow-lg flex-1">
+          <h3 className="text-xl font-bold mb-2">Enterprise</h3>
+          <p className="mb-4">Full control & advanced AI integrations.</p>
+          <button className="bg-purple-500 hover:bg-purple-600 px-6 py-3 rounded transition">Choose</button>
         </div>
       </div>
     </section>
   );
-};
-
-export default Prices;
+}
