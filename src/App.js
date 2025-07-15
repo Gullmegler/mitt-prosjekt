@@ -11,6 +11,8 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Privacy from "./components/Privacy";
 import Terms from "./components/Terms";
+import SignUp from "./components/SignUp";
+import LogIn from "./components/LogIn";
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
           />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<LogIn />} />
         </Routes>
         <Footer />
       </div>
