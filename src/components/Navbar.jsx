@@ -16,6 +16,11 @@ const Navbar = () => {
         </button>
       </div>
 
+      <div className="flex items-center space-x-2">
+        <img src="/logo.png" alt="Logo" className="h-8" />
+        <span className="font-bold hidden lg:inline">AI Removals</span>
+      </div>
+
       <div className="hidden lg:flex space-x-6">
         <a href="#benefits" className="hover:underline">Benefits</a>
         <a href="#prices" className="hover:underline">Pricing</a>
@@ -23,12 +28,17 @@ const Navbar = () => {
         <a href="#survey" className="hover:underline">AI Survey</a>
       </div>
 
-      <div className="flex justify-center flex-1">
-        <img src="/logo.png" alt="Logo" className="h-8" />
-      </div>
-
-      <div className="hidden lg:flex">
-        <Link to="/login" className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition">
+      <div className="hidden lg:flex space-x-2">
+        <Link
+          to="/signup"
+          className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition"
+        >
+          Sign Up
+        </Link>
+        <Link
+          to="/login"
+          className="border border-white px-4 py-2 rounded hover:bg-purple-700 hover:text-white transition"
+        >
           Log In
         </Link>
       </div>
@@ -39,9 +49,8 @@ const Navbar = () => {
           <a href="#prices" onClick={() => setIsOpen(false)} className="w-full text-center hover:underline">Pricing</a>
           <a href="#faq" onClick={() => setIsOpen(false)} className="w-full text-center hover:underline">FAQ</a>
           <a href="#survey" onClick={() => setIsOpen(false)} className="w-full text-center hover:underline">AI Survey</a>
-          <Link to="/login" className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition w-full text-center">
-            Log In
-          </Link>
+          <Link to="/signup" className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition w-full text-center">Sign Up</Link>
+          <Link to="/login" className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition w-full text-center">Log In</Link>
         </div>
       )}
     </nav>
