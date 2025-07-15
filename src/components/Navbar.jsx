@@ -2,84 +2,91 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="flex items-center justify-between p-4 bg-[#111144] text-white">
-      {/* Mobile hamburger and logo */}
-      <div className="flex items-center w-full md:hidden justify-between">
-        <button onClick={() => setIsOpen(!isOpen)} className="focus:outline-none">
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+    <nav className="fixed w-full top-0 z-50 bg-[#111144] text-white shadow">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+        {/* Mobile: Hamburger */}
+        <div className="flex md:hidden">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-white focus:outline-none"
           >
-            {isOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
-        </button>
-        <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
-        <Link
-          to="/login"
-          className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition"
-        >
-          Log In
-        </Link>
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {menuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+
+        {/* Mobile: Logo center */}
+        <div className="flex-1 flex justify-center md:justify-start">
+          <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
+          <span className="ml-2 font-bold hidden md:inline">AI Removals</span>
+        </div>
+
+        {/* Mobile: Log In button */}
+        <div className="flex md:hidden">
+          <Link
+            to="/login"
+            className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition text-sm"
+          >
+            Log In
+          </Link>
+        </div>
+
+        {/* Desktop: Links */}
+        <div className="hidden md:flex space-x-6 items-center ml-10">
+          <a href="#benefits" className="hover:underline">Benefits</a>
+          <a href="#pricing" className="hover:underline">Pricing</a>
+          <a href="#faq" className="hover:underline">FAQ</a>
+          <a href="#survey" className="hover:underline">AI Survey</a>
+          <a href="#contact" className="hover:underline">Contact</a>
+        </div>
+
+        {/* Desktop: Buttons */}
+        <div className="hidden md:flex space-x-4">
+          <Link
+            to="/signup"
+            className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition"
+          >
+            Sign Up
+          </Link>
+          <Link
+            to="/login"
+            className="border border-white px-4 py-2 rounded hover:bg-white hover:text-[#111144] transition"
+          >
+            Log In
+          </Link>
+        </div>
       </div>
 
-      {/* Desktop logo */}
-      <div className="hidden md:flex items-center">
-        <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
-        <span className="ml-2 font-bold">AI Removals</span>
-      </div>
-
-      {/* Desktop links */}
-      <div className="hidden md:flex space-x-6 items-center ml-10">
-        <a href="#benefits" className="hover:underline">Benefits</a>
-        <a href="#pricing" className="hover:underline">Pricing</a>
-        <a href="#faq" className="hover:underline">FAQ</a>
-        <a href="#survey" className="hover:underline">AI Survey</a>
-        <a href="#contact" className="hover:underline">Contact</a>
-      </div>
-
-      {/* Desktop buttons */}
-      <div className="hidden md:flex space-x-4">
-        <Link
-          to="/signup"
-          className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition"
-        >
-          Sign Up
-        </Link>
-        <Link
-          to="/login"
-          className="border border-white px-4 py-2 rounded hover:bg-white hover:text-[#111144] transition"
-        >
-          Log In
-        </Link>
-      </div>
-
-      {/* Mobile dropdown */}
-      {isOpen && (
-        <div className="absolute top-16 left-0 w-full bg-[#111144] flex flex-col items-center space-y-4 py-4 md:hidden">
-          <a href="#benefits" className="hover:underline" onClick={() => setIsOpen(false)}>Benefits</a>
-          <a href="#pricing" className="hover:underline" onClick={() => setIsOpen(false)}>Pricing</a>
-          <a href="#faq" className="hover:underline" onClick={() => setIsOpen(false)}>FAQ</a>
-          <a href="#survey" className="hover:underline" onClick={() => setIsOpen(false)}>AI Survey</a>
-          <a href="#contact" className="hover:underline" onClick={() => setIsOpen(false)}>Contact</a>
+      {/* Mobile menu dropdown */}
+      {menuOpen && (
+        <div className="md:hidden bg-[#111144] px-4 pt-2 pb-4 space-y-2">
+          <a href="#benefits" onClick={() => setMenuOpen(false)} className="block hover:underline">Benefits</a>
+          <a href="#pricing" onClick={() => setMenuOpen(false)} className="block hover:underline">Pricing</a>
+          <a href="#faq" onClick={() => setMenuOpen(false)} className="block hover:underline">FAQ</a>
+          <a href="#survey" onClick={() => setMenuOpen(false)} className="block hover:underline">AI Survey</a>
+          <a href="#contact" onClick={() => setMenuOpen(false)} className="block hover:underline">Contact</a>
+          <Link
+            to="/signup"
+            onClick={() => setMenuOpen(false)}
+            className="block bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition mt-2"
+          >
+            Sign Up
+          </Link>
+          <Link
+            to="/login"
+            onClick={() => setMenuOpen(false)}
+            className="block border border-white px-4 py-2 rounded hover:bg-white hover:text-[#111144] transition mt-2"
+          >
+            Log In
+          </Link>
         </div>
       )}
     </nav>
