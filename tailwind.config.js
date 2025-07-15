@@ -2,13 +2,13 @@
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html",
   ],
   theme: {
     extend: {
       colors: {
-        primary: "#101342", // Github-inspired dark blue
-        orange: "#f97316",  // Orange used for buttons and checkmarks
+        brandDark: "#111444",
+        brandPurple: "#5648b1",
+        brandOrange: "#f97316", // Tailwind sin orange-500
       },
     },
   },
