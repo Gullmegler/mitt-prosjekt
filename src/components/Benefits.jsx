@@ -6,20 +6,22 @@ export default function Benefits() {
       id="benefits"
       className="bg-[#292973] text-white py-20 px-4 relative"
     >
-      <h2 className="text-3xl font-bold text-center mb-8">
-        Why Use AI Removals CRM
-      </h2>
-      <div className="max-w-4xl mx-auto space-y-4 text-left">
-        <p>💜 Dashboard with full control and real-time overview</p>
-        <p>💜 CRM calendar with all job details — no extra clicks</p>
-        <p>💜 AI advice with smart task reminders</p>
-        <p>💜 AI-integrated video & photo surveys that impress customers</p>
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 bg-[#333388] rounded-2xl p-8 shadow-lg">
+        <div className="flex-1 space-y-4">
+          <h2 className="text-3xl font-bold mb-4">Why Use AI Removals CRM</h2>
+          <p>💜 Dashboard with full control and real-time overview</p>
+          <p>💜 CRM calendar with all job details — no extra clicks</p>
+          <p>💜 AI advice with smart task reminders</p>
+          <p>💜 AI-integrated video & photo surveys that impress customers</p>
+        </div>
+        <div className="flex-1 flex justify-center">
+          <img
+            src="/survey-agent.png"
+            alt="Survey Agent"
+            className="w-72 md:w-80 rounded-lg"
+          />
+        </div>
       </div>
-      <img
-        src="/survey-agent.png"
-        alt="Mover Agent"
-        className="mx-auto mt-12 w-64 md:w-80"
-      />
     </section>
   );
 }
