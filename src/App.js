@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Hero from "./components/Hero";
 import Benefits from "./components/Benefits";
+import AiSurvey from "./components/AiSurvey";
 import Prices from "./components/Prices";
 import FAQSection from "./components/FAQSection";
 import CallToAction from "./components/CallToAction";
@@ -12,7 +13,7 @@ import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
-    <div className="bg-[#111444] text-white">
+    <div className="bg-[#111144] text-white">
       <Navbar />
       <Routes>
         <Route
@@ -21,6 +22,7 @@ const App = () => {
             <>
               <Hero />
               <Benefits />
+              <AiSurvey />
               <Prices />
               <FAQSection />
               <CallToAction />
