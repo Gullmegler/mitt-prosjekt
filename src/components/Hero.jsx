@@ -25,10 +25,14 @@ export default function Hero() {
           Try AI Survey
         </button>
       </div>
-      <img src="/your-image.png" alt="CRM Illustration" className="mx-auto" />
+      <img
+        src="/crm-illustration.png" // Pass på at filen ligger i public!
+        alt="CRM Illustration"
+        className="mx-auto"
+      />
 
-      {/* Gradient skille nederst */}
-      <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-b from-transparent to-[#292973]" />
+      {/* Skille mellom seksjonene */}
+      <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-b from-transparent to-[#292973]" />
     </section>
   );
 }
