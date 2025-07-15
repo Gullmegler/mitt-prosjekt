@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Benefits from "./components/Benefits";
 import Prices from "./components/Prices";
-import FAQ from "./components/FAQ";
+import FAQ from "./components/FAQSection";
 import CallToAction from "./components/CallToAction";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -27,7 +27,7 @@ function App() {
                 <Hero />
                 <Benefits />
                 <Prices />
-                <FAQ />
+                <FAQSection />
                 <CallToAction />
                 <Contact />
               </>
