@@ -22,7 +22,6 @@ const SignUp = () => {
       alert("Please complete the CAPTCHA");
       return;
     }
-    // Add logic to handle signup
   };
 
   return (
@@ -82,7 +81,9 @@ const SignUp = () => {
           <label>I agree to the <a href="/terms" className="underline">Terms</a></label>
         </div>
 
-        <button type="submit" className="w-full bg-purple-600 p-2 rounded">Sign Up</button>
+        <button type="submit" className="w-full bg-purple-600 p-2 rounded hover:bg-purple-700 transition">
+          Sign Up
+        </button>
       </form>
     </div>
   );
