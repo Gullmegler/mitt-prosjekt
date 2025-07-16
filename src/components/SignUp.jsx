@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Turnstile from "react-turnstile";
+import { Turnstile } from '@marsidev/react-turnstile';
 
 const SignUp = () => {
   const location = useLocation();
