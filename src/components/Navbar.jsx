@@ -18,17 +18,17 @@ const Navbar = () => {
 
       {/* Logo (center on mobile) */}
       <div className="absolute left-1/2 transform -translate-x-1/2 md:static md:transform-none">
-        <Link to="https://airemovals.co.uk" className="flex items-center">
+        <a href="https://airemovals.co.uk" className="flex items-center">
           <img
             src="/logo.png"
             alt="CRM"
             className="h-8 w-auto"
           />
           <span className="ml-2 font-bold">AI REMOVALS</span>
-        </Link>
+        </a>
       </div>
 
-      {/* Right side buttons */}
+      {/* Right side links (desktop) */}
       <div className="hidden md:flex space-x-6 items-center">
         <Link to="/benefits">Benefits</Link>
         <Link to="/pricing">Pricing</Link>
@@ -66,7 +66,7 @@ const Navbar = () => {
           </Link>
           <Link
             to="/login"
-            className="bg-purple-600 text-white px-4 py-1 rounded hover:bg-purple-700 transition"
+            className="border border-white px-4 py-1 rounded hover:bg-white hover:text-[#0b0c35] transition"
             onClick={() => setIsOpen(false)}
           >
             Log In
