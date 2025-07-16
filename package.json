@@ -22,7 +22,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.6.3",
     "react-scripts": "^5.0.1",
-    "react-scroll": "^1.9.3"
+    "react-scroll": "^1.9.3",
+    "react-turnstile": "^1.1.4"
   },
   "browserslist": {
     "production": [
