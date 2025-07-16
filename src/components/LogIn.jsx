@@ -1,38 +1,30 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Turnstile } from "@marsidev/react-turnstile";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!token) {
-      alert("Please complete the captcha.");
-      return;
-    }
-
-    console.log({ email, password, token });
-
-    // Eksempel: await axios.post("/api/login", { email, password, token })
+    // Her kan du legge til login-logikk
+    console.log("Email:", email);
   };
 
   return (
-    <section className="bg-[#0A0A2A] text-white py-20 min-h-screen flex justify-center items-center px-4">
+    <div className="flex items-center justify-center h-screen bg-[#0A0A2F]">
       <form
         onSubmit={handleSubmit}
-        className="bg-[#161A23] p-8 rounded-md w-full max-w-md text-white"
+        className="bg-[#161B22] p-8 rounded-md w-full max-w-md shadow-md"
       >
-        <h1 className="text-2xl font-bold mb-6 text-center">Log In</h1>
-
+        <h2 className="text-center text-white text-xl mb-6 font-bold">Log In</h2>
         <input
           type="email"
           placeholder="Your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-4 p-3 rounded bg-gray-800 border border-gray-700"
+          className="w-full mb-3 p-2 rounded bg-[#0D1117] text-white"
           required
         />
         <input
@@ -40,33 +32,29 @@ const LogIn = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-4 p-3 rounded bg-gray-800 border border-gray-700"
+          className="w-full mb-3 p-2 rounded bg-[#0D1117] text-white"
           required
         />
 
-        <Turnstile
-          siteKey="1382f03e605d2aaf7f19449f049be5c8d2b62"
-          onVerify={(token) => setToken(token)}
-          className="mb-4"
-        />
+        <div className="mb-3">
+          <Turnstile
+            siteKey="0x4AAAAAAB1Vg7CV1SLjRqr6" // ← sett inn din egen siteKey
+            options={{ theme: "light" }}
+          />
+        </div>
 
         <button
           type="submit"
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
+          className="w-full bg-[#A259FF] text-white py-2 rounded font-semibold"
         >
           Log In
         </button>
-
-        <div className="text-center mt-4 text-sm">
-          <a href="/forgot-password" className="underline text-blue-400 mr-4">
-            Forgot Password?
-          </a>
-          <a href="/signup" className="underline text-blue-400">
-            Not registered?
-          </a>
+        <div className="mt-3 flex justify-between text-sm text-gray-400">
+          <Link to="/forgot-password" className="underline">Forgot Password?</Link>
+          <Link to="/signup" className="underline">Not registered?</Link>
         </div>
       </form>
-    </section>
+    </div>
   );
 };
 
