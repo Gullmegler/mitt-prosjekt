@@ -1,53 +1,62 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import Turnstile from "@marsidev/react-turnstile";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
 
-  const handleLogin = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email.includes("crm")) {
-      window.location.href = "https://crm.airemovals.co.uk";
-    } else if (email.includes("survey")) {
-      window.location.href = "https://aisurvey.airemovals.co.uk";
-    } else {
-      alert("Email not recognized. Please contact support.");
+
+    if (!token) {
+      alert("Please complete the Turnstile verification.");
+      return;
     }
+
+    console.log({ email, password, token });
+
+    // Eksempel: await axios.post("/api/login", { email, password, token })
   };
 
   return (
-    <section className="bg-[#111444] text-white py-20 px-6 min-h-screen flex flex-col justify-center items-center">
-      <div className="w-full max-w-md bg-[#5648b1] bg-opacity-90 p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold mb-6 text-center">Log In</h1>
-        <form onSubmit={handleLogin} className="flex flex-col gap-4">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="px-4 py-3 rounded text-black focus:outline-none w-full"
-            required
-          />
-          <button
-            type="submit"
-            className="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 transition w-full"
-          >
-            Log In
-          </button>
-        </form>
-        <p className="mt-4 text-center text-sm">
-          Not registered?{" "}
-          <Link to="/signup" className="underline hover:text-purple-300">
-            Sign Up
-          </Link>
-        </p>
-        <p className="mt-2 text-center text-sm">
-          Need help?{" "}
-          <a href="mailto:info@airemovals.co.uk" className="underline hover:text-purple-300">
-            info@airemovals.co.uk
-          </a>
-        </p>
-      </div>
+    <section className="bg-[#0e0f11] text-white py-20 min-h-screen flex justify-center items-center">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-[#1c1f24] p-8 rounded-lg shadow-lg w-full max-w-md"
+      >
+        <h1 className="text-2xl font-bold mb-6 text-center">Log In</h1>
+
+        <input
+          type="email"
+          placeholder="Your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full mb-4 p-2 rounded bg-gray-800 text-white"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full mb-4 p-2 rounded bg-gray-800 text-white"
+          required
+        />
+
+        <Turnstile
+          siteKey="0x4AAAAAAB1Vg7CV1SLjRqr6"
+          onSuccess={(token) => setToken(token)}
+          className="mb-4"
+        />
+
+        <button
+          type="submit"
+          className="w-full bg-purple-600 hover:bg-purple-700 p-2 rounded font-bold"
+        >
+          Log In
+        </button>
+      </form>
     </section>
   );
 };
