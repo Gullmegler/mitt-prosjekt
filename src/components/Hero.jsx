@@ -27,9 +27,9 @@ const Hero = () => {
 
       <form
         onSubmit={handleSignUp}
-        className="flex flex-col md:flex-row items-center w-full max-w-md gap-2"
+        className="flex flex-col md:flex-row items-center gap-2 w-full max-w-3xl justify-center"
       >
-        <div className="flex w-full bg-white rounded-full overflow-hidden border focus-within:ring-2 focus-within:ring-orange-500">
+        <div className="flex w-full max-w-md bg-white rounded-full overflow-hidden border focus-within:ring-2 focus-within:ring-orange-500">
           <input
             type="email"
             placeholder="Enter your email"
@@ -45,22 +45,23 @@ const Hero = () => {
             Sign Up
           </button>
         </div>
-        {error && (
-          <p className="text-red-500 text-sm mt-2">{error}</p>
-        )}
+
+        <a
+          href="https://aisurvey.airemovals.co.uk"
+          className="whitespace-nowrap border border-white text-white px-5 py-2 rounded-full hover:bg-white hover:text-black transition"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Try AI Survey
+        </a>
       </form>
 
-      <a
-        href="https://aisurvey.airemovals.co.uk"
-        className="mt-4 inline-block border border-white text-white px-5 py-2 rounded-full hover:bg-white hover:text-black transition"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Try AI Survey
-      </a>
+      {error && (
+        <p className="text-red-500 text-sm mt-2">{error}</p>
+      )}
 
       <img
-        src="/your-image-path.png"
+        src="/crm-illustration.png"
         alt="CRM Illustration"
         className="mt-10 w-64 md:w-80"
       />
