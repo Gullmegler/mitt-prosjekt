@@ -8,7 +8,6 @@ const Hero = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email) {
-      // Sett HTML5 validation message på engelsk
       e.target[0].setCustomValidity("Please fill out this field.");
       e.target[0].reportValidity();
     } else {
@@ -37,7 +36,7 @@ const Hero = () => {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
-              e.target.setCustomValidity(""); // Fjern custom validity hvis bruker skriver
+              e.target.setCustomValidity("");
             }}
             required
             className="px-4 py-2 rounded-full text-black w-64 md:w-80"
@@ -63,7 +62,6 @@ const Hero = () => {
             className="w-64 md:w-80"
           />
         </div>
-        <p className="mt-2 text-sm text-gray-300">CRM Illustration</p>
       </div>
     </section>
   );
