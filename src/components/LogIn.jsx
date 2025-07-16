@@ -1,30 +1,39 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Turnstile } from "@marsidev/react-turnstile";
+import Turnstile from "react-turnstile";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Her kan du legge til login-logikk
+    if (!turnstileToken) {
+      alert("Please complete verification");
+      return;
+    }
+
     console.log("Email:", email);
+    console.log("Password:", password);
+    console.log("Turnstile token:", turnstileToken);
+
+    // Legg til backend-kall her
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-[#0A0A2F]">
+    <div className="flex items-center justify-center h-screen">
       <form
         onSubmit={handleSubmit}
-        className="bg-[#161B22] p-8 rounded-md w-full max-w-md shadow-md"
+        className="bg-[#181A20] p-8 rounded-md shadow-md w-full max-w-sm"
       >
-        <h2 className="text-center text-white text-xl mb-6 font-bold">Log In</h2>
+        <h2 className="text-white text-xl font-bold mb-4 text-center">Log In</h2>
         <input
           type="email"
           placeholder="Your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-3 p-2 rounded bg-[#0D1117] text-white"
+          className="w-full p-2 mb-4 rounded bg-gray-800 text-white"
           required
         />
         <input
@@ -32,24 +41,22 @@ const LogIn = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-3 p-2 rounded bg-[#0D1117] text-white"
+          className="w-full p-2 mb-4 rounded bg-gray-800 text-white"
           required
         />
-
-        <div className="mb-3">
+        <div className="mb-4">
           <Turnstile
-            siteKey="0x4AAAAAAB1Vg7CV1SLjRqr6" // ← sett inn din egen siteKey
-            options={{ theme: "light" }}
+            sitekey="0x4AAAAAAAPv93MiM9HrYBzC" // <-- bruk din egen nøkkel
+            onVerify={(token) => setTurnstileToken(token)}
           />
         </div>
-
         <button
           type="submit"
-          className="w-full bg-[#A259FF] text-white py-2 rounded font-semibold"
+          className="w-full bg-[#A855F7] text-white py-2 rounded hover:bg-purple-700"
         >
           Log In
         </button>
-        <div className="mt-3 flex justify-between text-sm text-gray-400">
+        <div className="flex justify-between mt-4 text-sm text-gray-400">
           <Link to="/forgot-password" className="underline">Forgot Password?</Link>
           <Link to="/signup" className="underline">Not registered?</Link>
         </div>
