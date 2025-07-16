@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Turnstile from 'react-turnstile';
-import { Link } from 'react-router-dom';
+import { Turnstile } from 'react-turnstile';
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
@@ -10,22 +9,23 @@ const LogIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!token) {
-      alert('Please complete the verification.');
+      alert('Please verify the CAPTCHA.');
       return;
     }
-    // Send login data + token to server
+    console.log({ email, password, token });
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#0B0B3B]">
-      <form onSubmit={handleSubmit} className="bg-[#1E1E2F] p-8 rounded-md w-full max-w-sm">
-        <h2 className="text-center text-white text-xl font-semibold mb-4">Log In</h2>
+    <div className="flex justify-center items-center min-h-screen bg-[#0A0A2A]">
+      <form onSubmit={handleSubmit} className="bg-[#1A1A2E] p-8 rounded-lg w-full max-w-sm text-white">
+        <h2 className="text-center text-2xl mb-4">Log In</h2>
+
         <input
           type="email"
           placeholder="Your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-2 p-2 rounded bg-[#161621] text-white"
+          className="w-full mb-2 p-2 rounded bg-gray-800"
           required
         />
         <input
@@ -33,23 +33,24 @@ const LogIn = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-2 p-2 rounded bg-[#161621] text-white"
+          className="w-full mb-2 p-2 rounded bg-gray-800"
           required
         />
-        <Turnstile
-          sitekey="0x4AAAAAAAJfnpYiN-ywFfFb" // <-- Bytt til din API-nøkkel hvis nødvendig
-          onVerify={(token) => setToken(token)}
-          className="my-2"
-        />
-        <button
-          type="submit"
-          className="w-full bg-[#A259FF] text-white py-2 rounded hover:bg-[#8c3fe0]"
-        >
+
+        <div className="my-2">
+          <Turnstile
+            sitekey="0x4AAAAAAAB6l1U0g9YcGIRw"
+            onVerify={(token) => setToken(token)}
+          />
+        </div>
+
+        <button type="submit" className="bg-[#A855F7] w-full py-2 rounded">
           Log In
         </button>
-        <div className="flex justify-between mt-2 text-sm text-white">
-          <Link to="/reset">Forgot Password?</Link>
-          <Link to="/signup">Not registered?</Link>
+
+        <div className="flex justify-between text-sm mt-4">
+          <a href="/forgot" className="underline">Forgot Password?</a>
+          <a href="/signup" className="underline">Not registered?</a>
         </div>
       </form>
     </div>
