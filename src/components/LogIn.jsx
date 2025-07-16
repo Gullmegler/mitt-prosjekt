@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Turnstile } from 'react-turnstile';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
@@ -37,10 +37,10 @@ const LogIn = () => {
           required
         />
 
-        <div className="my-2">
+        <div className="my-4">
           <Turnstile
-            sitekey="0x4AAAAAAAB6l1U0g9YcGIRw"
-            onVerify={(token) => setToken(token)}
+            siteKey="0x4AAAAAAAB6l1U0g9YcGIRw"
+            onSuccess={(token) => setToken(token)}
           />
         </div>
 
