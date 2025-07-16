@@ -9,6 +9,8 @@ import CallToAction from "./components/CallToAction";
 import Footer from "./components/Footer";
 import LogIn from "./components/LogIn";
 import SignUp from "./components/SignUp";
+import Privacy from "./components/Privacy";
+import Terms from "./components/Terms";
 import Navbar from "./components/Navbar";
 
 const App = () => {
@@ -31,6 +33,8 @@ const App = () => {
         />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
       </Routes>
       <Footer />
     </div>
