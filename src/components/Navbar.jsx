@@ -8,7 +8,7 @@ const Navbar = () => {
         <a href="https://airemovals.co.uk">
           <img
             src="/logo.png"
-            alt="Logo"
+            alt="CRM"
             className="h-8 w-auto"
           />
         </a>
