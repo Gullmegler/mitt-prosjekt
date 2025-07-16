@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Turnstile from "@marsidev/react-turnstile";
+import { Turnstile } from '@marsidev/react-turnstile';
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
