@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Turnstile } from "@marsidev/react-turnstile";
+import Turnstile from "@marsidev/react-turnstile";
 
 const SignUp = () => {
   const [company, setCompany] = useState("");
@@ -8,90 +8,39 @@ const SignUp = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [agree, setAgree] = useState(false);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!token) {
-      alert("Please complete the verification.");
+      alert("Please complete the CAPTCHA");
       return;
     }
-    // Your submit logic here
+    // Her sender du dataen til backend
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#0B0C2A]">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-[#1A1B2E] p-8 rounded-lg shadow-lg w-full max-w-sm"
-      >
-        <h2 className="text-center text-white text-2xl font-bold mb-6">Sign Up</h2>
-        <input
-          type="text"
-          placeholder="Company"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
-          required
-        />
-        <input
-          type="email"
-          placeholder="Your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
-          required
-        />
-        <input
-          type="tel"
-          placeholder="Phone number"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
-          required
-        />
+    <div className="flex justify-center items-center min-h-screen bg-[#0F1123]">
+      <form onSubmit={handleSubmit} className="bg-gray-900 p-6 rounded shadow-md w-full max-w-sm">
+        <h2 className="text-center text-xl font-bold mb-4">Sign Up</h2>
+        <input type="text" placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} className="w-full mb-2 p-2 rounded bg-gray-800" required />
+        <input type="text" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} className="w-full mb-2 p-2 rounded bg-gray-800" required />
+        <input type="email" placeholder="Your email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full mb-2 p-2 rounded bg-gray-800" required />
+        <input type="tel" placeholder="Phone number" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full mb-2 p-2 rounded bg-gray-800" required />
+        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full mb-2 p-2 rounded bg-gray-800" required />
 
         <Turnstile
-          siteKey="0x4AAAAAAAABBBAAAABBBCCCC" 
-          onSuccess={(token) => setToken(token)}
-          className="my-4"
+          sitekey="DIN_EKTE_SITEKEY"
+          onVerify={(token) => setToken(token)}
+          className="my-3"
         />
 
         <div className="flex items-center mb-4">
-          <input
-            type="checkbox"
-            checked={agree}
-            onChange={() => setAgree(!agree)}
-            className="mr-2"
-            required
-          />
-          <label className="text-gray-300">
-            I agree to the <a href="/terms" className="underline">Terms</a>
-          </label>
+          <input type="checkbox" checked={agree} onChange={() => setAgree(!agree)} className="mr-2" />
+          <label>I agree to the <a href="/terms" className="underline">Terms</a></label>
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-[#A259FF] text-white p-2 rounded"
-        >
-          Sign Up
-        </button>
+        <button type="submit" className="w-full bg-purple-600 p-2 rounded">Sign Up</button>
       </form>
     </div>
   );
