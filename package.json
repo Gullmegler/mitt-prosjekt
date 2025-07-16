@@ -9,6 +9,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@marsidev/react-turnstile": "^1.1.0",
     "axios": "^1.10.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
