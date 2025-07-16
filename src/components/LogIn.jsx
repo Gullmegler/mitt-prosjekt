@@ -15,7 +15,7 @@ const LogIn = () => {
       alert("Please complete the CAPTCHA");
       return;
     }
-    // Add logic to handle login
+    // Add login logic
   };
 
   return (
@@ -38,20 +38,4 @@ const LogIn = () => {
         />
 
         <Turnstile
-          sitekey={SITE_KEY}
-          onVerify={(token) => setToken(token)}
-          className="my-3"
-        />
-
-        <button type="submit" className="w-full bg-purple-600 p-2 rounded">Log In</button>
-
-        <div className="flex justify-between text-sm mt-4">
-          <Link to="/reset" className="underline">Forgot Password?</Link>
-          <Link to="/signup" className="underline">Not registered?</Link>
-        </div>
-      </form>
-    </div>
-  );
-};
-
-export default LogIn;
+          sitekey
