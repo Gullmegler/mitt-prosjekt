@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Turnstile } from "@marsidev/react-turnstile";
 import { Link } from "react-router-dom";
+import Turnstile from "@marsidev/react-turnstile";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
@@ -10,25 +10,25 @@ const LogIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!token) {
-      alert("Please complete the verification.");
+      alert("Please complete the CAPTCHA");
       return;
     }
-    // Your login logic here
+    // Legg til login logikk her
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#0B0C2A]">
+    <div className="flex justify-center items-center min-h-screen bg-[#0f1123]">
       <form
         onSubmit={handleSubmit}
-        className="bg-[#1A1B2E] p-8 rounded-lg shadow-lg w-full max-w-sm"
+        className="bg-gray-900 p-6 rounded shadow-md w-full max-w-sm"
       >
-        <h2 className="text-center text-white text-2xl font-bold mb-6">Log In</h2>
+        <h2 className="text-center text-xl font-bold mb-4">Log In</h2>
         <input
           type="email"
           placeholder="Your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
+          className="w-full mb-2 p-2 rounded bg-gray-800"
           required
         />
         <input
@@ -36,25 +36,22 @@ const LogIn = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
+          className="w-full mb-2 p-2 rounded bg-gray-800"
           required
         />
-
         <Turnstile
-          siteKey="0x4AAAAAAAABBBAAAABBBCCCC" 
-          onSuccess={(token) => setToken(token)}
-          className="my-4"
+          sitekey="0x4AAAAAABlVg7CV1SLjRqr6"
+          onVerify={(token) => setToken(token)}
+          className="my-3"
         />
-
         <button
           type="submit"
-          className="w-full bg-[#A259FF] text-white p-2 rounded"
+          className="w-full bg-purple-600 p-2 rounded"
         >
           Log In
         </button>
-
-        <div className="flex justify-between mt-4 text-sm text-gray-300">
-          <Link to="/forgot-password" className="underline">Forgot Password?</Link>
+        <div className="flex justify-between text-sm mt-4">
+          <Link to="/reset" className="underline">Forgot Password?</Link>
           <Link to="/signup" className="underline">Not registered?</Link>
         </div>
       </form>
