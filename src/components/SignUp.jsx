@@ -1,105 +1,98 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Turnstile from "@marsidev/react-turnstile";
-import { Link } from "react-router-dom";
+import Turnstile from "react-turnstile";
 
 const SignUp = () => {
   const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const prefillEmail = params.get("email") || "";
-
-  const [email, setEmail] = useState(prefillEmail);
   const [company, setCompany] = useState("");
+  const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
-  const [agreed, setAgreed] = useState(false);
-  const [token, setToken] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState("");
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    const emailParam = query.get("email");
+    if (emailParam) {
+      setEmail(emailParam);
+    }
+  }, [location.search]);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!token) {
-      alert("Please complete the Turnstile verification.");
+    if (!termsAccepted) {
+      alert("You must accept the terms to proceed.");
       return;
     }
-
-    if (!agreed) {
-      alert("You must agree to the terms.");
-      return;
-    }
-
-    // Send til backend, inkl token for verifisering
-    console.log({ email, company, fullName, password, token });
-
-    // Eksempel: await axios.post("/api/signup", { email, company, fullName, password, token })
+    // Submit logic here (e.g. API call including captchaToken)
+    console.log({ company, email, fullName, password, captchaToken });
   };
 
   return (
-    <section className="bg-[#0e0f11] text-white py-20 min-h-screen flex justify-center items-center">
+    <section className="min-h-screen flex justify-center items-center bg-[#0a0a23] text-white px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-[#1c1f24] p-8 rounded-lg shadow-lg w-full max-w-md"
+        className="bg-[#1a1a2e] p-8 rounded-lg shadow-xl w-full max-w-md space-y-4"
       >
-        <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
+        <h1 className="text-2xl font-bold mb-2 text-center">Sign Up</h1>
 
         <input
           type="text"
           placeholder="Company"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
-          className="w-full mb-4 p-2 rounded bg-gray-800 text-white"
           required
+          className="w-full p-3 rounded bg-[#2c2c3e] text-white outline-none"
         />
         <input
           type="email"
           placeholder="Your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-4 p-2 rounded bg-gray-800 text-white"
           required
+          className="w-full p-3 rounded bg-[#2c2c3e] text-white outline-none"
         />
         <input
           type="text"
           placeholder="Full name"
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
-          className="w-full mb-4 p-2 rounded bg-gray-800 text-white"
           required
+          className="w-full p-3 rounded bg-[#2c2c3e] text-white outline-none"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-4 p-2 rounded bg-gray-800 text-white"
           required
+          className="w-full p-3 rounded bg-[#2c2c3e] text-white outline-none"
         />
 
-        <div className="mb-4 flex items-center">
+        <div className="flex items-center space-x-2">
           <input
             type="checkbox"
-            checked={agreed}
-            onChange={(e) => setAgreed(e.target.checked)}
-            className="mr-2"
+            checked={termsAccepted}
+            onChange={() => setTermsAccepted(!termsAccepted)}
             required
           />
-          <label>
-            I agree to the{" "}
-            <Link to="/terms" className="underline text-purple-400">
-              Terms of Service
-            </Link>
-          </label>
+          <span>
+            I accept the{" "}
+            <a href="/terms" className="underline text-purple-400">
+              Terms
+            </a>
+          </span>
         </div>
 
         <Turnstile
-          siteKey="0x4AAAAAAB1Vg7CV1SLjRqr6"
-          onSuccess={(token) => setToken(token)}
-          className="mb-4"
+          sitekey="0x4AAAAAAB1Vg7CV1SLjRqr6" // Replace with your actual site key
+          onVerify={(token) => setCaptchaToken(token)}
         />
 
         <button
           type="submit"
-          className="w-full bg-green-600 hover:bg-green-700 p-2 rounded font-bold"
+          className="w-full bg-green-600 py-3 rounded font-semibold hover:bg-green-700 transition"
         >
           Create Account
         </button>
