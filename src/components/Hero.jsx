@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Hero() {
+const Hero = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
@@ -11,22 +11,38 @@ export default function Hero() {
   };
 
   return (
-    <section className="flex flex-col justify-center items-center text-center min-h-screen bg-gradient-to-b from-[#111144] to-[#1a1a3c] text-white px-4">
-      <h1 className="text-4xl md:text-5xl font-bold mb-4">Best AI-powered CRM for Removal Company 2025</h1>
-      <p className="max-w-xl mb-6">Optimize your workflows, automate surveys, and grow your removal company with our specialized CRM solution.</p>
-      <form onSubmit={handleSubmit} className="flex flex-col md:flex-row items-center gap-2 mb-6 w-full max-w-md">
+    <section className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-b from-[#0a0a23] to-[#151531] text-white text-center px-4">
+      <h1 className="text-4xl md:text-5xl font-bold mb-4">
+        Best AI-powered CRM for Removal Company 2025
+      </h1>
+      <p className="mb-6 max-w-xl">
+        Optimize your workflows, automate surveys, and grow your removal company with our specialized CRM solution.
+      </p>
+
+      <form onSubmit={handleSubmit} className="relative w-full max-w-md">
         <input
           type="email"
-          placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-2 rounded text-black"
+          placeholder="Enter your email"
           required
+          className="w-full py-3 pl-4 pr-28 rounded-full text-black outline-none"
         />
-        <button type="submit" className="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded text-white">Sign Up</button>
-        <a href="#survey" className="border border-white px-4 py-2 rounded hover:bg-white hover:text-[#111144] transition">Try AI Survey</a>
+        <button
+          type="submit"
+          className="absolute top-1/2 right-1 translate-y-[-50%] bg-orange-500 text-white font-semibold py-2 px-4 rounded-full hover:bg-orange-600 transition"
+        >
+          Sign Up
+        </button>
       </form>
-      <img src="/removals-company.png" alt="CRM Illustration" className="mt-4 w-60 md:w-80" />
+
+      <img
+        src="/removals-company.png"
+        alt="CRM Illustration"
+        className="mt-10 max-w-xs md:max-w-md"
+      />
     </section>
   );
-}
+};
+
+export default Hero;
