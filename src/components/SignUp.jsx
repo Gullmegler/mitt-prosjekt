@@ -1,39 +1,37 @@
-import React, { useState } from 'react';
-import { Turnstile } from '@marsidev/react-turnstile';
+import React, { useState } from "react";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 const SignUp = () => {
-  const [company, setCompany] = useState('');
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
+  const [company, setCompany] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
   const [agree, setAgree] = useState(false);
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!agree) {
-      alert('You must agree to the terms.');
-      return;
-    }
     if (!token) {
-      alert('Please verify the CAPTCHA.');
+      alert("Please complete the verification.");
       return;
     }
-    console.log({ company, email, name, phone, password, token });
+    // Your submit logic here
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#0A0A2A]">
-      <form onSubmit={handleSubmit} className="bg-[#1A1A2E] p-8 rounded-lg w-full max-w-sm text-white">
-        <h2 className="text-center text-2xl mb-4">Sign Up</h2>
-
+    <div className="flex items-center justify-center min-h-screen bg-[#0B0C2A]">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-[#1A1B2E] p-8 rounded-lg shadow-lg w-full max-w-sm"
+      >
+        <h2 className="text-center text-white text-2xl font-bold mb-6">Sign Up</h2>
         <input
           type="text"
           placeholder="Company"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
-          className="w-full mb-2 p-2 rounded bg-gray-800"
+          className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
           required
         />
         <input
@@ -41,7 +39,7 @@ const SignUp = () => {
           placeholder="Your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full mb-2 p-2 rounded bg-gray-800"
+          className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
           required
         />
         <input
@@ -49,7 +47,7 @@ const SignUp = () => {
           placeholder="Your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-2 p-2 rounded bg-gray-800"
+          className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
           required
         />
         <input
@@ -57,23 +55,23 @@ const SignUp = () => {
           placeholder="Phone number"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="w-full mb-2 p-2 rounded bg-gray-800"
+          className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
+          required
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-2 p-2 rounded bg-gray-800"
+          className="w-full p-2 mb-2 rounded bg-gray-800 text-white"
           required
         />
 
-        <div className="my-4">
-          <Turnstile
-            siteKey="0x4AAAAAAAB6l1U0g9YcGIRw"
-            onSuccess={(token) => setToken(token)}
-          />
-        </div>
+        <Turnstile
+          siteKey="0x4AAAAAAAABBBAAAABBBCCCC" 
+          onSuccess={(token) => setToken(token)}
+          className="my-4"
+        />
 
         <div className="flex items-center mb-4">
           <input
@@ -81,13 +79,17 @@ const SignUp = () => {
             checked={agree}
             onChange={() => setAgree(!agree)}
             className="mr-2"
+            required
           />
-          <label>
+          <label className="text-gray-300">
             I agree to the <a href="/terms" className="underline">Terms</a>
           </label>
         </div>
 
-        <button type="submit" className="bg-[#A855F7] w-full py-2 rounded">
+        <button
+          type="submit"
+          className="w-full bg-[#A259FF] text-white p-2 rounded"
+        >
           Sign Up
         </button>
       </form>
