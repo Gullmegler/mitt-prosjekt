@@ -5,95 +5,71 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-[#0b0c35] px-4 py-3 flex items-center justify-between relative">
-      {/* Left: hamburger (mobil) */}
-      <div className="flex md:hidden">
+    <nav className="bg-[#0b0c35] text-white px-4 py-3 flex items-center justify-between relative">
+      {/* Hamburger button */}
+      <div className="flex items-center md:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="text-white focus:outline-none"
+          className="text-white focus:outline-none text-3xl"
         >
           ☰
         </button>
       </div>
 
-      {/* Center: logo */}
-      <div className="absolute left-1/2 transform -translate-x-1/2 md:static md:transform-none flex items-center space-x-2">
-        <a href="https://airemovals.co.uk">
+      {/* Logo (center on mobile) */}
+      <div className="absolute left-1/2 transform -translate-x-1/2 md:static md:transform-none">
+        <Link to="https://airemovals.co.uk" className="flex items-center">
           <img
             src="/logo.png"
             alt="CRM"
             className="h-8 w-auto"
           />
-        </a>
-        <a href="https://airemovals.co.uk" className="text-white font-semibold text-lg hidden md:block">
-          AI REMOVALS
-        </a>
-      </div>
-
-      {/* Right: Log In (mobil) */}
-      <div className="flex md:hidden">
-        <Link
-          to="/login"
-          className="border border-white text-white px-3 py-1 rounded hover:bg-white hover:text-[#0b0c35] transition"
-        >
-          Log In
+          <span className="ml-2 font-bold">AI REMOVALS</span>
         </Link>
       </div>
 
-      {/* Desktop links */}
-      <div className="hidden md:flex space-x-6 ml-auto items-center">
-        <Link to="/benefits" className="text-white hover:text-purple-300">
-          Benefits
-        </Link>
-        <Link to="/pricing" className="text-white hover:text-purple-300">
-          Pricing
-        </Link>
-        <Link to="/faq" className="text-white hover:text-purple-300">
-          FAQ
-        </Link>
-        <a href="https://aisurvey.airemovals.co.uk" className="text-white hover:text-purple-300">
-          AI Survey
-        </a>
-        <Link to="/contact" className="text-white hover:text-purple-300">
-          Contact
-        </Link>
+      {/* Right side buttons */}
+      <div className="hidden md:flex space-x-6 items-center">
+        <Link to="/benefits">Benefits</Link>
+        <Link to="/pricing">Pricing</Link>
+        <Link to="/faq">FAQ</Link>
+        <Link to="/aisurvey">AI Survey</Link>
+        <Link to="/contact">Contact</Link>
         <Link
           to="/signup"
-          className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition"
+          className="bg-purple-600 text-white px-4 py-1 rounded hover:bg-purple-700 transition"
         >
           Sign Up
         </Link>
         <Link
           to="/login"
-          className="border border-white text-white px-4 py-2 rounded hover:bg-white hover:text-[#0b0c35] transition"
+          className="border border-white px-4 py-1 rounded hover:bg-white hover:text-[#0b0c35] transition"
         >
           Log In
         </Link>
       </div>
 
-      {/* Mobile dropdown links */}
+      {/* Mobile menu */}
       {isOpen && (
-        <div className="absolute top-14 left-0 w-full bg-[#0b0c35] flex flex-col items-start px-4 py-2 space-y-2 md:hidden z-50">
-          <Link to="/benefits" className="text-white hover:text-purple-300 w-full">
-            Benefits
-          </Link>
-          <Link to="/pricing" className="text-white hover:text-purple-300 w-full">
-            Pricing
-          </Link>
-          <Link to="/faq" className="text-white hover:text-purple-300 w-full">
-            FAQ
-          </Link>
-          <a href="https://aisurvey.airemovals.co.uk" className="text-white hover:text-purple-300 w-full">
-            AI Survey
-          </a>
-          <Link to="/contact" className="text-white hover:text-purple-300 w-full">
-            Contact
-          </Link>
+        <div className="absolute top-full left-0 w-full bg-[#0b0c35] flex flex-col items-center py-4 space-y-4 z-10 md:hidden">
+          <Link to="/benefits" onClick={() => setIsOpen(false)}>Benefits</Link>
+          <Link to="/pricing" onClick={() => setIsOpen(false)}>Pricing</Link>
+          <Link to="/faq" onClick={() => setIsOpen(false)}>FAQ</Link>
+          <Link to="/aisurvey" onClick={() => setIsOpen(false)}>AI Survey</Link>
+          <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
           <Link
             to="/signup"
-            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition w-full text-center"
+            className="bg-purple-600 text-white px-4 py-1 rounded hover:bg-purple-700 transition"
+            onClick={() => setIsOpen(false)}
           >
             Sign Up
+          </Link>
+          <Link
+            to="/login"
+            className="bg-purple-600 text-white px-4 py-1 rounded hover:bg-purple-700 transition"
+            onClick={() => setIsOpen(false)}
+          >
+            Log In
           </Link>
         </div>
       )}
