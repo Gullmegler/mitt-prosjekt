@@ -1,42 +1,31 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Turnstile from "react-turnstile";
+import React, { useState } from 'react';
+import Turnstile from 'react-turnstile';
 
 const SignUp = () => {
-  const navigate = useNavigate();
-  const [company, setCompany] = useState("");
-  const [email, setEmail] = useState("");
-  const [agree, setAgree] = useState(false);
-  const [turnstileToken, setTurnstileToken] = useState("");
+  const [company, setCompany] = useState('');
+  const [email, setEmail] = useState('');
+  const [agreed, setAgreed] = useState(false);
+  const [token, setToken] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!agree || !turnstileToken) {
-      alert("Please agree to the terms and complete verification");
+    if (!token) {
+      alert('Please complete the verification.');
       return;
     }
-
-    // Her legger du til backend-kall for å lagre bruker
-    console.log("Company:", company);
-    console.log("Email:", email);
-    console.log("Turnstile token:", turnstileToken);
-
-    navigate("/login");
+    // Send signup data + token to server
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-[#181A20] p-8 rounded-md shadow-md w-full max-w-sm"
-      >
-        <h2 className="text-white text-xl font-bold mb-4 text-center">Sign Up</h2>
+    <div className="flex justify-center items-center min-h-screen bg-[#0B0B3B]">
+      <form onSubmit={handleSubmit} className="bg-[#1E1E2F] p-8 rounded-md w-full max-w-sm">
+        <h2 className="text-center text-white text-xl font-semibold mb-4">Sign Up</h2>
         <input
           type="text"
           placeholder="Company"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
-          className="w-full p-2 mb-4 rounded bg-gray-800 text-white"
+          className="w-full mb-2 p-2 rounded bg-[#161621] text-white"
           required
         />
         <input
@@ -44,27 +33,27 @@ const SignUp = () => {
           placeholder="Your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-4 rounded bg-gray-800 text-white"
+          className="w-full mb-2 p-2 rounded bg-[#161621] text-white"
           required
         />
-        <div className="mb-4">
-          <Turnstile
-            sitekey="0x4AAAAAAAPv93MiM9HrYBzC" // <-- bruk din egen nøkkel
-            onVerify={(token) => setTurnstileToken(token)}
-          />
-        </div>
-        <label className="flex items-center mb-4 text-white">
+        <Turnstile
+          sitekey="0x4AAAAAAAJfnpYiN-ywFfFb" // <-- Bytt til din API-nøkkel hvis nødvendig
+          onVerify={(token) => setToken(token)}
+          className="my-2"
+        />
+        <label className="flex items-center text-white text-sm mb-2">
           <input
             type="checkbox"
-            checked={agree}
-            onChange={() => setAgree(!agree)}
+            checked={agreed}
+            onChange={(e) => setAgreed(e.target.checked)}
             className="mr-2"
+            required
           />
-          I agree to the <a href="/terms" className="underline ml-1">Terms</a>
+          I agree to the <a href="/terms" className="underline">Terms</a>
         </label>
         <button
           type="submit"
-          className="w-full bg-[#A855F7] text-white py-2 rounded hover:bg-purple-700"
+          className="w-full bg-[#A259FF] text-white py-2 rounded hover:bg-[#8c3fe0]"
         >
           Sign Up
         </button>
