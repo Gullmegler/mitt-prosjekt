@@ -1,45 +1,68 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSignUp = (e) => {
     e.preventDefault();
+    if (!email) {
+      setError("Please fill out this field.");
+      return;
+    }
+    setError("");
     navigate(`/signup?email=${encodeURIComponent(email)}`);
   };
 
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-b from-[#0a0a23] to-[#151531] text-white text-center px-4">
+    <section className="bg-gradient-to-b from-[#0c0c3e] to-[#14143e] text-white py-20 flex flex-col items-center justify-center text-center px-4">
       <h1 className="text-4xl md:text-5xl font-bold mb-4">
         Best AI-powered CRM for Removal Company 2025
       </h1>
-      <p className="mb-6 max-w-xl">
+      <p className="text-lg md:text-xl mb-8 max-w-2xl">
         Optimize your workflows, automate surveys, and grow your removal company with our specialized CRM solution.
       </p>
 
-      <form onSubmit={handleSubmit} className="relative w-full max-w-md">
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-          required
-          className="w-full py-3 pl-4 pr-28 rounded-full text-black outline-none"
-        />
-        <button
-          type="submit"
-          className="absolute top-1/2 right-1 translate-y-[-50%] bg-orange-500 text-white font-semibold py-2 px-4 rounded-full hover:bg-orange-600 transition"
-        >
-          Sign Up
-        </button>
+      <form
+        onSubmit={handleSignUp}
+        className="flex flex-col md:flex-row items-center w-full max-w-md gap-2"
+      >
+        <div className="flex w-full bg-white rounded-full overflow-hidden border focus-within:ring-2 focus-within:ring-orange-500">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="flex-1 px-4 py-2 text-black outline-none"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <button
+            type="submit"
+            className="bg-orange-500 text-white px-4 py-2 font-semibold hover:bg-orange-600 transition"
+          >
+            Sign Up
+          </button>
+        </div>
+        {error && (
+          <p className="text-red-500 text-sm mt-2">{error}</p>
+        )}
       </form>
 
+      <a
+        href="https://aisurvey.airemovals.co.uk"
+        className="mt-4 inline-block border border-white text-white px-5 py-2 rounded-full hover:bg-white hover:text-black transition"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Try AI Survey
+      </a>
+
       <img
-        src="/removals-company.png"
+        src="/your-image-path.png"
         alt="CRM Illustration"
-        className="mt-10 max-w-xs md:max-w-md"
+        className="mt-10 w-64 md:w-80"
       />
     </section>
   );
