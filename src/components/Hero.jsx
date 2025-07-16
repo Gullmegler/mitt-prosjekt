@@ -1,104 +1,54 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import removalCompanyImage from "../../public/removals-company.png";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const Hero = () => {
   return (
-    <nav className="bg-[#0b0c35] px-4 py-3 flex items-center justify-between relative">
-      {/* Left: hamburger (mobil) */}
-      <div className="flex md:hidden">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="text-white focus:outline-none"
-        >
-          ☰
-        </button>
-      </div>
+    <section className="bg-[#0b0c35] text-white pt-20 pb-10 px-4 text-center relative">
+      <h1 className="text-3xl md:text-5xl font-bold mb-4">
+        Best AI-powered CRM for <br /> Removal Company 2025
+      </h1>
+      <p className="max-w-2xl mx-auto text-lg mb-6">
+        Optimize your workflows, automate surveys, and grow your removal company with our specialized CRM solution.
+      </p>
 
-      {/* Center: logo */}
-      <div className="absolute left-1/2 transform -translate-x-1/2 md:static md:transform-none flex items-center space-x-2">
-        <a href="https://airemovals.co.uk">
-          <img
-            src="/logo.png"
-            alt="CRM"
-            className="h-8 w-auto"
+      {/* Form with input and button combined */}
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="flex flex-col md:flex-row justify-center items-center gap-2 w-full max-w-md mx-auto mb-4"
+      >
+        <div className="flex w-full">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            required
+            className="flex-grow px-4 py-3 rounded-l-full text-black focus:outline-none"
           />
-        </a>
-        <a href="https://airemovals.co.uk" className="text-white font-semibold text-lg hidden md:block">
-          AI REMOVALS
-        </a>
-      </div>
-
-      {/* Right: Log In (mobil) */}
-      <div className="flex md:hidden">
-        <Link
-          to="/login"
-          className="border border-white text-white px-3 py-1 rounded hover:bg-white hover:text-[#0b0c35] transition"
-        >
-          Log In
-        </Link>
-      </div>
-
-      {/* Desktop links */}
-      <div className="hidden md:flex space-x-6 ml-auto items-center">
-        <Link to="/benefits" className="text-white hover:text-purple-300">
-          Benefits
-        </Link>
-        <Link to="/pricing" className="text-white hover:text-purple-300">
-          Pricing
-        </Link>
-        <Link to="/faq" className="text-white hover:text-purple-300">
-          FAQ
-        </Link>
-        <a href="https://aisurvey.airemovals.co.uk" className="text-white hover:text-purple-300">
-          AI Survey
-        </a>
-        <Link to="/contact" className="text-white hover:text-purple-300">
-          Contact
-        </Link>
-        <Link
-          to="/signup"
-          className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition"
-        >
-          Sign Up
-        </Link>
-        <Link
-          to="/login"
-          className="border border-white text-white px-4 py-2 rounded hover:bg-white hover:text-[#0b0c35] transition"
-        >
-          Log In
-        </Link>
-      </div>
-
-      {/* Mobile dropdown links */}
-      {isOpen && (
-        <div className="absolute top-14 left-0 w-full bg-[#0b0c35] flex flex-col items-start px-4 py-2 space-y-2 md:hidden z-50">
-          <Link to="/benefits" className="text-white hover:text-purple-300 w-full">
-            Benefits
-          </Link>
-          <Link to="/pricing" className="text-white hover:text-purple-300 w-full">
-            Pricing
-          </Link>
-          <Link to="/faq" className="text-white hover:text-purple-300 w-full">
-            FAQ
-          </Link>
-          <a href="https://aisurvey.airemovals.co.uk" className="text-white hover:text-purple-300 w-full">
-            AI Survey
-          </a>
-          <Link to="/contact" className="text-white hover:text-purple-300 w-full">
-            Contact
-          </Link>
-          <Link
-            to="/signup"
-            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition w-full text-center"
+          <button
+            type="submit"
+            className="bg-orange-500 text-white px-5 py-3 rounded-r-full hover:bg-orange-600 transition"
           >
             Sign Up
-          </Link>
+          </button>
         </div>
-      )}
-    </nav>
+        <Link
+          to="https://aisurvey.airemovals.co.uk"
+          className="border border-white text-white px-5 py-3 rounded-full hover:bg-white hover:text-[#0b0c35] transition w-full md:w-auto"
+        >
+          Try AI Survey
+        </Link>
+      </form>
+
+      {/* Image */}
+      <div className="flex justify-center mt-6">
+        <img
+          src={removalCompanyImage}
+          alt="CRM Illustration"
+          className="max-w-xs md:max-w-md"
+        />
+      </div>
+    </section>
   );
 };
 
-export default Navbar;
+export default Hero;
