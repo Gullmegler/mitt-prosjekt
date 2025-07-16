@@ -81,6 +81,7 @@ const SignUp = () => {
             checked={agree}
             onChange={() => setAgree(!agree)}
             className="mr-2"
+            required
           />
           <label>
             I agree to the <a href="/terms" className="underline">Terms</a>
