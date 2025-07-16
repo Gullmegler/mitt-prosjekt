@@ -1,53 +1,31 @@
 import React, { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
 
-export default function SignUp() {
-  const [email, setEmail] = useState("");
+const SignUp = () => {
   const [company, setCompany] = useState("");
-  const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState("");
-
-  const handleVerify = (token) => {
-    setCaptchaToken(token);
-  };
+  const [email, setEmail] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!acceptedTerms) {
-      alert("You must accept the Terms to register.");
-      return;
-    }
-
-    if (!captchaToken) {
-      alert("Please complete the captcha.");
-      return;
-    }
-
-    // Eksempel payload
-    const payload = {
-      email,
-      company,
-      captchaToken,
-    };
-
-    console.log("Submitted:", payload);
-    // Her kan du sende payload til backend
+    // Her kan du legge til din logikk for å sende data til backend
+    console.log("Company:", company);
+    console.log("Email:", email);
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#0A0A2A] px-4">
+    <div className="flex items-center justify-center h-screen bg-[#0A0A2F]">
       <form
         onSubmit={handleSubmit}
-        className="bg-[#161A23] p-8 rounded-md w-full max-w-sm text-white"
+        className="bg-[#161B22] p-8 rounded-md w-full max-w-md shadow-md"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-
+        <h2 className="text-center text-white text-xl mb-6 font-bold">Sign Up</h2>
         <input
           type="text"
           placeholder="Company"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
-          className="w-full mb-4 p-3 rounded bg-gray-800 border border-gray-700"
+          className="w-full mb-3 p-2 rounded bg-[#0D1117] text-white"
           required
         />
         <input
@@ -55,38 +33,36 @@ export default function SignUp() {
           placeholder="Your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-4 p-3 rounded bg-gray-800 border border-gray-700"
+          className="w-full mb-3 p-2 rounded bg-[#0D1117] text-white"
           required
         />
 
-        <Turnstile
-          siteKey="1382f03e605d2aaf7f19449f049be5c8d2b62"
-          onVerify={handleVerify}
-          className="mb-4"
-        />
+        <div className="mb-3">
+          <Turnstile
+            siteKey="0x4AAAAAAB1Vg7CV1SLjRqr6" // ← sett inn din egen siteKey
+            options={{ theme: "light" }}
+          />
+        </div>
 
-        <label className="flex items-center mb-4">
+        <label className="flex items-center text-sm text-gray-300 mb-4">
           <input
             type="checkbox"
-            checked={acceptedTerms}
-            onChange={() => setAcceptedTerms(!acceptedTerms)}
+            checked={termsAccepted}
+            onChange={() => setTermsAccepted(!termsAccepted)}
             className="mr-2"
+            required
           />
-          <span>
-            I agree to the{" "}
-            <a href="/terms" className="underline text-blue-400">
-              Terms
-            </a>
-          </span>
+          I agree to the <a href="/terms" className="underline ml-1">Terms</a>
         </label>
-
         <button
           type="submit"
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
+          className="w-full bg-[#A259FF] text-white py-2 rounded font-semibold"
         >
           Sign Up
         </button>
       </form>
     </div>
   );
-}
+};
+
+export default SignUp;
