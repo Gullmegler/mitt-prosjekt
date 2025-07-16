@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email) {
+      navigate(`/signup?email=${encodeURIComponent(email)}`);
+    }
+  };
+
   return (
     <section className="bg-[#0A0A2A] py-20 text-center px-4">
       <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
@@ -11,12 +22,14 @@ export default function Hero() {
       </p>
       <div className="flex flex-col md:flex-row justify-center items-center gap-3 max-w-2xl mx-auto w-full">
         <form
+          onSubmit={handleSubmit}
           className="relative flex-grow w-full md:w-auto"
-          onSubmit={(e) => e.preventDefault()}
         >
           <input
             type="email"
             placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-full py-3 px-5 pr-28 text-black focus:outline-none"
             required
           />
