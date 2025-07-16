@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-
-const SITE_KEY = "0x4AAAAAABlVg7CV1SLjRqr6";
+import { SITE_KEY } from "../config";
 
 const SignUp = () => {
   const [company, setCompany] = useState("");
@@ -14,81 +13,34 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!agree) {
       alert("You must agree to the terms.");
       return;
     }
-
     if (!token) {
       alert("Please complete the CAPTCHA");
       return;
     }
-
-    // Add logic to send signup data
+    // Sign-up logic here
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#111144]">
-      <form onSubmit={handleSubmit} className="bg-gray-900 p-6 rounded shadow-md w-full max-w-sm">
-        <h2 className="text-center text-xl font-bold mb-4">Sign Up</h2>
-
-        <input
-          type="text"
-          placeholder="Company"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          className="w-full mb-2 p-2 rounded text-black"
-        />
-        <input
-          type="text"
-          placeholder="Your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full mb-2 p-2 rounded text-black"
-        />
-        <input
-          type="email"
-          placeholder="Your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-2 p-2 rounded text-black"
-        />
-        <input
-          type="text"
-          placeholder="Phone number"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className="w-full mb-2 p-2 rounded text-black"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-2 p-2 rounded text-black"
-        />
-
-        <Turnstile
-          sitekey={SITE_KEY}
-          onVerify={(token) => setToken(token)}
-          className="my-3"
-        />
-
-        <div className="flex items-center mb-4">
-          <input
-            type="checkbox"
-            checked={agree}
-            onChange={() => setAgree(!agree)}
-            className="mr-2"
-            required
-          />
-          <label>I agree to the <a href="/terms" className="underline">Terms</a></label>
-        </div>
-
-        <button type="submit" className="w-full bg-purple-600 p-2 rounded">Sign Up</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input type="text" value={company} onChange={e => setCompany(e.target.value)} />
+      <input type="text" value={name} onChange={e => setName(e.target.value)} />
+      <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
+      <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} />
+      <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+      <label>
+        <input type="checkbox" checked={agree} onChange={() => setAgree(!agree)} />
+        I agree to the Terms
+      </label>
+      <Turnstile
+        sitekey={SITE_KEY}
+        onSuccess={(token) => setToken(token)}
+      />
+      <button type="submit">Sign Up</button>
+    </form>
   );
 };
 
