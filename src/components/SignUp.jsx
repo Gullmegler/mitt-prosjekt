@@ -1,104 +1,92 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { Turnstile } from '@marsidev/react-turnstile';
+import React, { useState } from "react";
+import { Turnstile } from "@marsidev/react-turnstile";
 
-const SignUp = () => {
-  const location = useLocation();
-  const [company, setCompany] = useState("");
+export default function SignUp() {
   const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [password, setPassword] = useState("");
-  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [company, setCompany] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [captchaToken, setCaptchaToken] = useState("");
 
-  useEffect(() => {
-    const query = new URLSearchParams(location.search);
-    const emailParam = query.get("email");
-    if (emailParam) {
-      setEmail(emailParam);
-    }
-  }, [location.search]);
+  const handleVerify = (token) => {
+    setCaptchaToken(token);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!termsAccepted) {
-      alert("You must accept the terms to proceed.");
+    if (!acceptedTerms) {
+      alert("You must accept the Terms to register.");
       return;
     }
-    // Submit logic here (e.g. API call including captchaToken)
-    console.log({ company, email, fullName, password, captchaToken });
+
+    if (!captchaToken) {
+      alert("Please complete the captcha.");
+      return;
+    }
+
+    // Eksempel payload
+    const payload = {
+      email,
+      company,
+      captchaToken,
+    };
+
+    console.log("Submitted:", payload);
+    // Her kan du sende payload til backend
   };
 
   return (
-    <section className="min-h-screen flex justify-center items-center bg-[#0a0a23] text-white px-4">
+    <div className="flex justify-center items-center min-h-screen bg-[#0A0A2A] px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-[#1a1a2e] p-8 rounded-lg shadow-xl w-full max-w-md space-y-4"
+        className="bg-[#161A23] p-8 rounded-md w-full max-w-sm text-white"
       >
-        <h1 className="text-2xl font-bold mb-2 text-center">Sign Up</h1>
+        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
 
         <input
           type="text"
           placeholder="Company"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
+          className="w-full mb-4 p-3 rounded bg-gray-800 border border-gray-700"
           required
-          className="w-full p-3 rounded bg-[#2c2c3e] text-white outline-none"
         />
         <input
           type="email"
           placeholder="Your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="w-full mb-4 p-3 rounded bg-gray-800 border border-gray-700"
           required
-          className="w-full p-3 rounded bg-[#2c2c3e] text-white outline-none"
-        />
-        <input
-          type="text"
-          placeholder="Full name"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-          required
-          className="w-full p-3 rounded bg-[#2c2c3e] text-white outline-none"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="w-full p-3 rounded bg-[#2c2c3e] text-white outline-none"
         />
 
-        <div className="flex items-center space-x-2">
+        <Turnstile
+          siteKey="1382f03e605d2aaf7f19449f049be5c8d2b62"
+          onVerify={handleVerify}
+          className="mb-4"
+        />
+
+        <label className="flex items-center mb-4">
           <input
             type="checkbox"
-            checked={termsAccepted}
-            onChange={() => setTermsAccepted(!termsAccepted)}
-            required
+            checked={acceptedTerms}
+            onChange={() => setAcceptedTerms(!acceptedTerms)}
+            className="mr-2"
           />
           <span>
-            I accept the{" "}
-            <a href="/terms" className="underline text-purple-400">
+            I agree to the{" "}
+            <a href="/terms" className="underline text-blue-400">
               Terms
             </a>
           </span>
-        </div>
-
-        <Turnstile
-          sitekey="0x4AAAAAAB1Vg7CV1SLjRqr6" // Replace with your actual site key
-          onVerify={(token) => setCaptchaToken(token)}
-        />
+        </label>
 
         <button
           type="submit"
-          className="w-full bg-green-600 py-3 rounded font-semibold hover:bg-green-700 transition"
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
         >
-          Create Account
+          Sign Up
         </button>
       </form>
-    </section>
+    </div>
   );
-};
-
-export default SignUp;
+}
