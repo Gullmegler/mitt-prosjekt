@@ -4,43 +4,90 @@ import { SITE_KEY } from "../config";
 
 const SignUp = () => {
   const [company, setCompany] = useState("");
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [agree, setAgree] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [token, setToken] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!agree) {
-      alert("You must agree to the terms.");
+    if (!acceptedTerms) {
+      alert("You must accept the terms.");
       return;
     }
     if (!token) {
-      alert("Please complete the CAPTCHA");
+      alert("Please complete the CAPTCHA.");
       return;
     }
-    // Sign-up logic here
+    // Send signup data (company, email, password, token) to backend
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={company} onChange={e => setCompany(e.target.value)} />
-      <input type="text" value={name} onChange={e => setName(e.target.value)} />
-      <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
-      <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} />
-      <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-      <label>
-        <input type="checkbox" checked={agree} onChange={() => setAgree(!agree)} />
-        I agree to the Terms
-      </label>
-      <Turnstile
-        sitekey={SITE_KEY}
-        onSuccess={(token) => setToken(token)}
-      />
-      <button type="submit">Sign Up</button>
-    </form>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md">
+        <h2 className="text-xl font-bold mb-4 text-center">Sign Up</h2>
+
+        <input
+          type="text"
+          placeholder="Company"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          required
+          className="w-full mb-4 p-2 border border-gray-300 rounded"
+        />
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="w-full mb-4 p-2 border border-gray-300 rounded"
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="w-full mb-4 p-2 border border-gray-300 rounded"
+        />
+
+        <div className="flex items-center mb-4">
+          <input
+            type="checkbox"
+            checked={acceptedTerms}
+            onChange={(e) => setAcceptedTerms(e.target.checked)}
+            className="mr-2"
+            required
+          />
+          <label className="text-sm">
+            I accept the <a href="/terms" className="text-blue-600 hover:underline">Terms</a>
+          </label>
+        </div>
+
+        <div className="mb-4">
+          <Turnstile
+            sitekey={SITE_KEY}
+            onSuccess={(token) => setToken(token)}
+            className="w-full"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Create Account
+        </button>
+
+        <div className="text-center mt-4 text-sm">
+          Already have an account?{" "}
+          <a href="/login" className="text-blue-600 hover:underline">Log in</a>
+        </div>
+      </form>
+    </div>
   );
 };
 
