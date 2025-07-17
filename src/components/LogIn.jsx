@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-import CONFIG from "../config.js";
+
+const SITE_KEY = process.env.REACT_APP_TURNSTILE_SITE_KEY;
 
 const LogIn = () => {
   const [token, setToken] = useState("");
@@ -12,7 +13,10 @@ const LogIn = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md"
+      >
         <h2 className="text-2xl font-bold mb-4 text-center">Log In</h2>
 
         <input
@@ -21,6 +25,7 @@ const LogIn = () => {
           className="w-full p-2 mb-3 border border-gray-300 rounded"
           required
         />
+
         <input
           type="password"
           placeholder="Password"
@@ -29,25 +34,22 @@ const LogIn = () => {
         />
 
         <Turnstile
-          siteKey={CONFIG.TURNSTILE_SITE_KEY}
+          siteKey={SITE_KEY}
           onSuccess={(token) => setToken(token)}
+          className="mb-4"
         />
 
         <button
           type="submit"
           disabled={!token}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mt-3"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         >
           Log In
         </button>
 
-        <div className="text-center mt-3">
-          <p className="text-sm">
-            Not registered? <a href="/signup" className="text-blue-600 hover:underline">Sign up here</a>
-          </p>
-          <p className="text-sm">
-            <a href="/forgot-password" className="text-blue-600 hover:underline">Forgot password?</a>
-          </p>
+        <div className="text-sm mt-4 text-center text-gray-600">
+          Not registered? <a href="/signup" className="text-blue-500">Sign up here</a><br />
+          <a href="/forgot-password" className="text-blue-500">Forgot password?</a>
         </div>
       </form>
     </div>
