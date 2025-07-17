@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Turnstile from "@marsidev/react-turnstile";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 const SITE_KEY = process.env.REACT_APP_TURNSTILE_SITE_KEY;
 
