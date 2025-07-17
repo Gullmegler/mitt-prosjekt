@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-import CONFIG from "../config";
+import CONFIG from "../config.js";
 
 const LogIn = () => {
   const [token, setToken] = useState("");
@@ -8,7 +8,6 @@ const LogIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Log in attempt with token:", token);
-    // Her kan du legge til videre validering/sending til backend
   };
 
   return (
@@ -36,10 +35,20 @@ const LogIn = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 mt-4 rounded"
+          disabled={!token}
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mt-3"
         >
           Log In
         </button>
+
+        <div className="text-center mt-3">
+          <p className="text-sm">
+            Not registered? <a href="/signup" className="text-blue-600 hover:underline">Sign up here</a>
+          </p>
+          <p className="text-sm">
+            <a href="/forgot-password" className="text-blue-600 hover:underline">Forgot password?</a>
+          </p>
+        </div>
       </form>
     </div>
   );
