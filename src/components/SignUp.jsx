@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-import { SITE_KEY } from "../config";
+import { SITE_KEY } from "../config.js";
 
 const SignUp = () => {
   const [token, setToken] = useState("");
