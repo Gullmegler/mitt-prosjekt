@@ -1,96 +1,90 @@
 import React, { useState } from 'react';
-import Turnstile from 'react-turnstile';
-import { useNavigate } from 'react-router-dom';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 const SignUp = () => {
-  const [form, setForm] = useState({ company: '', email: '', password: '', terms: false });
-  const [captchaValid, setCaptchaValid] = useState(false);
-  const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
-  };
+  const [company, setCompany] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [agreed, setAgreed] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!captchaValid) {
-      alert('Please complete CAPTCHA');
-      return;
-    }
-    if (!form.terms) {
-      alert('Please accept the terms');
-      return;
-    }
-
-    // TODO: Add API call to submit the form
-    console.log('Form submitted:', form);
-    navigate('/login');
+    // TODO: Send data til backend
+    console.log({ company, email, password, agreed });
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="bg-white shadow-xl p-8 rounded-2xl w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Create an Account</h2>
-        <form onSubmit={handleSubmit} className="space-y-5">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <form onSubmit={handleSubmit} className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8 space-y-6">
+        <h2 className="text-2xl font-bold text-center text-gray-800">Create Your Account</h2>
+
+        <div>
+          <label htmlFor="company" className="block text-sm font-medium text-gray-700">Company</label>
           <input
+            id="company"
             type="text"
-            name="company"
-            value={form.company}
-            onChange={handleChange}
-            placeholder="Company"
-            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-pink-500"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
+        </div>
+
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
           <input
+            id="email"
             type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder="Email"
-            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-pink-500"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
+        </div>
+
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
           <input
+            id="password"
             type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            placeholder="Password"
-            className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-pink-500"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
+        </div>
 
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              name="terms"
-              checked={form.terms}
-              onChange={handleChange}
-              className="h-4 w-4 text-pink-600"
-            />
-            <label className="text-sm text-gray-600">
-              I agree to the <a href="/terms" className="underline">Terms</a>
-            </label>
-          </div>
-
-          <Turnstile
-            sitekey={process.env.REACT_APP_TURNSTILE_SITE_KEY}
-            onSuccess={() => setCaptchaValid(true)}
-            onExpire={() => setCaptchaValid(false)}
+        <div className="flex items-center space-x-2">
+          <input
+            id="terms"
+            type="checkbox"
+            checked={agreed}
+            onChange={() => setAgreed(!agreed)}
+            className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+            required
           />
+          <label htmlFor="terms" className="text-sm text-gray-600">
+            I agree to the <a href="/terms" className="underline text-indigo-600">Terms</a>
+          </label>
+        </div>
 
-          <button
-            type="submit"
-            className="w-full bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700 transition"
-          >
-            Create Account
-          </button>
-        </form>
-        <p className="text-center text-sm mt-4">
-          Already registered? <a href="/login" className="text-blue-600 hover:underline">Log in</a>
+        <Turnstile
+          siteKey={process.env.REACT_APP_TURNSTILE_SITE_KEY}
+          onSuccess={(token) => console.log('Turnstile success:', token)}
+          className="mx-auto"
+        />
+
+        <button
+          type="submit"
+          className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-4 rounded-xl transition duration-200"
+        >
+          Create Account
+        </button>
+
+        <p className="text-sm text-center text-gray-600">
+          Already have an account? <a href="/login" className="text-blue-600 underline">Log in</a>
         </p>
-      </div>
+      </form>
     </div>
   );
 };
