@@ -1,0 +1,6 @@
+const CONFIG = {
+  TURNSTILE_SITE_KEY: process.env.REACT_APP_TURNSTILE_SITE_KEY,
+  BACKEND_URL: process.env.REACT_APP_BACKEND_URL,
+};
+
+export default CONFIG;
