@@ -58,3 +58,11 @@ const SignUp = () => {
           type="submit"
           className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded"
         >
+          Sign Up
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default SignUp;
