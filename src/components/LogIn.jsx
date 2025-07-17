@@ -1,75 +1,69 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { Turnstile } from "@marsidev/react-turnstile";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 const LogIn = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!token) {
-      alert("Bekreft at du ikke er en robot.");
+      alert('Please complete the CAPTCHA');
       return;
     }
 
     try {
-      const res = await axios.post("/api/login", {
-        username,
-        password,
-        "cf-turnstile-response": token,
-      });
-
-      if (res.status === 200) {
-        navigate("/dashboard");
-      }
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/auth/login`,
+        { email, password, token }
+      );
+      localStorage.setItem('token', response.data.token);
+      navigate('/');
     } catch (error) {
-      console.error("Login-feil:", error);
-      alert("Feil brukernavn/passord eller Turnstile-token.");
+      console.error('Login error:', error.response?.data || error.message);
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form
-        onSubmit={handleLogin}
-        className="bg-white p-8 rounded-xl shadow-xl w-full max-w-md space-y-6"
-      >
-        <h2 className="text-2xl font-bold text-center">Logg inn</h2>
+    <div className="flex justify-center items-center h-screen">
+      <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-8 rounded shadow">
+        <h2 className="text-2xl font-bold mb-4 text-center">Log In</h2>
 
         <input
-          type="text"
-          placeholder="Brukernavn"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full p-3 border rounded-xl"
+          type="email"
+          placeholder="Email"
+          className="w-full p-2 border mb-4 rounded"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
 
         <input
           type="password"
-          placeholder="Passord"
+          placeholder="Password"
+          className="w-full p-2 border mb-4 rounded"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-3 border rounded-xl"
           required
         />
 
         <Turnstile
-          siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
-          onSuccess={(token) => setToken(token)}
-          className="rounded-md"
+          siteKey={process.env.REACT_APP_TURNSTILE_SITE_KEY}
+          onSuccess={setToken}
+          className="mb-4"
         />
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition"
+          disabled={!token}
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         >
-          Logg inn
+          Log In
         </button>
       </form>
     </div>
