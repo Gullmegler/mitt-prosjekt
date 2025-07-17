@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-
-const SITE_KEY = process.env.REACT_APP_TURNSTILE_SITE_KEY;
+import { SITE_KEY } from "../config";
 
 const LogIn = () => {
   const [token, setToken] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Log in with token:", token);
+    console.log("Log in attempt with token:", token);
   };
 
   return (
@@ -32,16 +31,12 @@ const LogIn = () => {
           required
         />
 
-        <Turnstile
-          siteKey={SITE_KEY}
-          onSuccess={(token) => setToken(token)}
-          className="mb-3"
-        />
+        <Turnstile siteKey={SITE_KEY} onSuccess={setToken} />
 
         <button
           type="submit"
           disabled={!token}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mt-4"
         >
           Log In
         </button>
