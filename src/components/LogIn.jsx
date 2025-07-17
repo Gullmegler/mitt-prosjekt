@@ -1,42 +1,62 @@
 import React, { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-import { SITE_KEY } from "../config";
 
 const LogIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Log in attempt with token:", token);
+    if (!token) {
+      alert("Please complete the CAPTCHA");
+      return;
+    }
+
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/api/login`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, token }),
+      }
+    );
+
+    const data = await response.json();
+    alert(data.message);
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+    <div className="flex justify-center items-center h-screen">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md"
+        className="bg-white p-6 rounded shadow-md w-96"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">Log In</h2>
-
+        <h2 className="text-xl font-bold mb-4">Log In</h2>
         <input
           type="email"
           placeholder="Email"
-          className="w-full p-2 mb-3 border border-gray-300 rounded"
+          className="w-full mb-3 p-2 border rounded"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="password"
           placeholder="Password"
-          className="w-full p-2 mb-3 border border-gray-300 rounded"
+          className="w-full mb-3 p-2 border rounded"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
-
-        <Turnstile siteKey={SITE_KEY} onSuccess={setToken} />
-
+        <Turnstile
+          siteKey={process.env.REACT_APP_TURNSTILE_SITE_KEY}
+          onSuccess={setToken}
+          className="mb-3"
+        />
         <button
           type="submit"
-          disabled={!token}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mt-4"
+          className="bg-purple-600 hover:bg-purple-700 text-white w-full py-2 rounded"
         >
           Log In
         </button>
