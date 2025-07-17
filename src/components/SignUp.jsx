@@ -1,92 +1,131 @@
 import React, { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-import { SITE_KEY } from "../config";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+const SITE_KEY = process.env.REACT_APP_TURNSTILE_SITE_KEY;
 
 const SignUp = () => {
-  const [company, setCompany] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [token, setToken] = useState("");
+  const [formData, setFormData] = useState({
+    company: "",
+    email: "",
+    password: "",
+    termsAccepted: false,
+  });
 
-  const handleSubmit = (e) => {
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!acceptedTerms) {
-      alert("You must accept the terms.");
-      return;
+    setError("");
+
+    if (!formData.termsAccepted) {
+      return setError("You must accept the terms.");
     }
-    if (!token) {
-      alert("Please complete the CAPTCHA.");
-      return;
+
+    if (!captchaToken) {
+      return setError("Please complete the captcha.");
     }
-    // Send signup data (company, email, password, token) to backend
+
+    try {
+      const response = await axios.post("/api/signup", {
+        ...formData,
+        captchaToken,
+      });
+
+      if (response.data.success) {
+        navigate("/login");
+      } else {
+        setError(response.data.message || "Signup failed.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("An error occurred. Try again.");
+    }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4 text-center">Sign Up</h2>
-
-        <input
-          type="text"
-          placeholder="Company"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          required
-          className="w-full mb-4 p-2 border border-gray-300 rounded"
-        />
-
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="w-full mb-4 p-2 border border-gray-300 rounded"
-        />
-
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="w-full mb-4 p-2 border border-gray-300 rounded"
-        />
-
-        <div className="flex items-center mb-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+        <h2 className="text-2xl font-bold text-center mb-6">Create an Account</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            type="checkbox"
-            checked={acceptedTerms}
-            onChange={(e) => setAcceptedTerms(e.target.checked)}
-            className="mr-2"
+            type="text"
+            name="company"
+            value={formData.company}
+            onChange={handleChange}
+            placeholder="Company"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
-          <label className="text-sm">
-            I accept the <a href="/terms" className="text-blue-600 hover:underline">Terms</a>
-          </label>
-        </div>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Password"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
+          />
 
-        <div className="mb-4">
+          <div className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              name="termsAccepted"
+              checked={formData.termsAccepted}
+              onChange={handleChange}
+              className="w-4 h-4"
+              required
+            />
+            <label>
+              I agree to the{" "}
+              <a href="/terms" className="text-blue-600 hover:underline">
+                Terms
+              </a>
+            </label>
+          </div>
+
           <Turnstile
             sitekey={SITE_KEY}
-            onSuccess={(token) => setToken(token)}
-            className="w-full"
+            onSuccess={(token) => setCaptchaToken(token)}
           />
-        </div>
 
-        <button
-          type="submit"
-          className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Create Account
-        </button>
+          {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
 
-        <div className="text-center mt-4 text-sm">
+          <button
+            type="submit"
+            className="w-full bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700 transition"
+          >
+            Create Account
+          </button>
+        </form>
+
+        <p className="text-sm text-center mt-4">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-600 hover:underline">Log in</a>
-        </div>
-      </form>
+          <a href="/login" className="text-indigo-600 hover:underline">
+            Log in
+          </a>
+        </p>
+      </div>
     </div>
   );
 };
