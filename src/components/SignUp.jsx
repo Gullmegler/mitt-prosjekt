@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-
-const SITE_KEY = process.env.REACT_APP_TURNSTILE_SITE_KEY;
+import { SITE_KEY } from "../config";
 
 const SignUp = () => {
   const [token, setToken] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Sign up with token:", token);
+    console.log("Sign up attempt with token:", token);
   };
 
   return (
@@ -38,19 +37,26 @@ const SignUp = () => {
           required
         />
 
-        <Turnstile
-          siteKey={SITE_KEY}
-          onSuccess={(token) => setToken(token)}
-          className="mb-3"
-        />
+        <Turnstile siteKey={SITE_KEY} onSuccess={setToken} />
+
+        <div className="my-2">
+          <label>
+            <input type="checkbox" required /> I agree to the{" "}
+            <a href="/terms" className="text-blue-600 underline">Terms</a>
+          </label>
+        </div>
 
         <button
           type="submit"
           disabled={!token}
-          className="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700"
+          className="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700 mt-2"
         >
           Create Account
         </button>
+
+        <p className="text-center mt-4 text-sm">
+          Already have an account? <a href="/login" className="text-blue-600 underline">Log in</a>
+        </p>
       </form>
     </div>
   );
