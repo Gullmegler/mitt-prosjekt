@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-import CONFIG from "../config";
+import CONFIG from "../config.js";
 
 const SignUp = () => {
   const [token, setToken] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted med token:", token);
-    // Legg til innsending med token-verifisering her
+    console.log("Form submitted with token:", token);
   };
 
   return (
@@ -42,7 +41,8 @@ const SignUp = () => {
 
         <button
           type="submit"
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 mt-4 rounded"
+          disabled={!token}
+          className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 mt-3"
         >
           Sign Up
         </button>
