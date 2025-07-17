@@ -1,2 +1,1 @@
-// config.js
-export const SITE_KEY = "0x4AAAAAABlVg7CV1SLjRqr6";
+export const SITE_KEY = process.env.REACT_APP_TURNSTILE_SITE_KEY;
