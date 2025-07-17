@@ -1,22 +1,19 @@
 import React, { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-import { SITE_KEY } from "../config.js";
+import CONFIG from "../config";
 
 const SignUp = () => {
   const [token, setToken] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Legg til innsending med token-verifisering her
     console.log("Form submitted med token:", token);
+    // Legg til innsending med token-verifisering her
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md"
-      >
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
 
         <input
@@ -39,17 +36,15 @@ const SignUp = () => {
         />
 
         <Turnstile
-          siteKey={SITE_KEY}
+          siteKey={CONFIG.TURNSTILE_SITE_KEY}
           onSuccess={(token) => setToken(token)}
-          className="mb-4"
         />
 
         <button
           type="submit"
-          disabled={!token}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 mt-4 rounded"
         >
-          Register
+          Sign Up
         </button>
       </form>
     </div>
