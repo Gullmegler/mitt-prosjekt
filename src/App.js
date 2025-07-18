@@ -13,7 +13,6 @@ import FAQSection from "./components/FAQSection";
 import Prices from "./components/Prices";
 import CallToAction from "./components/CallToAction";
 import AiSurvey from "./components/AiSurvey";
-import Users from "./components/Users";
 
 const App = () => {
   return (
@@ -31,7 +30,6 @@ const App = () => {
           <Route path="/prices" element={<Prices />} />
           <Route path="/cta" element={<CallToAction />} />
           <Route path="/survey" element={<AiSurvey />} />
-          <Route path="/users" element={<Users />} />
         </Routes>
       </main>
       <Footer />
