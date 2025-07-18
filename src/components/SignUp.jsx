@@ -1,65 +1,63 @@
 import React, { useState } from "react";
-import { Turnstile } from "@marsidev/react-turnstile";
+import Turnstile from "react-turnstile";
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
   const [token, setToken] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!token) {
-      alert("Please complete the CAPTCHA");
-      return;
-    }
-
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/api/signup`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, token }),
-      }
-    );
-
-    const data = await response.json();
-    alert(data.message);
+    // handle sign-up logic here
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen bg-gray-100">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded shadow-md w-96"
+        className="bg-white p-8 rounded shadow-md w-full max-w-md"
       >
-        <h2 className="text-xl font-bold mb-4">Sign Up</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">
+          Create Your Account
+        </h2>
         <input
           type="text"
-          placeholder="Name"
-          className="w-full mb-3 p-2 border rounded"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          placeholder="Company"
           required
+          className="w-full mb-4 px-3 py-2 border border-gray-300 rounded"
         />
         <input
           type="email"
           placeholder="Email"
-          className="w-full mb-3 p-2 border rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           required
+          className="w-full mb-4 px-3 py-2 border border-gray-300 rounded"
         />
+        <input
+          type="password"
+          placeholder="Password"
+          required
+          className="w-full mb-4 px-3 py-2 border border-gray-300 rounded"
+        />
+        <label className="flex items-center mb-4">
+          <input type="checkbox" required className="mr-2" />
+          I agree to the <a href="#" className="text-blue-600">Terms</a>
+        </label>
         <Turnstile
-          siteKey={process.env.REACT_APP_TURNSTILE_SITE_KEY}
-          onSuccess={setToken}
-          className="mb-3"
+          sitekey={process.env.REACT_APP_TURNSTILE_SITE_KEY}
+          onVerify={setToken}
+          className="mb-4"
         />
         <button
           type="submit"
-          className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded"
+          className="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700"
+          disabled={!token}
         >
-          Sign Up
+          Create Account
         </button>
+        <p className="text-center mt-4 text-sm">
+          Already have an account?{" "}
+          <a href="/login" className="text-blue-600">
+            Log in
+          </a>
+        </p>
       </form>
     </div>
   );
