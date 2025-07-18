@@ -1,61 +1,41 @@
-import React, { useState } from "react";
-import axios from "axios";
-import Turnstile from "react-turnstile";
+// App.js
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-const LogIn = () => {
-  const [email, setEmail] = useState("");
-  const [token, setToken] = useState("");
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Hero from "./components/Hero";
+import SignUp from "./components/SignUp";
+import LogIn from "./components/LogIn";
+import Terms from "./components/Terms";
+import Privacy from "./components/Privacy";
+import Benefits from "./components/Benefits";
+import FAQSection from "./components/FAQSection";
+import Prices from "./components/Prices";
+import CallToAction from "./components/CallToAction";
+import AiSurvey from "./components/AiSurvey";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!token) {
-      alert("Please complete the CAPTCHA.");
-      return;
-    }
-
-    try {
-      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
-        email,
-        "cf-turnstile-response": token,
-      });
-
-      alert("Login successful!");
-      setEmail("");
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("Login failed.");
-    }
-  };
-
+const App = () => {
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Log In</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="email"
-          placeholder="Email address"
-          className="w-full border px-3 py-2"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-
-        <Turnstile
-          sitekey={process.env.REACT_APP_TURNSTILE_SITE_KEY}
-          onVerify={(token) => setToken(token)}
-        />
-
-        <button
-          type="submit"
-          disabled={!token}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-        >
-          Log In
-        </button>
-      </form>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/benefits" element={<Benefits />} />
+          <Route path="/faq" element={<FAQSection />} />
+          <Route path="/prices" element={<Prices />} />
+          <Route path="/cta" element={<CallToAction />} />
+          <Route path="/survey" element={<AiSurvey />} />
+        </Routes>
+      </main>
+      <Footer />
     </div>
   );
 };
 
-export default LogIn;
+export default App;
